@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('personnels', function (Blueprint $table) {
+
+            $table->string('cin')->primary();
+
+            $table->foreignId('fournisseur_id')
+                  ->constrained('fournisseurs')
+                  ->cascadeOnDelete();
+
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('fonction');
+            $table->string('photo')->nullable();
+            $table->string('type_contrat');
+            $table->boolean('pne')->default(false);
+            $table->string('niveau');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('personnels');
+    }
+};
