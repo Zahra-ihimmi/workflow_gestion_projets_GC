@@ -27,4 +27,5 @@ class LigneBudgetaire extends Model
     {
         return $this->hasMany(DemandeAchat::class);
     }
+    
 }
