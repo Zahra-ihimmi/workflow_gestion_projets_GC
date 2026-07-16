@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('plan_actions', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             // Commande concernée
             $table->foreignId('commande_id')
                   ->constrained('commandes')
@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->date('date_spa');
             $table->string('activite');
-            $table->integer('dangers');
+            $table->string('dangers');
             $table->text('mesures_preventives');
 
             $table->timestamps();

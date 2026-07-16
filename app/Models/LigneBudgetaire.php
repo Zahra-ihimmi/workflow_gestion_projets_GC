@@ -8,6 +8,7 @@ class LigneBudgetaire extends Model
 {
     protected $fillable = [
         'utilisateur_id',
+        'code',
         'intitule',
         'annee',
         'type',

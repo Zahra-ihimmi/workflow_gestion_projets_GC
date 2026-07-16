@@ -7,15 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class DemandeAchat extends Model
 {
     protected $fillable = [
+
+        'code',
+
         'ligne_budgetaire_id',
+
+        'utilisateur_id',
+
         'estimation',
+
+        'date_saisi',
+
         'acheteur',
-        'acheteur_hc',
-        'lead_achat',
-        'date_saisie',
+
         'type_projet',
+
         'categorie',
+
         'statut',
+
     ];
 
     public function ligneBudgetaire()
@@ -23,8 +33,8 @@ class DemandeAchat extends Model
         return $this->belongsTo(LigneBudgetaire::class);
     }
 
-    public function commande()
+    public function utilisateur()
     {
-        return $this->hasOne(Commande::class);
+        return $this->belongsTo(Utilisateur::class);
     }
 }

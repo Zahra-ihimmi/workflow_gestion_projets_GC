@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Formation extends Model
 {
     protected $fillable = [
+        'code',
         'personnel_cin',
         'date',
         'theme',

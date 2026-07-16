@@ -9,6 +9,7 @@ class RapportTravaux extends Model
     protected $table = 'rapport_travaux';
 
     protected $fillable = [
+        'code',
         'commande_id',
         'date',
         'ecart_hse',

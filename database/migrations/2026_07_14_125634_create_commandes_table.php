@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('commandes', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             $table->foreignId('fournisseur_id')
                   ->constrained('fournisseurs')
                   ->cascadeOnDelete();
 
             // Une DA -> une seule commande
             $table->foreignId('demande_achat_id')
-                  ->unique()
                   ->constrained('demande_achats')
                   ->cascadeOnDelete();
 

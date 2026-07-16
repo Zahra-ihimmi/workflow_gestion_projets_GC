@@ -9,6 +9,7 @@ class Prix extends Model
     protected $table = 'prix';
 
     protected $fillable = [
+        'code',
         'commande_id',
         'designation',
         'quantite',

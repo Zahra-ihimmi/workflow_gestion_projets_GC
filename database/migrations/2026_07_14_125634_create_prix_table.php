@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('prix', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             // Une commande possède plusieurs prix
             $table->foreignId('commande_id')
                   ->constrained('commandes')

@@ -15,20 +15,26 @@ return new class extends Migration
 
             $table->id();
 
+            $table->string('code')->unique();
+
             $table->foreignId('ligne_budgetaire_id')
                   ->constrained('ligne_budgetaires')
                   ->cascadeOnDelete();
 
-            $table->decimal('estimation',15,2);
+            $table->foreignId('utilisateur_id')
+                  ->constrained('utilisateurs')
+                  ->cascadeOnDelete();
+
+            $table->decimal('estimation', 15, 2);
+
+            $table->date('date_saisi');
 
             $table->string('acheteur');
-            $table->string('acheteur_hc');
-            $table->string('lead_achat');
-
-            $table->date('date_saisie');
 
             $table->string('type_projet');
+
             $table->string('categorie');
+
             $table->string('statut');
 
             $table->timestamps();

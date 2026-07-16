@@ -15,18 +15,20 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('rapport_travaux_id')
-                  ->constrained('rapport_travaux')
+            $table->string('code')->unique();
+
+            $table->foreignId('commande_id')
+                  ->constrained('commandes')
                   ->cascadeOnDelete();
 
             $table->date('date');
-            $table->string('classe');
-            $table->string('type');
-            $table->text('description');
-            $table->string('plan_action');
-            $table->date('echeance');
 
-            // Responsable de la non-conformité
+            $table->string('classe');
+
+            $table->string('type');
+
+            $table->date('echeance')->nullable();
+
             $table->string('personnel_cin');
 
             $table->timestamps();

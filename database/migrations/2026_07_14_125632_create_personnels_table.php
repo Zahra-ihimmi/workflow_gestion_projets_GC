@@ -13,19 +13,31 @@ return new class extends Migration
     {
         Schema::create('personnels', function (Blueprint $table) {
 
-            $table->string('cin')->primary();
+            $table->id();
+
+            $table->string('cin')->unique();
 
             $table->foreignId('fournisseur_id')
                   ->constrained('fournisseurs')
                   ->cascadeOnDelete();
 
             $table->string('nom');
+
             $table->string('prenom');
+
             $table->string('fonction');
+
             $table->string('photo')->nullable();
+
             $table->string('type_contrat');
-            $table->boolean('pne')->default(false);
-            $table->string('niveau');
+
+            $table->string('pne')->nullable();
+
+            $table->string('niveau')->nullable();
+
+            $table->date('date_debut')->nullable();
+
+            $table->date('date_fin')->nullable();
 
             $table->timestamps();
         });

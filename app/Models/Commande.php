@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Commande extends Model
 {
     protected $fillable = [
+        'code',
         'fournisseur_id',
         'demande_achat_id',
         'date_os',

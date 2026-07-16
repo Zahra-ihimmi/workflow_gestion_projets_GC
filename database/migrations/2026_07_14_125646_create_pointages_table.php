@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('pointages', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             // Personnel concerné
             $table->string('personnel_cin');
 
             $table->date('date');
-            $table->time('heure_debut');
-            $table->time('heure_fin');
             $table->decimal('nb_heure', 5, 2);
 
             $table->timestamps();

@@ -15,15 +15,23 @@ return new class extends Migration
 
             $table->id();
 
-            // Commande concernée
+            $table->string('code')->unique();
+
             $table->foreignId('commande_id')
                   ->constrained('commandes')
                   ->cascadeOnDelete();
 
             $table->date('date');
+
             $table->string('designation');
-            $table->decimal('montant', 15, 2);
-            $table->string('statut');
+
+            $table->decimal('quantite_attachee', 15, 2);
+
+            $table->string('num_ses')->nullable();
+
+            $table->string('num_rec_ses')->nullable();
+
+            $table->string('statut_validation');
 
             $table->timestamps();
         });

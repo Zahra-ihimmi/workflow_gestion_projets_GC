@@ -7,23 +7,39 @@ use Illuminate\Database\Eloquent\Model;
 class NonConformite extends Model
 {
     protected $fillable = [
-        'rapport_travaux_id',
-        'personnel_cin',
+
+        'code',
+
+        'commande_id',
+
         'date',
+
         'classe',
+
         'type',
-        'description',
-        'plan_action',
+
         'echeance',
+
+        'personnel_cin',
+
     ];
 
-    public function rapportTravaux()
+    public function commande()
     {
-        return $this->belongsTo(RapportTravaux::class);
+        return $this->belongsTo(Commande::class);
     }
 
     public function personnel()
     {
-        return $this->belongsTo(Personnel::class, 'personnel_cin', 'cin');
+        return $this->belongsTo(
+            Personnel::class,
+            'personnel_cin',
+            'cin'
+        );
+    }
+
+    public function planActions()
+    {
+        return $this->hasMany(PlanAction::class);
     }
 }

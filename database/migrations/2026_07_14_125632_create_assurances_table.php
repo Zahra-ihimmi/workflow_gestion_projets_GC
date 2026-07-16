@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('assurances', function (Blueprint $table) {
 
             $table->id();
-
+            
             // Fournisseur propriétaire de cette assurance
             $table->foreignId('fournisseur_id')
                   ->constrained('fournisseurs')

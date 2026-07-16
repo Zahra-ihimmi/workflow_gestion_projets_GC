@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ligne_budgetaires', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             $table->foreignId('utilisateur_id')
                   ->constrained('utilisateurs')
                   ->cascadeOnDelete();

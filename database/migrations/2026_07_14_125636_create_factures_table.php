@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('factures', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             // Relation 1 Décompte <-> 1 Facture
             $table->foreignId('decompte_id')
                   ->unique()
@@ -22,7 +22,6 @@ return new class extends Migration
                   ->cascadeOnDelete();
 
             $table->date('date_depot');
-            $table->date('date_echeance');
             $table->decimal('montant', 15, 2);
 
             $table->timestamps();

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PlanAction extends Model
 {
     protected $fillable = [
+        'code',
         'commande_id',
         'personnel_cin',
         'date_spa',

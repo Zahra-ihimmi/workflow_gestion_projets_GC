@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Facture extends Model
 {
     protected $fillable = [
+        'code',
         'decompte_id',
         'date_depot',
-        'date_echeance',
         'montant',
     ];
 

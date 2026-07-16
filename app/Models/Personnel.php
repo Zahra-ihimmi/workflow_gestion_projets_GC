@@ -6,22 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Personnel extends Model
 {
-    protected $primaryKey = 'cin';
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
     protected $fillable = [
+
         'cin',
+
         'fournisseur_id',
+
         'nom',
+
         'prenom',
+
         'fonction',
+
         'photo',
+
         'type_contrat',
+
         'pne',
+
         'niveau',
+
+        'date_debut',
+
+        'date_fin',
+
     ];
 
     public function fournisseur()
@@ -31,26 +39,16 @@ class Personnel extends Model
 
     public function formations()
     {
-        return $this->hasMany(Formation::class, 'personnel_cin', 'cin');
+        return $this->hasMany(Formation::class);
     }
 
     public function habilitations()
     {
-        return $this->hasMany(Habilitation::class, 'personnel_cin', 'cin');
+        return $this->hasMany(Habilitation::class);
     }
 
     public function pointages()
     {
-        return $this->hasMany(Pointage::class, 'personnel_cin', 'cin');
-    }
-
-    public function planActions()
-    {
-        return $this->hasMany(PlanAction::class, 'personnel_cin', 'cin');
-    }
-
-    public function nonConformites()
-    {
-        return $this->hasMany(NonConformite::class, 'personnel_cin', 'cin');
+        return $this->hasMany(Pointage::class);
     }
 }

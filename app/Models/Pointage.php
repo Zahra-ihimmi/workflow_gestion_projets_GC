@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pointage extends Model
 {
     protected $fillable = [
+        'code',
         'personnel_cin',
         'date',
-        'heure_debut',
-        'heure_fin',
         'nb_heure',
     ];
 

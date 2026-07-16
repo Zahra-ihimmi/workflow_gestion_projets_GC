@@ -7,20 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 class Decompte extends Model
 {
     protected $fillable = [
+
+        'code',
+
         'commande_id',
+
         'date',
+
         'designation',
-        'montant',
-        'statut',
+
+        'quantite_attachee',
+
+        'num_ses',
+
+        'num_rec_ses',
+
+        'statut_validation',
+
     ];
 
     public function commande()
     {
         return $this->belongsTo(Commande::class);
-    }
-
-    public function facture()
-    {
-        return $this->hasOne(Facture::class);
     }
 }

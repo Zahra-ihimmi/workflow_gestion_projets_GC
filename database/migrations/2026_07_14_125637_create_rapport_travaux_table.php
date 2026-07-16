@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rapport_travaux', function (Blueprint $table) {
 
             $table->id();
-
+            $table->string('code')->unique();
             $table->foreignId('commande_id')
                   ->constrained('commandes')
                   ->cascadeOnDelete();

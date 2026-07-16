@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Planning extends Model
 {
     protected $fillable = [
+        'code',
         'prix_id',
         'designation',
         'date_debut',
