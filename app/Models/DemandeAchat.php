@@ -37,4 +37,9 @@ class DemandeAchat extends Model
     {
         return $this->belongsTo(Utilisateur::class);
     }
+
+    public function commande()
+        {
+            return $this->hasOne(Commande::class);
+        }
 }

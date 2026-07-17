@@ -20,12 +20,6 @@
 <br>
 
 
-<label>Code</label>
-
-<input type="text" name="code">
-
-
-<br>
 
 
 <label>Intitulé</label>

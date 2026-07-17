@@ -26,7 +26,7 @@
                 <span>Tableaux de bord</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('dashboard.strategique') }}">
                     <i class="fa-solid fa-chart-column"></i>
                     <span>Dashboard Stratégique</span>
                 </a>

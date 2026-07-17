@@ -27,10 +27,11 @@ class LigneBudgetaireController extends Controller
     public function store(Request $request)
     {
 
-        LigneBudgetaire::create([
+        $code = 'OIJ-IV' . date('Y') . '-' . rand(10000, 99999);
 
+        LigneBudgetaire::create([
             'utilisateur_id' => $request->utilisateur_id,
-            'code' => $request->code,
+            'code' => $code,
             'intitule' => $request->intitule,
             'annee' => $request->annee,
             'type' => $request->type,
@@ -38,7 +39,6 @@ class LigneBudgetaireController extends Controller
             'date_objective' => $request->date_objective,
             'montant_estimatif' => $request->montant_estimatif,
             'statut' => $request->statut,
-
         ]);
 
 
@@ -64,8 +64,6 @@ class LigneBudgetaireController extends Controller
     {
 
         $request->validate([
-
-            'code' => 'required',
             'intitule' => 'required',
             'annee' => 'required|integer',
             'type' => 'required',
@@ -73,7 +71,6 @@ class LigneBudgetaireController extends Controller
             'date_objective' => 'required|date',
             'montant_estimatif' => 'required|numeric',
             'statut' => 'required',
-
         ]);
 
 
@@ -81,8 +78,6 @@ class LigneBudgetaireController extends Controller
 
 
         $ligneBudgetaire->update([
-
-            'code' => $request->code,
             'intitule' => $request->intitule,
             'annee' => $request->annee,
             'type' => $request->type,
@@ -90,7 +85,6 @@ class LigneBudgetaireController extends Controller
             'date_objective' => $request->date_objective,
             'montant_estimatif' => $request->montant_estimatif,
             'statut' => $request->statut,
-
         ]);
 
 

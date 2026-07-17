@@ -23,7 +23,7 @@ class LigneBudgetaire extends Model
         return $this->belongsTo(Utilisateur::class);
     }
 
-    public function demandeAchat()
+    public function demandesAchats()
     {
         return $this->hasMany(DemandeAchat::class);
     }

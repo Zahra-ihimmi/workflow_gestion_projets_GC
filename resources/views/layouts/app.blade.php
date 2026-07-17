@@ -17,6 +17,7 @@
     
     @stack('styles')
 </head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
 
     <div id="app">

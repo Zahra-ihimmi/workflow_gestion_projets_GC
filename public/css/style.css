@@ -1301,6 +1301,181 @@ button {
     cursor: pointer;
 }
 
+
+/* ============================
+   Filtres Dashboard
+============================ */
+
+.filters-grid{
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:flex-end;
+
+    flex-wrap:wrap;
+
+    margin-bottom:25px;
+
+}
+
+.filters-grid .form-group{
+
+    flex:1;
+
+    min-width:220px;
+
+}
+
+.filters-grid .form-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:var(--text-secondary);
+
+}
+
+.form-control{
+
+    width:100%;
+
+    height:42px;
+
+    border:1px solid var(--border);
+
+    border-radius:8px;
+
+    padding:0 12px;
+
+    background:#fff;
+
+    font-size:14px;
+
+    outline:none;
+
+}
+
+.form-control:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+.filters-grid .btn{
+
+    width:100%;
+
+    height:42px;
+
+}
+
+.project-distribution-card{
+
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    margin-top:20px;
+
+}
+
+
+.project-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+
+.project-bar{
+
+    display:flex;
+    height:25px;
+    width:100%;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:25px;
+    background:#eee;
+
+}
+
+
+
+.bar-capex{
+
+    background:#2563eb;
+
+}
+
+
+.bar-opex{
+
+    background:#16a34a;
+
+}
+
+
+.bar-pdr{
+
+    background:#eab308;
+
+}
+
+
+
+.project-legends{
+
+    display:flex;
+    justify-content:space-around;
+    margin-top:20px;
+    font-size:14px;
+
+}
+
+
+.legend{
+
+    display:inline-block;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    margin-right:6px;
+
+}
+
+
+.capex-color{
+
+    background:#2563eb;
+
+}
+
+
+.opex-color{
+
+    background:#16a34a;
+
+}
+
+
+.pdr-color{
+
+    background:#eab308;
+
+}
+
+
 /* ============================================
    PROGRESS BAR
    ============================================ */
@@ -1369,6 +1544,84 @@ button {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
 }
+
+
+.budget-card{
+    border-radius:20px;
+}
+
+
+#budgetChart{
+    max-height:330px;
+}
+
+
+
+.budget-legend{
+
+    margin-top:20px;
+
+}
+
+
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin:18px 0;
+
+    font-size:17px;
+
+}
+
+
+
+.dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+
+
+.name{
+
+    flex:1;
+
+    color:#303746;
+
+}
+
+
+
+.amount{
+
+    font-weight:500;
+
+    color:#303746;
+
+}
+
+
+
+.percent{
+
+    color:#6c7a89;
+
+    font-size:15px;
+
+}
+
+
 
 /* ============================================
    RESPONSIVE

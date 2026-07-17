@@ -22,8 +22,6 @@
 
 
 
-
-
 <div class="mb-3">
 
 <label>Intitulé</label>
