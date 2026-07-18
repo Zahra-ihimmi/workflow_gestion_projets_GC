@@ -136,11 +136,7 @@
 
     </table>
 
-    <div class="d-flex justify-content-center">
-
-        {{ $ligneBudgetaires->links() }}
-
-    </div>
+    
 
 </div>
 

@@ -82,3 +82,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Notifications Dropdown Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const notifBtn = document.getElementById('notifBtn');
+    const notifDropdown = document.getElementById('notifDropdown');
+    
+    if (notifBtn && notifDropdown) {
+        notifBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notifDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!notifBtn.contains(e.target) && !notifDropdown.contains(e.target)) {
+                notifDropdown.classList.remove('active');
+            }
+        });
+    }
+});

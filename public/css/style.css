@@ -1775,3 +1775,1901 @@ button {
 .stat-card:nth-child(4) { animation-delay: 0.20s; }
 .stat-card:nth-child(5) { animation-delay: 0.25s; }
 .stat-card:nth-child(6) { animation-delay: 0.30s; }
+
+/* ============================================
+   HEADER - DESIGN MODERNE
+   ============================================ */
+.header {
+    height: 70px;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all var(--transition);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.breadcrumb-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.breadcrumb i {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.breadcrumb span {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.breadcrumb span:last-child {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.header-search {
+    flex: 1;
+    max-width: 450px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    background: var(--bg-input);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px 10px 44px;
+    font-size: 14px;
+    color: var(--text);
+    transition: all var(--transition);
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--bg-dropdown);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    max-height: 320px;
+    overflow-y: auto;
+    display: none;
+    z-index: 50;
+}
+
+.search-dropdown.active {
+    display: block;
+}
+
+.search-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background var(--transition);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.search-dropdown-item:hover {
+    background: var(--bg-hover);
+}
+
+.search-dropdown-item .badge {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: var(--primary);
+    color: white;
+    font-weight: 500;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.dropdown-wrapper {
+    position: relative;
+}
+
+.action-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all var(--transition);
+    position: relative;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    font-size: 18px;
+}
+
+.action-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.action-btn:hover i {
+    color: white;
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+.notif-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
+    background: var(--danger);
+    border-radius: 50%;
+    border: 2px solid var(--bg-white);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 280px;
+    background: var(--bg-dropdown);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 6px 0;
+    display: none;
+    z-index: 50;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.dropdown-badge {
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--primary);
+    color: white;
+    padding: 1px 12px;
+    border-radius: 20px;
+}
+
+.dropdown-body {
+    padding: 4px 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-footer {
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.dropdown-footer a {
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 500;
+    transition: color var(--transition);
+}
+
+.dropdown-footer a:hover {
+    color: var(--primary-dark);
+}
+
+.notif-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 16px;
+    transition: background var(--transition);
+    cursor: pointer;
+    align-items: flex-start;
+}
+
+.notif-item:hover {
+    background: var(--bg-hover);
+}
+
+.notif-item i {
+    font-size: 18px;
+    margin-top: 2px;
+    width: 20px;
+    text-align: center;
+}
+
+.notif-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.notif-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.text-primary { color: var(--primary); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+
+.user-dropdown {
+    position: relative;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 16px 4px 4px;
+    border-radius: 10px;
+    transition: all var(--transition);
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    cursor: pointer;
+}
+
+.user-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary);
+}
+
+.user-avatar-small {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border-color var(--transition);
+}
+
+.user-btn:hover .user-avatar-small {
+    border-color: var(--primary);
+}
+
+.user-name-small {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.user-btn .fa-chevron-down {
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+}
+
+.user-btn:hover .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--text);
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-hover);
+}
+
+.dropdown-item i {
+    width: 18px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.dropdown-divider {
+    margin: 6px 0;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+.dropdown-item.text-danger {
+    color: var(--danger);
+}
+
+.dropdown-item.text-danger i {
+    color: var(--danger);
+}
+
+.dropdown-item.text-danger:hover {
+    background: var(--danger-bg);
+}
+
+/* ============================================
+   THEME DARK - HEADER
+   ============================================ */
+[data-theme="dark"] .header {
+    background: var(--bg-white);
+    border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background: var(--bg-dropdown);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .notif-item:hover {
+    background: var(--bg-hover);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background: var(--bg-hover);
+}
+
+[data-theme="dark"] .dropdown-item.text-danger:hover {
+    background: #7f1d1d;
+}
+
+/* ============================================
+   RESPONSIVE - HEADER
+   ============================================ */
+@media (max-width: 992px) {
+    .header {
+        padding: 0 20px;
+        gap: 16px;
+    }
+    
+    .header-search {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0 16px;
+        gap: 12px;
+    }
+    
+    .header-search {
+        max-width: 200px;
+    }
+    
+    .user-name-small {
+        display: none;
+    }
+    
+    .user-btn {
+        padding: 4px 8px 4px 4px;
+    }
+    
+    .dropdown-menu {
+        min-width: 240px;
+        right: -10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-search {
+        display: none;
+    }
+    
+    .breadcrumb {
+        font-size: 12px;
+    }
+    
+    .breadcrumb span {
+        font-size: 12px;
+    }
+    
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+    
+    .user-btn {
+        padding: 2px 6px 2px 2px;
+    }
+    
+    .user-avatar-small {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
+/* ============================================
+   STYLES GLOBAUX POUR TOUTES LES TABLES CRUD
+   ============================================ */
+
+/* --- Conteneur pour table responsive avec scroll --- */
+.table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0 -4px !important;
+    padding: 0 4px !important;
+    max-width: 100% !important;
+}
+
+/* --- Style pour TOUTES les tables --- */
+table {
+    width: 100% !important;
+    max-width: 100% !important;          /* NE dépasse jamais son conteneur */
+    min-width: 600px !important;
+    border-collapse: collapse !important;
+    font-size: 13px !important;
+    background: var(--bg-card) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--border) !important;
+    table-layout: auto !important;
+    box-sizing: border-box !important;
+
+    /* FIX: si la table n'est PAS entourée d'un .table-responsive dans le HTML,
+       elle devient elle-même scrollable horizontalement au lieu de faire
+       déborder toute la page. */
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+table thead,
+table tbody {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+/* Supprimer les bordures par défaut */
+table, table * {
+    border: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Empêche tout débordement horizontal de la page à cause d'un enfant trop large */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* ============================================
+   THEAD - COULEUR PLUS FONCÉE POUR VISIBILITÉ
+   ============================================ */
+table thead {
+    background: linear-gradient(135deg, #020617, #0f172a) !important; /* plus foncé qu'avant */
+}
+
+table thead tr {
+    background: transparent !important;
+}
+
+table th {
+    color: #ffffff !important;            /* blanc pur, contraste max sur fond très foncé */
+    font-weight: 800 !important;          /* plus gras = plus lisible/plus "foncé" visuellement */
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 12px !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    white-space: nowrap !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important; /* renforce la netteté du texte */
+}
+
+/* ============================================
+   TBODY
+   ============================================ */
+table tbody tr {
+    transition: all 0.3s ease !important;
+    border-bottom: 1px solid var(--border-light) !important;
+}
+
+table tbody tr:last-child {
+    border-bottom: none !important;
+}
+
+table tbody tr:hover {
+    background: var(--bg-hover) !important;
+}
+
+table td {
+    padding: 8px 12px !important;
+    color: var(--text) !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    font-size: 13px !important;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ============================================
+   CODE DANS LES TABLES
+   ============================================ */
+table td code,
+table td .code {
+    background: var(--bg-input) !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--primary) !important;
+    font-family: 'Inter', monospace !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+/* ============================================
+   STYLES GLOBAUX POUR TOUTES LES TABLES CRUD
+   ============================================ */
+
+/* --- Conteneur pour table responsive avec scroll --- */
+.table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0 -4px !important;
+    padding: 0 4px !important;
+    max-width: 100% !important;
+}
+
+/* --- Style pour TOUTES les tables --- */
+table {
+    width: 100% !important;
+    max-width: 100% !important;          /* NE dépasse jamais son conteneur */
+    min-width: 600px !important;
+    border-collapse: collapse !important;
+    font-size: 13px !important;
+    background: var(--bg-card) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--border) !important;
+    table-layout: auto !important;
+    box-sizing: border-box !important;
+
+    /* FIX: si la table n'est PAS entourée d'un .table-responsive dans le HTML,
+       elle devient elle-même scrollable horizontalement au lieu de faire
+       déborder toute la page. */
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+table thead,
+table tbody {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+/* Supprimer les bordures par défaut */
+table, table * {
+    border: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Empêche tout débordement horizontal de la page à cause d'un enfant trop large */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* ============================================
+   THEAD - COULEUR PLUS FONCÉE POUR VISIBILITÉ
+   ============================================ */
+table thead {
+    background: var(--bg-input) !important;         /* fond clair (#f8fafc) */
+    border-bottom: 2px solid var(--border) !important;
+}
+
+table thead tr {
+    background: transparent !important;
+}
+
+table th {
+    color: var(--text) !important;        /* noir/quasi-noir (#0f172a), pas --text-muted */
+    font-weight: 800 !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 12px !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    white-space: nowrap !important;
+    text-shadow: none !important;
+}
+
+/* ============================================
+   TBODY
+   ============================================ */
+table tbody tr {
+    transition: all 0.3s ease !important;
+    border-bottom: 1px solid var(--border-light) !important;
+}
+
+table tbody tr:last-child {
+    border-bottom: none !important;
+}
+
+table tbody tr:hover {
+    background: var(--bg-hover) !important;
+}
+
+table td {
+    padding: 8px 12px !important;
+    color: var(--text) !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    font-size: 13px !important;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ============================================
+   CODE DANS LES TABLES
+   ============================================ */
+table td code,
+table td .code {
+    background: var(--bg-input) !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--primary) !important;
+    font-family: 'Inter', monospace !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+/* ============================================
+   STYLES GLOBAUX POUR TOUS LES BOUTONS
+   ============================================ */
+
+/* --- Tous les boutons Ajouter (style Bleu) --- */
+a[href*="create"],
+a[href*=".create"],
+button[class*="add"],
+a[class*="add"] {
+    background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 18px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+    text-decoration: none !important;
+}
+
+a[href*="create"]:hover,
+a[href*=".create"]:hover,
+button[class*="add"]:hover,
+a[class*="add"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+    color: white !important;
+}
+
+/* --- Tous les liens Modifier (style Vert) --- */
+a[href*="edit"]:not([class]) {
+    background: linear-gradient(135deg, #059669, #10b981) !important;
+    color: white !important;
+    border: none !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+a[href*="edit"]:not([class]):hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35) !important;
+    color: white !important;
+}
+
+/* --- Tous les boutons Supprimer (style Rouge) --- */
+form button[type="submit"],
+button[type="submit"] {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+    color: white !important;
+    border: none !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+form button[type="submit"]:hover,
+button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
+    color: white !important;
+}
+
+/* --- Style spécifique pour les boutons dans les formulaires de suppression --- */
+form[action*="destroy"] button[type="submit"] {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+    color: white !important;
+    border: none !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+form[action*="destroy"] button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
+}
+
+/* --- Icônes sur les boutons --- */
+a[href*="create"]:before,
+a[href*=".create"]:before {
+    content: "\f067" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-size: 12px !important;
+}
+
+a[href*="edit"]:not([class]):before {
+    content: "\f044" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-size: 12px !important;
+}
+
+form[action*="destroy"] button[type="submit"]:before {
+    content: "\f1f8" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-size: 12px !important;
+}
+
+/* ============================================
+   STYLES GLOBAUX POUR LA PAGINATION
+   ============================================ */
+
+nav .pagination {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin-top: 16px !important;
+    padding: 0 !important;
+    list-style: none !important;
+    flex-wrap: wrap !important;
+}
+
+nav .pagination li {
+    display: inline-block !important;
+    margin: 0 !important;
+}
+
+nav .pagination li a,
+nav .pagination li span {
+    padding: 6px 12px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    background: var(--bg-card) !important;
+    display: inline-block !important;
+}
+
+nav .pagination li a:hover {
+    background: var(--bg-hover) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+nav .pagination li.active span {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+}
+
+nav .pagination li.disabled span {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+/* ============================================
+   STYLES GLOBAUX POUR LE CONTENU
+   ============================================ */
+
+/* --- Titres h2 --- */
+h2 {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--text) !important;
+    margin-bottom: 16px !important;
+    letter-spacing: -0.5px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* --- Br (saut de ligne) --- */
+br {
+    display: none !important;
+}
+
+/* --- Espacement entre les éléments --- */
+a[href*="create"],
+a[href*=".create"],
+a[href*="edit"],
+form[action*="destroy"] button {
+    margin: 0 3px !important;
+}
+
+/* ============================================
+   BADGES POUR LES STATUTS
+   ============================================ */
+
+td:contains("Validé"),
+td:contains("Payé"),
+td:contains("Clôturé"),
+td:contains("Encaissement"),
+td:contains("Validée") {
+    color: #059669 !important;
+    font-weight: 600 !important;
+}
+
+td:contains("En cours"),
+td:contains("En attente"),
+td:contains("Brouillon") {
+    color: #d97706 !important;
+    font-weight: 600 !important;
+}
+
+td:contains("En retard"),
+td:contains("Annulé"),
+td:contains("Critique") {
+    color: #dc2626 !important;
+    font-weight: 600 !important;
+}
+
+td:contains("Hold") {
+    color: #6b7280 !important;
+    font-weight: 600 !important;
+}
+
+/* ============================================
+   THEME DARK
+   ============================================ */
+[data-theme="dark"] table thead {
+    background: linear-gradient(135deg, #000000, #020617) !important;
+}
+
+[data-theme="dark"] table th {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] table tbody tr {
+    border-bottom-color: var(--border) !important;
+}
+
+[data-theme="dark"] nav .pagination li a,
+[data-theme="dark"] nav .pagination li span {
+    background: var(--bg-card) !important;
+    border-color: var(--border) !important;
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] nav .pagination li a:hover {
+    background: var(--bg-hover) !important;
+}
+
+[data-theme="dark"] nav .pagination li.active span {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 992px) {
+    table {
+        font-size: 12px !important;
+        min-width: 500px !important;
+    }
+    
+    table th,
+    table td {
+        padding: 6px 10px !important;
+    }
+    
+    table th {
+        font-size: 10px !important;
+    }
+    
+    a[href*="create"],
+    a[href*=".create"] {
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Conteneur avec scroll horizontal */
+    .table-responsive {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin: 0 -8px !important;
+        padding: 0 8px !important;
+    }
+    
+    table {
+        font-size: 11px !important;
+        min-width: 450px !important;
+    }
+    
+    table th,
+    table td {
+        padding: 5px 8px !important;
+    }
+    
+    table th {
+        font-size: 9px !important;
+        letter-spacing: 0.04em !important;
+    }
+    
+    a[href*="create"],
+    a[href*=".create"] {
+        padding: 5px 12px !important;
+        font-size: 11px !important;
+        border-radius: 6px !important;
+    }
+    
+    a[href*="edit"]:not([class]),
+    form[action*="destroy"] button[type="submit"],
+    form button[type="submit"] {
+        padding: 3px 8px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+    }
+    
+    a[href*="create"]:before,
+    a[href*=".create"]:before,
+    a[href*="edit"]:not([class]):before,
+    form[action*="destroy"] button[type="submit"]:before {
+        font-size: 10px !important;
+    }
+    
+    nav .pagination li a,
+    nav .pagination li span {
+        padding: 4px 8px !important;
+        font-size: 11px !important;
+    }
+    
+    h2 {
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        font-size: 10px !important;
+        min-width: 100% !important;   /* FIX: sur très petit écran, ne force plus 350px, s'adapte à l'écran */
+    }
+    
+    table th,
+    table td {
+        padding: 4px 6px !important;
+    }
+    
+    table th {
+        font-size: 8px !important;
+        letter-spacing: 0.02em !important;
+    }
+    
+    /* Les actions en colonne sur mobile */
+    table td:last-child {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 3px !important;
+        padding: 4px 6px !important;
+        justify-content: center !important;
+    }
+    
+    a[href*="edit"]:not([class]),
+    form[action*="destroy"] button[type="submit"] {
+        font-size: 9px !important;
+        padding: 2px 6px !important;
+    }
+    
+    .pagination-crud,
+    nav .pagination {
+        gap: 2px !important;
+    }
+    
+    nav .pagination li a,
+    nav .pagination li span {
+        padding: 3px 6px !important;
+        font-size: 10px !important;
+    }
+}
+
+/* ============================================
+   STYLES GLOBAUX POUR TOUS LES FORMULAIRES
+   (Ajouter / Modifier — hors formulaires "destroy"
+   qui restent gérés par le CSS des tables)
+   ============================================ */
+
+/* --- Le formulaire lui-même = une "carte" --- */
+form:has(label) {
+    display: block !important;
+    max-width: 560px !important;
+    margin: 0 auto !important;
+    padding: 28px 32px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px !important;
+    box-shadow: var(--shadow-sm) !important;
+    box-sizing: border-box !important;
+}
+
+/* --- Titre au-dessus du formulaire --- */
+form:has(label) + * ,
+h2 + form:has(label) {
+    margin-top: 8px !important;
+}
+
+/* --- Labels --- */
+form:has(label) label {
+    display: block !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    color: var(--text-secondary) !important;
+    margin: 18px 0 6px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+form:has(label) label:first-of-type {
+    margin-top: 0 !important;
+}
+
+/* --- Champs texte / nombre / date / email / password --- */
+form:has(label) input[type="text"],
+form:has(label) input[type="number"],
+form:has(label) input[type="date"],
+form:has(label) input[type="datetime-local"],
+form:has(label) input[type="email"],
+form:has(label) input[type="password"],
+form:has(label) input[type="search"],
+form:has(label) input[type="tel"],
+form:has(label) input[type="url"],
+form:has(label) input:not([type]),
+form:has(label) select,
+form:has(label) textarea {
+    display: block !important;
+    width: 100% !important;
+    padding: 10px 14px !important;
+    font-size: 13.5px !important;
+    font-family: 'Inter', sans-serif !important;
+    color: var(--text) !important;
+    background: var(--bg-input) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+    outline: none !important;
+}
+
+form:has(label) textarea {
+    min-height: 100px !important;
+    resize: vertical !important;
+}
+
+/* --- Focus --- */
+form:has(label) input:focus,
+form:has(label) select:focus,
+form:has(label) textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* --- Placeholder --- */
+form:has(label) input::placeholder,
+form:has(label) textarea::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.7 !important;
+}
+
+/* --- Select : flèche custom + apparence propre --- */
+form:has(label) select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+    padding-right: 38px !important;
+    cursor: pointer !important;
+}
+
+/* --- Checkbox / Radio --- */
+form:has(label) input[type="checkbox"],
+form:has(label) input[type="radio"] {
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 8px !important;
+    accent-color: var(--primary) !important;
+    cursor: pointer !important;
+    vertical-align: middle !important;
+}
+
+/* --- Fichiers --- */
+form:has(label) input[type="file"] {
+    display: block !important;
+    width: 100% !important;
+    padding: 10px !important;
+    background: var(--bg-input) !important;
+    border: 1px dashed var(--border) !important;
+    border-radius: 8px !important;
+    color: var(--text-secondary) !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+}
+
+/* --- Champs invalides (validation Laravel : is-invalid) --- */
+form:has(label) .is-invalid,
+form:has(label) input.error,
+form:has(label) select.error {
+    border-color: #dc2626 !important;
+}
+
+form:has(label) .invalid-feedback,
+form:has(label) .text-danger {
+    display: block !important;
+    color: #dc2626 !important;
+    font-size: 12px !important;
+    margin-top: 4px !important;
+}
+
+/* --- On masque les <br> (déjà fait globalement) mais on garde une
+   respiration propre entre les champs grâce aux marges label/input --- */
+form:has(label) br {
+    display: none !important;
+}
+
+/* --- Bouton principal (Ajouter / Enregistrer / Modifier) ---
+   Ne cible QUE les boutons sans attribut type explicite,
+   pour ne jamais entrer en conflit avec les boutons de suppression
+   (button[type="submit"]) déjà stylés en rouge ailleurs. */
+form:has(label) button:not([type]),
+form:has(label) button[type="submit"]:not([class]) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-top: 26px !important;
+    padding: 11px 26px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: white !important;
+    background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+    border: none !important;
+    border-radius: 9px !important;
+    cursor: pointer !important;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3) !important;
+    transition: all 0.25s ease !important;
+    width: auto !important;
+}
+
+form:has(label) button:not([type]):hover,
+form:has(label) button[type="submit"]:not([class]):hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4) !important;
+}
+
+form:has(label) button:not([type]):active,
+form:has(label) button[type="submit"]:not([class]):active {
+    transform: translateY(0) !important;
+}
+
+/* --- Petit texte d'aide sous un champ (optionnel, class="help-text") --- */
+form:has(label) small,
+form:has(label) .help-text {
+    display: block !important;
+    color: var(--text-secondary) !important;
+    font-size: 11.5px !important;
+    margin-top: 4px !important;
+}
+
+/* ============================================
+   THEME DARK
+   ============================================ */
+[data-theme="dark"] form:has(label) select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    form:has(label) {
+        max-width: 100% !important;
+        padding: 20px 18px !important;
+        border-radius: 12px !important;
+    }
+
+    form:has(label) button:not([type]),
+    form:has(label) button[type="submit"]:not([class]) {
+        width: 100% !important;
+    }
+}
+/* ============================================
+   DASHBOARD ANALYTIQUE — STYLES GLOBAUX
+   S'appuie sur les variables déjà définies dans :root
+   (--primary, --bg-card, --text, --shadow, --radius, ...)
+   ============================================ */
+
+/* ============================================
+   1. EN-TÊTE DE PAGE
+   ============================================ */
+.page-header {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.page-title {
+    font-size: 26px !important;
+    font-weight: 800 !important;
+    color: var(--text) !important;
+    letter-spacing: -0.5px !important;
+    margin: 0 0 6px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.page-subtitle {
+    font-size: 14px !important;
+    color: var(--text-secondary) !important;
+    margin: 0 !important;
+}
+
+/* ============================================
+   2. CARTES GÉNÉRIQUES (.card)
+   ============================================ */
+.card {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-sm) !important;
+    overflow: hidden !important;
+    transition: box-shadow var(--transition) !important;
+}
+
+.card-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 16px 20px !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    background: transparent !important;
+}
+
+.card-title {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--text) !important;
+}
+
+.card-title i {
+    color: var(--primary) !important;
+    font-size: 14px !important;
+}
+
+.card-body {
+    padding: 20px !important;
+}
+
+.card-body.p-0 {
+    padding: 0 !important;
+}
+
+/* ============================================
+   3. CARTE FILTRES
+   Détection automatique de N'IMPORTE QUELLE carte de
+   filtres (toute .card contenant un form[method="GET"]),
+   quel que soit son nom de classe ou sa structure interne
+   (.row/.col-md-3 OU .filters-grid/.form-group).
+   => S'applique aux 3 dashboards sans rien changer au Blade.
+   ============================================ */
+.card:has(form[method="GET"]) .card-header {
+    background: var(--bg-sidebar-header) !important;
+}
+
+/* --- Variante A : .row + .col-md-3 / .col-* (grille Bootstrap) --- */
+.card form[method="GET"] .row {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+    gap: 16px !important;
+    margin: 0 !important;
+}
+
+.card form[method="GET"] .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* --- Variante B : .filters-grid + .form-group --- */
+.card form[method="GET"] .filters-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+    gap: 16px !important;
+    align-items: end !important;
+}
+
+.card form[method="GET"] .form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    max-width: none !important;
+}
+
+@media (max-width: 992px) {
+    .card form[method="GET"] .row,
+    .card form[method="GET"] .filters-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .card form[method="GET"] .row,
+    .card form[method="GET"] .filters-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* --- Labels (avec ou sans class="filter-label") --- */
+.card form[method="GET"] label,
+.filter-label {
+    display: block !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 6px !important;
+}
+
+/* --- Champs select (form-control) --- */
+.card form[method="GET"] select.form-control {
+    width: 100% !important;
+    padding: 9px 34px 9px 12px !important;
+    font-size: 13.5px !important;
+    color: var(--text) !important;
+    background: var(--bg-input) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    background-size: 15px !important;
+    cursor: pointer !important;
+    transition: border-color var(--transition), box-shadow var(--transition) !important;
+}
+
+.card form[method="GET"] select.form-control:focus {
+    outline: none !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+.filter-actions {
+    display: flex !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+}
+
+/* --- Boutons --- */
+.btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 9px 20px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid transparent !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all var(--transition) !important;
+}
+
+.btn-primary {
+    background: var(--primary-gradient) !important;
+    color: #fff !important;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.28) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35) !important;
+    color: #fff !important;
+}
+
+.btn-light {
+    background: var(--bg-input) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border) !important;
+}
+
+.btn-light:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text) !important;
+    border-color: var(--text-muted) !important;
+}
+
+/* ============================================
+   4. KPI PRINCIPAUX
+   ============================================ */
+
+/* --- Force l'affichage en grille côte à côte, peu importe si le CSS
+   de la grille Bootstrap est chargé ou non chez toi --- */
+.row:has(> .col-xl-3 .analytics-kpi-card) {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 16px !important;
+    margin: 0 !important;
+}
+
+.row:has(> .col-xl-3 .analytics-kpi-card) > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 1199px) {
+    .row:has(> .col-xl-3 .analytics-kpi-card) {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .row:has(> .col-xl-3 .analytics-kpi-card) {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.analytics-kpi-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-sm) !important;
+    padding: 18px 20px !important;
+    height: 100% !important;
+    transition: transform var(--transition), box-shadow var(--transition) !important;
+}
+
+.analytics-kpi-card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.analytics-kpi-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    border-radius: var(--radius) !important;
+    background: var(--primary-gradient) !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* Petite variété de couleur selon la position (Projets / Budget / Engagé / Restant) */
+.col-xl-3:nth-child(2) .analytics-kpi-icon {
+    background: linear-gradient(135deg, var(--info), #22d3ee) !important;
+    box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25) !important;
+}
+
+.col-xl-3:nth-child(3) .analytics-kpi-icon {
+    background: linear-gradient(135deg, var(--purple), #a78bfa) !important;
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25) !important;
+}
+
+.col-xl-3:nth-child(4) .analytics-kpi-icon {
+    background: linear-gradient(135deg, var(--success), #34d399) !important;
+    box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25) !important;
+}
+
+.analytics-kpi-label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 4px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+}
+
+.analytics-kpi-value {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: var(--text) !important;
+    line-height: 1.1 !important;
+}
+
+.analytics-kpi-value span {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    margin-left: 4px !important;
+}
+
+/* ============================================
+   5. MINI CARTES OPÉRATIONNELLES
+   ============================================ */
+
+.row:has(> .col-xl-3 .analytics-mini-card) {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 16px !important;
+    margin: 0 !important;
+}
+
+.row:has(> .col-xl-3 .analytics-mini-card) > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 1199px) {
+    .row:has(> .col-xl-3 .analytics-mini-card) {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .row:has(> .col-xl-3 .analytics-mini-card) {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.analytics-mini-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    padding: 14px 16px !important;
+    height: 100% !important;
+    transition: border-color var(--transition), transform var(--transition) !important;
+}
+
+.analytics-mini-card:hover {
+    border-color: var(--primary-light) !important;
+    transform: translateY(-2px) !important;
+}
+
+.mini-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    border-radius: var(--radius-sm) !important;
+    background: var(--bg-sidebar-header) !important;
+    color: var(--primary) !important;
+    font-size: 15px !important;
+}
+
+.analytics-mini-card span {
+    display: block !important;
+    font-size: 11.5px !important;
+    color: var(--text-secondary) !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 2px !important;
+}
+
+.analytics-mini-card strong {
+    display: block !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: var(--text) !important;
+}
+
+/* ============================================
+   6. PANELS ANALYTIQUES
+   ============================================ */
+.analytics-panel {
+    height: 100% !important;
+}
+
+.analytics-panel .card-header .badge {
+    font-size: 12px !important;
+}
+
+/* --- Barre de progression --- */
+.progress-container {
+    margin-bottom: 4px !important;
+}
+
+.progress-info {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    margin-bottom: 8px !important;
+    font-size: 13px !important;
+}
+
+.progress-info span {
+    color: var(--text-secondary) !important;
+    font-weight: 600 !important;
+}
+
+.progress-info strong {
+    color: var(--text) !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+.progress {
+    height: 10px !important;
+    background: var(--bg-input) !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+}
+
+.progress-bar {
+    height: 100% !important;
+    background: var(--primary-gradient) !important;
+    border-radius: 20px !important;
+    transition: width 0.6s ease !important;
+}
+
+/* --- Résumé budgétaire --- */
+.budget-summary {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+    padding-top: 18px !important;
+    border-top: 1px solid var(--border-light) !important;
+}
+
+.budget-summary > div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.budget-summary span {
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+}
+
+.budget-summary strong {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: var(--text) !important;
+}
+
+/* ============================================
+   7. BADGES (statuts, compteurs)
+   ============================================ */
+.badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 4px 10px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    border-radius: 20px !important;
+    letter-spacing: 0.02em !important;
+}
+
+.badge.bg-danger {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+}
+
+.badge.bg-warning {
+    background: var(--warning-bg) !important;
+    color: var(--warning) !important;
+}
+
+.badge.bg-success {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+}
+
+.badge.bg-info {
+    background: var(--info-bg) !important;
+    color: var(--info) !important;
+}
+
+/* Badge "Type" du tableau détaillé, sans couleur explicite dans le HTML */
+td .badge:not([class*="bg-"]) {
+    background: var(--purple-bg) !important;
+    color: var(--purple) !important;
+}
+
+/* ============================================
+   8. TABLEAUX DANS LES PANELS (contenu)
+   ============================================ */
+.analytics-panel td strong {
+    color: var(--text) !important;
+    font-weight: 700 !important;
+}
+
+.analytics-panel td small {
+    color: var(--text-muted) !important;
+    font-size: 11.5px !important;
+}
+
+/* ============================================
+   9. ÉTATS VIDES
+   ============================================ */
+.empty-state {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 48px 20px !important;
+    color: var(--text-muted) !important;
+}
+
+.empty-state i {
+    font-size: 34px !important;
+    color: var(--success) !important;
+    margin-bottom: 12px !important;
+}
+
+.empty-state p {
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+}
+
+/* ============================================
+   10. RESPONSIVE
+   ============================================ */
+@media (max-width: 992px) {
+    .page-header {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .budget-summary {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 21px !important;
+    }
+
+    .analytics-kpi-card,
+    .analytics-mini-card {
+        padding: 14px !important;
+    }
+
+    .analytics-kpi-value {
+        font-size: 19px !important;
+    }
+
+    .filter-actions {
+        flex-direction: column !important;
+    }
+
+    .filter-actions .btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}

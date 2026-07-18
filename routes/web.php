@@ -19,6 +19,7 @@ use App\Http\Controllers\PointageController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\Dashboard\StrategicDashboardController;
+use App\Http\Controllers\Dashboard\AnalytiqueDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,3 +69,8 @@ Route::resource('assurances', AssuranceController::class);
 Route::get('/dashboard/strategique',
     [StrategicDashboardController::class,'index'])
     ->name('dashboard.strategique');
+
+Route::get(
+    '/dashboard/analytique',
+    [AnalytiqueDashboardController::class, 'index']
+)->name('dashboard.analytique');

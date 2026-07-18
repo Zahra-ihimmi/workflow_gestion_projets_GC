@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('dashboard.analytique') }}">
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Dashboard Analytique</span>
                 </a>
