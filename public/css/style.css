@@ -2879,7 +2879,7 @@ td:contains("Hold") {
    ============================================ */
 
 /* --- Le formulaire lui-même = une "carte" --- */
-form:has(label) {
+form:has(label):not([method="GET"]) {
     display: block !important;
     max-width: 560px !important;
     margin: 0 auto !important;
@@ -2892,13 +2892,13 @@ form:has(label) {
 }
 
 /* --- Titre au-dessus du formulaire --- */
-form:has(label) + * ,
-h2 + form:has(label) {
+form:has(label):not([method="GET"]) + * ,
+h2 + form:has(label):not([method="GET"]) {
     margin-top: 8px !important;
 }
 
 /* --- Labels --- */
-form:has(label) label {
+form:has(label):not([method="GET"]) label {
     display: block !important;
     font-size: 12.5px !important;
     font-weight: 700 !important;
@@ -2909,23 +2909,23 @@ form:has(label) label {
     font-family: 'Inter', sans-serif !important;
 }
 
-form:has(label) label:first-of-type {
+form:has(label):not([method="GET"]) label:first-of-type {
     margin-top: 0 !important;
 }
 
 /* --- Champs texte / nombre / date / email / password --- */
-form:has(label) input[type="text"],
-form:has(label) input[type="number"],
-form:has(label) input[type="date"],
-form:has(label) input[type="datetime-local"],
-form:has(label) input[type="email"],
-form:has(label) input[type="password"],
-form:has(label) input[type="search"],
-form:has(label) input[type="tel"],
-form:has(label) input[type="url"],
-form:has(label) input:not([type]),
-form:has(label) select,
-form:has(label) textarea {
+form:has(label):not([method="GET"]) input[type="text"],
+form:has(label):not([method="GET"]) input[type="number"],
+form:has(label):not([method="GET"]) input[type="date"],
+form:has(label):not([method="GET"]) input[type="datetime-local"],
+form:has(label):not([method="GET"]) input[type="email"],
+form:has(label):not([method="GET"]) input[type="password"],
+form:has(label):not([method="GET"]) input[type="search"],
+form:has(label):not([method="GET"]) input[type="tel"],
+form:has(label):not([method="GET"]) input[type="url"],
+form:has(label):not([method="GET"]) input:not([type]),
+form:has(label):not([method="GET"]) select,
+form:has(label):not([method="GET"]) textarea {
     display: block !important;
     width: 100% !important;
     padding: 10px 14px !important;
@@ -2940,28 +2940,28 @@ form:has(label) textarea {
     outline: none !important;
 }
 
-form:has(label) textarea {
+form:has(label):not([method="GET"]) textarea {
     min-height: 100px !important;
     resize: vertical !important;
 }
 
 /* --- Focus --- */
-form:has(label) input:focus,
-form:has(label) select:focus,
-form:has(label) textarea:focus {
+form:has(label):not([method="GET"]) input:focus,
+form:has(label):not([method="GET"]) select:focus,
+form:has(label):not([method="GET"]) textarea:focus {
     border-color: var(--primary) !important;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
 }
 
 /* --- Placeholder --- */
-form:has(label) input::placeholder,
-form:has(label) textarea::placeholder {
+form:has(label):not([method="GET"]) input::placeholder,
+form:has(label):not([method="GET"]) textarea::placeholder {
     color: var(--text-secondary) !important;
     opacity: 0.7 !important;
 }
 
 /* --- Select : flèche custom + apparence propre --- */
-form:has(label) select {
+form:has(label):not([method="GET"]) select {
     appearance: none !important;
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
@@ -2974,8 +2974,8 @@ form:has(label) select {
 }
 
 /* --- Checkbox / Radio --- */
-form:has(label) input[type="checkbox"],
-form:has(label) input[type="radio"] {
+form:has(label):not([method="GET"]) input[type="checkbox"],
+form:has(label):not([method="GET"]) input[type="radio"] {
     width: 16px !important;
     height: 16px !important;
     margin-right: 8px !important;
@@ -2985,7 +2985,7 @@ form:has(label) input[type="radio"] {
 }
 
 /* --- Fichiers --- */
-form:has(label) input[type="file"] {
+form:has(label):not([method="GET"]) input[type="file"] {
     display: block !important;
     width: 100% !important;
     padding: 10px !important;
@@ -2998,14 +2998,14 @@ form:has(label) input[type="file"] {
 }
 
 /* --- Champs invalides (validation Laravel : is-invalid) --- */
-form:has(label) .is-invalid,
-form:has(label) input.error,
-form:has(label) select.error {
+form:has(label):not([method="GET"]) .is-invalid,
+form:has(label):not([method="GET"]) input.error,
+form:has(label):not([method="GET"]) select.error {
     border-color: #dc2626 !important;
 }
 
-form:has(label) .invalid-feedback,
-form:has(label) .text-danger {
+form:has(label):not([method="GET"]) .invalid-feedback,
+form:has(label):not([method="GET"]) .text-danger {
     display: block !important;
     color: #dc2626 !important;
     font-size: 12px !important;
@@ -3014,7 +3014,7 @@ form:has(label) .text-danger {
 
 /* --- On masque les <br> (déjà fait globalement) mais on garde une
    respiration propre entre les champs grâce aux marges label/input --- */
-form:has(label) br {
+form:has(label):not([method="GET"]) br {
     display: none !important;
 }
 
@@ -3022,8 +3022,8 @@ form:has(label) br {
    Ne cible QUE les boutons sans attribut type explicite,
    pour ne jamais entrer en conflit avec les boutons de suppression
    (button[type="submit"]) déjà stylés en rouge ailleurs. */
-form:has(label) button:not([type]),
-form:has(label) button[type="submit"]:not([class]) {
+form:has(label):not([method="GET"]) button:not([type]),
+form:has(label):not([method="GET"]) button[type="submit"]:not([class]) {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -3042,20 +3042,20 @@ form:has(label) button[type="submit"]:not([class]) {
     width: auto !important;
 }
 
-form:has(label) button:not([type]):hover,
-form:has(label) button[type="submit"]:not([class]):hover {
+form:has(label):not([method="GET"]) button:not([type]):hover,
+form:has(label):not([method="GET"]) button[type="submit"]:not([class]):hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4) !important;
 }
 
-form:has(label) button:not([type]):active,
-form:has(label) button[type="submit"]:not([class]):active {
+form:has(label):not([method="GET"]) button:not([type]):active,
+form:has(label):not([method="GET"]) button[type="submit"]:not([class]):active {
     transform: translateY(0) !important;
 }
 
 /* --- Petit texte d'aide sous un champ (optionnel, class="help-text") --- */
-form:has(label) small,
-form:has(label) .help-text {
+form:has(label):not([method="GET"]) small,
+form:has(label):not([method="GET"]) .help-text {
     display: block !important;
     color: var(--text-secondary) !important;
     font-size: 11.5px !important;
@@ -3065,7 +3065,7 @@ form:has(label) .help-text {
 /* ============================================
    THEME DARK
    ============================================ */
-[data-theme="dark"] form:has(label) select {
+[data-theme="dark"] form:has(label):not([method="GET"]) select {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
 }
 
@@ -3073,17 +3073,18 @@ form:has(label) .help-text {
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-    form:has(label) {
+    form:has(label):not([method="GET"]) {
         max-width: 100% !important;
         padding: 20px 18px !important;
         border-radius: 12px !important;
     }
 
-    form:has(label) button:not([type]),
-    form:has(label) button[type="submit"]:not([class]) {
+    form:has(label):not([method="GET"]) button:not([type]),
+    form:has(label):not([method="GET"]) button[type="submit"]:not([class]) {
         width: 100% !important;
     }
 }
+
 /* ============================================
    DASHBOARD ANALYTIQUE — STYLES GLOBAUX
    S'appuie sur les variables déjà définies dans :root

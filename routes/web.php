@@ -20,13 +20,16 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\AssuranceController;
 use App\Http\Controllers\Dashboard\StrategicDashboardController;
 use App\Http\Controllers\Dashboard\AnalytiqueDashboardController;
+use App\Http\Controllers\Dashboard\OperationalDashboardController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-
+Route::middleware('auth')->group(function () {
 Route::resource('ligne-budgetaires', LigneBudgetaireController::class);
 
 Route::resource('demande-achats', DemandeAchatController::class);
@@ -74,3 +77,46 @@ Route::get(
     '/dashboard/analytique',
     [AnalytiqueDashboardController::class, 'index']
 )->name('dashboard.analytique');
+
+Route::get(
+    '/dashboard/operationnel',
+    [OperationalDashboardController::class, 'index']
+)->name('dashboard.operationnel');
+
+});
+
+// Authentification
+Route::get('/login', [AuthController::class, 'showLogin'])
+    ->name('login');
+
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.post');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+    /*
+|--------------------------------------------------------------------------
+| Mot de passe oublié
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/forgot-password', [
+    ForgotPasswordController::class,
+    'showForgotPassword'
+])->name('password.request');
+
+Route::post('/forgot-password', [
+    ForgotPasswordController::class,
+    'sendResetLink'
+])->name('password.email');
+
+Route::get('/reset-password/{token}', [
+    ForgotPasswordController::class,
+    'showResetPassword'
+])->name('password.reset');
+
+Route::post('/reset-password', [
+    ForgotPasswordController::class,
+    'resetPassword'
+])->name('password.update');

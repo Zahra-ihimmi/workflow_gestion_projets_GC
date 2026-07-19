@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Utilisateur extends Model
+class Utilisateur extends Authenticatable
 {
+    use Notifiable;
+
+    protected $table = 'utilisateurs';
+
     protected $fillable = [
         'matricule',
         'nom',
@@ -13,6 +18,27 @@ class Utilisateur extends Model
         'email',
         'motdepasse',
     ];
+
+    protected $hidden = [
+        'motdepasse',
+        'remember_token',
+    ];
+
+    /**
+     * Mot de passe utilisé par Laravel pour l'authentification.
+     */
+    public function getAuthPassword()
+    {
+        return $this->motdepasse;
+    }
+
+    /**
+     * Email utilisé pour la réinitialisation du mot de passe.
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->email;
+    }
 
     public function ligneBudgetaires()
     {

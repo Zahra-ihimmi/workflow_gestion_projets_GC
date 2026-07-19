@@ -49,6 +49,10 @@ class Personnel extends Model
 
     public function pointages()
     {
-        return $this->hasMany(Pointage::class);
+        return $this->hasMany(
+            Pointage::class,
+            'personnel_cin',
+            'cin'
+        );
     }
 }

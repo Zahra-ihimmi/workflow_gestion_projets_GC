@@ -50,4 +50,8 @@ class Commande extends Model
     {
         return $this->hasMany(PlanAction::class);
     }
+    public function nonConformites()
+    {
+        return $this->hasMany(NonConformite::class);
+    }
 }

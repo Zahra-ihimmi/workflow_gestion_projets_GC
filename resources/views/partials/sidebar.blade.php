@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('dashboard.operationnel') }}">
                     <i class="fa-solid fa-chart-area"></i>
                     <span>Dashboard Opérationnel</span>
                 </a>
