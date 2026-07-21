@@ -1,86 +1,174 @@
 @extends('layouts.app')
 
+@section('breadcrumb', 'Liste des Non-conformités')
+
 @section('content')
+
+<style>
+    /* =========================
+       Badges généraux
+    ========================= */
+    .nc-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+
+    /* =========================
+       Type de non-conformité
+    ========================= */
+
+    /* HSE = Rouge */
+    .nc-hse {
+        background-color: #f8d7da;
+        color: #dc3545;
+    }
+
+    /* Qualité = Bleu */
+    .nc-qualite {
+        background-color: #d1ecf1;
+        color: #0c5460;
+    }
+
+
+    /* =========================
+       Classe de non-conformité
+    ========================= */
+
+    /* Critique = Rouge foncé */
+    .nc-critique {
+        background-color: #f8d7da;
+        color: #b02a37;
+    }
+
+    /* Majeure = Orange */
+    .nc-majeure {
+        background-color: #ffe5d0;
+        color: #fd7e14;
+    }
+
+    /* Mineure = Jaune */
+    .nc-mineure {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+</style>
+
 
 <h2>Liste des Non-conformités</h2>
 
 <a href="{{ route('non-conformites.create') }}">
-
-Ajouter une Non-conformité
-
+    Ajouter une Non-conformité
 </a>
 
 <br><br>
 
+
 <table border="1">
 
-<tr>
+    <tr>
+        <th>Code</th>
+        <th>Commande</th>
+        <th>Date</th>
+        <th>Classe</th>
+        <th>Type</th>
+        <th>Échéance</th>
+        <th>Personnel</th>
+        <th>Actions</th>
+    </tr>
 
-<th>Code</th>
 
-<th>Commande</th>
+    @foreach($nonConformites as $nc)
 
-<th>Date</th>
+    <tr>
 
-<th>Classe</th>
+        {{-- Code --}}
+        <td>
+            {{ $nc->code }}
+        </td>
 
-<th>Type</th>
 
-<th>Echéance</th>
+        {{-- Commande --}}
+        <td>
+            {{ $nc->commande->code }}
+        </td>
 
-<th>Personnel</th>
 
-<th>Actions</th>
+        {{-- Date --}}
+        <td>
+            {{ $nc->date }}
+        </td>
 
-</tr>
 
-@foreach($nonConformites as $nc)
+        {{-- Classe --}}
+        <td>
+            <span class="nc-badge
+                @if(strtolower($nc->classe) === 'critique')
+                    nc-critique
+                @elseif(strtolower($nc->classe) === 'majeure')
+                    nc-majeure
+                @elseif(strtolower($nc->classe) === 'mineure')
+                    nc-mineure
+                @endif
+            ">
+                {{ ucfirst($nc->classe) }}
+            </span>
+        </td>
 
-<tr>
 
-<td>{{ $nc->code }}</td>
+        {{-- Type --}}
+        <td>
+            <span class="nc-badge
+                {{ strtolower($nc->type) === 'hse' ? 'nc-hse' : 'nc-qualite' }}">
+                {{ strtoupper($nc->type) }}
+            </span>
+        </td>
 
-<td>{{ $nc->commande->code }}</td>
 
-<td>{{ $nc->date }}</td>
+        {{-- Échéance --}}
+        <td>
+            {{ $nc->echeance }}
+        </td>
 
-<td>{{ $nc->classe }}</td>
 
-<td>{{ $nc->type }}</td>
+        {{-- Personnel --}}
+        <td>
+            {{ $nc->personnel->nom }}
+            {{ $nc->personnel->prenom }}
+        </td>
 
-<td>{{ $nc->echeance }}</td>
 
-<td>{{ $nc->personnel->nom }} {{ $nc->personnel->prenom }}</td>
+        {{-- Actions --}}
+        <td>
 
-<td>
+            <a href="{{ route('non-conformites.edit', $nc->id) }}">
+                Modifier
+            </a>
 
-<a href="{{ route('non-conformites.edit',$nc->id) }}">
+            <form action="{{ route('non-conformites.destroy', $nc->id) }}"
+                  method="POST"
+                  style="display:inline;">
 
-Modifier
+                @csrf
+                @method('DELETE')
 
-</a>
+                <button type="submit">
+                    Supprimer
+                </button>
 
-<form action="{{ route('non-conformites.destroy',$nc->id) }}" method="POST">
+            </form>
 
-@csrf
+        </td>
 
-@method('DELETE')
+    </tr>
 
-<button>
-
-Supprimer
-
-</button>
-
-</form>
-
-</td>
-
-</tr>
-
-@endforeach
+    @endforeach
 
 </table>
+
 
 <br>
 

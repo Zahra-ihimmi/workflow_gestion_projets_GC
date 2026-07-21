@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'Liste des décomptes')
 @section('content')
 
 <h2>Liste des décomptes</h2>
@@ -67,7 +67,9 @@ method="POST">
 
 @method('DELETE')
 
-<button>
+<button
+class="btn btn-danger btn-sm"
+                            onclick="return confirm('Supprimer cette ligne budgétaire ?')">
 
 Supprimer
 

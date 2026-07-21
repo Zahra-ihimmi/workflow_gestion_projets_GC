@@ -75,11 +75,11 @@
 
     <option value="">Choisir</option>
 
-    <option value="A">A</option>
+    <option value="Classe A">A</option>
 
-    <option value="B">B</option>
+    <option value="Classe B">B</option>
 
-    <option value="C">C</option>
+    <option value="Classe C">C</option>
 
 </select>
 
@@ -97,17 +97,8 @@
 
 <label>Mode facturation</label>
 
-<select name="mode_facturation">
+<input type="number" step="0.01" name="mode_facturation" min="0">
 
-    <option value="">Choisir</option>
-
-    <option value="Forfait">Forfait</option>
-
-    <option value="Mensuel">Mensuel</option>
-
-    <option value="Avancement">Avancement</option>
-
-</select>
 
 
 <br><br>
@@ -115,20 +106,12 @@
 
 <label>Mode paiement</label>
 
-<select name="mode_paiement">
-
-    <option value="">Choisir</option>
-
-    <option value="Virement">Virement</option>
-
-    <option value="Chèque">Chèque</option>
-
-    <option value="Espèce">Espèce</option>
-
-</select>
+<input type="number" step="0.01" name="mode_paiement" min="0">
 
 
 <br><br>
+
+
 
 
 <label>Durée garantie</label>
@@ -145,11 +128,11 @@
 
     <option value="">Choisir</option>
 
-    <option value="Faible">Faible</option>
+    <option value="low">low</option>
 
-    <option value="Moyenne">Moyenne</option>
+    <option value="high">high</option>
 
-    <option value="Elevée">Elevée</option>
+    <option value="medium">medium</option>
 
 </select>
 
@@ -162,14 +145,13 @@
 <select name="statut">
 
     <option value="">Choisir</option>
+    
+    <option value="hold">hold</option>
+    <option value="exécution">exécution</option>
+    <option value="clôture">clôture</option>
+    <option value="réception définitive">réception définitive</option>
 
-    <option value="Préparation">Préparation</option>
 
-    <option value="En cours">En cours</option>
-
-    <option value="Terminé">Terminé</option>
-
-    <option value="Suspendu">Suspendu</option>
 
 </select>
 

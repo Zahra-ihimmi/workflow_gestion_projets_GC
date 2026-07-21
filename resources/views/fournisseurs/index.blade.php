@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'Liste des Fournisseurs')
 @section('content')
 
 <h2>Liste des Fournisseurs</h2>
@@ -66,7 +66,9 @@ Modifier
 
 @method('DELETE')
 
-<button>
+<button
+    class="btn btn-danger btn-sm"
+                            onclick="return confirm('Supprimer ce fournisseur ?')">
 
 Supprimer
 

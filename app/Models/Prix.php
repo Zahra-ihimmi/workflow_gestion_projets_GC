@@ -28,6 +28,9 @@ class Prix extends Model
 
     public function rapportActivites()
     {
-        return $this->hasMany(RapportActivite::class);
+        return $this->hasMany(
+            RapportActivite::class,
+            'prix_id'
+        );
     }
 }

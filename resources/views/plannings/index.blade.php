@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'Liste des Plannings')
 @section('content')
 
 <h2>Liste des Plannings</h2>
@@ -61,7 +61,9 @@ Modifier
 @csrf
 @method('DELETE')
 
-<button>
+<button
+    class="btn btn-danger btn-sm"
+                            onclick="return confirm('Supprimer cette ce jalon ?')">
 
 Supprimer
 

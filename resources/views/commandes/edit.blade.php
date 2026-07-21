@@ -114,21 +114,21 @@ value="{{ $commande->duree_travaux }}">
 <select name="classe_hse">
 
 
-<option value="A"
-@if($commande->classe_hse=="A") selected @endif>
-A
+<option value="Classe A"
+@if($commande->classe_hse=="Classe A") selected @endif>
+Classe A
 </option>
 
 
-<option value="B"
-@if($commande->classe_hse=="B") selected @endif>
-B
+<option value="Classe B"
+@if($commande->classe_hse=="Classe B") selected @endif>
+Classe B
 </option>
 
 
-<option value="C"
-@if($commande->classe_hse=="C") selected @endif>
-C
+<option value="Classe C"
+@if($commande->classe_hse=="Classe C") selected @endif>
+Classe C
 </option>
 
 
@@ -151,57 +151,21 @@ value="{{ $commande->montant_ht }}">
 
 <label>Mode facturation</label>
 
-<select name="mode_facturation">
-
-
-<option value="Forfait"
-@if($commande->mode_facturation=="Forfait") selected @endif>
-Forfait
-</option>
-
-
-<option value="Mensuel"
-@if($commande->mode_facturation=="Mensuel") selected @endif>
-Mensuel
-</option>
-
-
-<option value="Avancement"
-@if($commande->mode_facturation=="Avancement") selected @endif>
-Avancement
-</option>
-
-
-</select>
+<input type="number"
+step="0.01"
+name="mode_facturation"
+value="{{ $commande->mode_facturation }}">
 
 
 <br><br>
 
 
+
 <label>Mode paiement</label>
 
-<select name="mode_paiement">
+<input type="number" step="0.01" name="mode_paiement" min="0"
+value="{{ $commande->mode_paiement }}">
 
-
-<option value="Virement"
-@if($commande->mode_paiement=="Virement") selected @endif>
-Virement
-</option>
-
-
-<option value="Chèque"
-@if($commande->mode_paiement=="Chèque") selected @endif>
-Chèque
-</option>
-
-
-<option value="Espèce"
-@if($commande->mode_paiement=="Espèce") selected @endif>
-Espèce
-</option>
-
-
-</select>
 
 
 <br><br>
@@ -222,20 +186,20 @@ value="{{ $commande->duree_garantie }}">
 <select name="complexite">
 
 
-<option value="Faible"
-@if($commande->complexite=="Faible") selected @endif>
+<option value="low"
+@if($commande->complexite=="low") selected @endif>
 Faible
 </option>
 
 
-<option value="Moyenne"
-@if($commande->complexite=="Moyenne") selected @endif>
+<option value="medium"
+@if($commande->complexite=="medium") selected @endif>
 Moyenne
 </option>
 
 
-<option value="Elevée"
-@if($commande->complexite=="Elevée") selected @endif>
+<option value="high"
+@if($commande->complexite=="high") selected @endif>
 Elevée
 </option>
 
@@ -251,27 +215,27 @@ Elevée
 <select name="statut">
 
 
-<option value="Préparation"
-@if($commande->statut=="Préparation") selected @endif>
-Préparation
+<option value="hold"
+@if($commande->statut=="hold") selected @endif>
+hold
 </option>
 
 
-<option value="En cours"
-@if($commande->statut=="En cours") selected @endif>
-En cours
+<option value="exécution"
+@if($commande->statut=="exécution") selected @endif>
+exécution
 </option>
 
 
-<option value="Terminé"
-@if($commande->statut=="Terminé") selected @endif>
-Terminé
+<option value="clôture"
+@if($commande->statut=="clôture") selected @endif>
+clôture
 </option>
 
 
-<option value="Suspendu"
-@if($commande->statut=="Suspendu") selected @endif>
-Suspendu
+<option value="réception définitive"
+@if($commande->statut=="réception définitive") selected @endif>
+réception définitive
 </option>
 
 

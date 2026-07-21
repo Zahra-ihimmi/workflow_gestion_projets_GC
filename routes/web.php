@@ -120,3 +120,6 @@ Route::post('/reset-password', [
     ForgotPasswordController::class,
     'resetPassword'
 ])->name('password.update');
+
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

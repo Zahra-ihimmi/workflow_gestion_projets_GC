@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Models\RapportTravaux;
 use Illuminate\Http\Request;
+use App\Models\RapportActivite;
 
 class RapportTravauxController extends Controller
 {
     // Liste
     public function index()
     {
-        $rapports = RapportTravaux::with('commande')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $rapports = RapportTravaux::with([
+            'commande',
+            'rapportActivites.prix'
+        ])->paginate(10);
 
         return view('rapport_travaux.index', compact('rapports'));
     }
@@ -21,7 +23,7 @@ class RapportTravauxController extends Controller
     // Formulaire ajout
     public function create()
     {
-        $commandes = Commande::all();
+        $commandes = Commande::with('prix')->get();
 
         return view('rapport_travaux.create', compact('commandes'));
     }
@@ -30,33 +32,108 @@ class RapportTravauxController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'commande_id' => 'required',
+            'commande_id' => 'required|exists:commandes,id',
             'date' => 'required|date',
             'ecart_hse' => 'required',
             'ecart_qualite' => 'required',
+
+            // Validation des activités
+            'activites' => 'required|array|min:1',
+
+            'activites.*.prix_id' =>
+                'required|exists:prix,id',
+
+            'activites.*.activite' =>
+                'required|string',
+
+            'activites.*.avancement' =>
+                'required|numeric|min:0|max:100',
         ]);
 
+
+        // Année actuelle
         $annee = date('Y');
 
+
+        // Récupérer le dernier rapport
         $dernier = RapportTravaux::latest()->first();
 
+
+        // Générer le numéro suivant
         if ($dernier) {
-            $numero = intval(substr($dernier->code, -3)) + 1;
+
+            $numero =
+                intval(substr($dernier->code, -3)) + 1;
+
         } else {
+
             $numero = 1;
+
         }
 
-        $code = 'RPT-' . $annee . '-' . str_pad($numero, 3, '0', STR_PAD_LEFT);
 
-        RapportTravaux::create([
+        // Générer le code
+        $code =
+            'RPT-' .
+            $annee .
+            '-' .
+            str_pad(
+                $numero,
+                3,
+                '0',
+                STR_PAD_LEFT
+            );
+
+
+        // Créer le rapport de travaux
+        $rapport = RapportTravaux::create([
+
             'code' => $code,
-            'commande_id' => $request->commande_id,
-            'date' => $request->date,
-            'ecart_hse' => $request->ecart_hse,
-            'ecart_qualite' => $request->ecart_qualite,
+
+            'commande_id' =>
+                $request->commande_id,
+
+            'date' =>
+                $request->date,
+
+            'ecart_hse' =>
+                $request->ecart_hse,
+
+            'ecart_qualite' =>
+                $request->ecart_qualite,
+
         ]);
 
-        return redirect()->route('rapport-travaux.index');
+
+        // Enregistrer toutes les activités
+        foreach ($request->activites as $activite) {
+
+            RapportActivite::create([
+
+                'rapport_travaux_id' =>
+                    $rapport->id,
+
+                'prix_id' =>
+                    $activite['prix_id'],
+
+                'activite' =>
+                    $activite['activite'],
+
+                'avancement' =>
+                    $activite['avancement'],
+
+            ]);
+
+        }
+
+
+        // Retourner vers la liste
+        return redirect()
+            ->route('rapport-travaux.index')
+            ->with(
+                'success',
+                'Rapport de travaux ajouté avec succès.'
+            );
     }
 
     // Formulaire modification
@@ -95,12 +172,19 @@ class RapportTravauxController extends Controller
     }
 
     // Supprimer
-    public function destroy($id)
-    {
-        $rapport = RapportTravaux::find($id);
+    public function destroy(RapportTravaux $rapport_travaux)
+{
+    // Supprimer manuellement les activités liées au rapport
+    \App\Models\RapportActivite::where(
+        'rapport_travaux_id',
+        $rapport_travaux->id
+    )->delete();
 
-        $rapport->delete();
+    // Supprimer ensuite le rapport de travaux
+    $rapport_travaux->delete();
 
-        return redirect()->route('rapport-travaux.index');
-    }
+    return redirect()
+        ->route('rapport-travaux.index')
+        ->with('success', 'Rapport de travaux supprimé avec succès.');
+}
 }

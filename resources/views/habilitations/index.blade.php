@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'liste des Habilitations')
 @section('content')
 
 <h2>Liste des Habilitations</h2>

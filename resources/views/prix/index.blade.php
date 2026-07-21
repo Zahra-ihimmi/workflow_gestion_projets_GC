@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'Liste des bordureaux de Prix')
 @section('content')
 
 <h2>Liste des Prix</h2>

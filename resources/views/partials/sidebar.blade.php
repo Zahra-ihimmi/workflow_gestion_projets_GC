@@ -8,15 +8,20 @@
     </div>
 
     <!-- User Info -->
-    <div class="sidebar-user">
-        <div class="user-avatar">
-            <img src="{{ Auth::user()->avatar ?? asset('images/default-avatar.png') }}" alt="User">
-        </div>
-        <div class="user-info">
-            <span class="user-name">{{ Auth::user()->name ?? 'Administrateur' }}</span>
-            <span class="user-role">{{ Auth::user()->role ?? 'Super Admin' }}</span>
-        </div>
+    <!-- User Info -->
+<div class="sidebar-user">
+    
+
+    <div class="user-info">
+        <span class="user-name">
+            {{ Auth::user()->nom }} {{ Auth::user()->prenom }}
+        </span>
+
+        <span class="user-email">
+            {{ Auth::user()->email }}
+        </span>
     </div>
+</div>
 
     <!-- Navigation -->
     <nav class="sidebar-nav">
@@ -89,12 +94,7 @@
                     <span>Rapports travaux</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                    <span>Rapports activités</span>
-                </a>
-            </li>
+            
 
             <li class="menu-title">
                 <i class="fa-solid fa-coins"></i>
@@ -177,14 +177,15 @@
                 </a>
             </li>
 
-            <li class="menu-title">
-                <i class="fa-solid fa-user"></i>
-                <span>Mon profil</span>
-            </li>
-
             <li class="menu-title logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Déconnexion</span>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+
+                    <button type="submit">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Déconnexion</span>
+                    </button>
+                </form>
             </li>
         </ul>
     </nav>

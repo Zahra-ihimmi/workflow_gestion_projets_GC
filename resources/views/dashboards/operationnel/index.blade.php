@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Dashboard Opérationnel')
-
+@section('breadcrumb', 'Dashboard opérationnel')
 @section('content')
 
 <style>
@@ -18,8 +18,61 @@
         --amber-soft: #FBF1DC;
         --ink: #17212B;
         --ink-soft: #6b7280;
+        --ink-faint: #9ca3af;
         --border: #e9ecf1;
         --bg-page: #F5F7FA;
+        --card-bg: #ffffff;
+        --input-border: #d1d5db;
+        --row-border: #eeeeee;
+
+        --badge-exec-bg: #dcfce7;
+        --badge-exec-color: #166534;
+        --badge-hold-bg: #fef3c7;
+        --badge-hold-color: #92400e;
+        --badge-cloture-bg: #dbeafe;
+        --badge-cloture-color: #1e40af;
+        --badge-reception-bg: #ede9fe;
+        --badge-reception-color: #5b21b6;
+        --badge-retard-bg: #fee2e2;
+        --badge-retard-color: #991b1b;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DARK MODE
+    |--------------------------------------------------------------------------
+    | layouts.app utilise <html data-theme="light|dark">, basculé par js/app.js.
+    */
+
+    html[data-theme="dark"] .operational-dashboard {
+        --steel: #6f9bc7;
+        --steel-dark: #4a7099;
+        --steel-soft: rgba(111, 155, 199, .16);
+        --safety: #ff8a4d;
+        --safety-soft: rgba(255, 138, 77, .14);
+        --teal: #5fc2ab;
+        --teal-soft: rgba(95, 194, 171, .14);
+        --amber: #f0c04b;
+        --amber-soft: rgba(240, 192, 75, .14);
+        --ink: #eef1f5;
+        --ink-soft: #a9b4c2;
+        --ink-faint: #7c8797;
+        --border: #2a3542;
+        --bg-page: #0f151d;
+        --card-bg: #171f29;
+        --input-border: #3a4552;
+        --row-border: #263140;
+
+        --badge-exec-bg: rgba(34, 197, 94, .18);
+        --badge-exec-color: #6ee7a1;
+        --badge-hold-bg: rgba(245, 158, 11, .18);
+        --badge-hold-color: #fbd077;
+        --badge-cloture-bg: rgba(59, 130, 246, .18);
+        --badge-cloture-color: #93c1fd;
+        --badge-reception-bg: rgba(139, 92, 246, .18);
+        --badge-reception-color: #c4b1fb;
+        --badge-retard-bg: rgba(239, 68, 68, .18);
+        --badge-retard-color: #fca5a5;
     }
 
     .operational-dashboard {
@@ -30,6 +83,7 @@
         flex: 1 1 100%;
         align-self: stretch;
         box-sizing: border-box;
+        transition: background-color .15s ease, color .15s ease;
     }
 
     .operational-dashboard * {
@@ -82,7 +136,7 @@
     /* FILTRES */
 
     .filter-card {
-        background: #fff;
+        background: var(--card-bg);
         border-radius: 14px;
         padding: 20px 22px;
         margin-bottom: 25px;
@@ -107,7 +161,7 @@
         font-size: 12.5px;
         font-weight: 600;
         margin-bottom: 7px;
-        color: #374151;
+        color: var(--ink-soft);
         text-transform: uppercase;
         letter-spacing: .03em;
     }
@@ -115,10 +169,10 @@
     .filter-group select {
         width: 100%;
         height: 42px;
-        border: 1px solid #d1d5db;
+        border: 1px solid var(--input-border);
         border-radius: 8px;
         padding: 0 12px;
-        background: #fff;
+        background: var(--card-bg);
         font-size: 13.5px;
         color: var(--ink);
         transition: border-color .15s ease;
@@ -241,7 +295,7 @@
     }
 
     .kpi-card {
-        background: #fff;
+        background: var(--card-bg);
         border-radius: 14px;
         padding: 18px;
         box-shadow: 0 3px 15px rgba(17,24,39,.05);
@@ -250,7 +304,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        transition: transform .15s ease, box-shadow .15s ease;
+        transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
     }
 
     .kpi-card:hover {
@@ -292,7 +346,7 @@
     }
 
     .kpi-card.accent-amber .kpi-value {
-        color: #8a6100;
+        color: var(--amber);
     }
 
     .kpi-card.accent-teal .kpi-value {
@@ -301,7 +355,7 @@
 
     .kpi-subtitle {
         font-size: 12px;
-        color: #9ca3af;
+        color: var(--ink-faint);
         margin-top: 5px;
     }
 
@@ -315,7 +369,7 @@
     }
 
     .chart-card {
-        background: #fff;
+        background: var(--card-bg);
         border-radius: 14px;
         padding: 20px;
         box-shadow: 0 3px 15px rgba(17,24,39,.05);
@@ -341,7 +395,7 @@
     /* TABLE */
 
     .table-card {
-        background: #fff;
+        background: var(--card-bg);
         border-radius: 14px;
         padding: 20px;
         box-shadow: 0 3px 15px rgba(17,24,39,.05);
@@ -361,14 +415,15 @@
     .operational-table th,
     .operational-table td {
         padding: 12px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--row-border);
         text-align: left;
         font-size: 13px;
+        color: var(--ink);
     }
 
     .operational-table th {
         font-weight: 700;
-        color: #374151;
+        color: var(--ink-soft);
         font-size: 11.5px;
         text-transform: uppercase;
         letter-spacing: .03em;
@@ -388,28 +443,28 @@
     }
 
     .badge-execution {
-        background: #dcfce7;
-        color: #166534;
+        background: var(--badge-exec-bg);
+        color: var(--badge-exec-color);
     }
 
     .badge-hold {
-        background: #fef3c7;
-        color: #92400e;
+        background: var(--badge-hold-bg);
+        color: var(--badge-hold-color);
     }
 
     .badge-cloture {
-        background: #dbeafe;
-        color: #1e40af;
+        background: var(--badge-cloture-bg);
+        color: var(--badge-cloture-color);
     }
 
     .badge-reception {
-        background: #ede9fe;
-        color: #5b21b6;
+        background: var(--badge-reception-bg);
+        color: var(--badge-reception-color);
     }
 
     .badge-retard {
-        background: #fee2e2;
-        color: #991b1b;
+        background: var(--badge-retard-bg);
+        color: var(--badge-retard-color);
     }
 
     @media(max-width: 1100px) {
@@ -1397,20 +1452,33 @@ document.addEventListener(
 
         /*
         |--------------------------------------------------------------------------
+        | Détection du dark mode : <html data-theme="dark"> (défini par js/app.js)
+        |--------------------------------------------------------------------------
+        */
+
+        function isDarkMode() {
+            return document.documentElement.getAttribute('data-theme') === 'dark';
+        }
+
+        var dark = isDarkMode();
+
+        /*
+        |--------------------------------------------------------------------------
         | Palette commune (cosmétique uniquement — n'affecte aucune donnée)
         |--------------------------------------------------------------------------
         */
 
-        var palette = [
-            '#2C4A6B', '#2F8C7A', '#D19A1D',
-            '#E2611C', '#6b7ba0', '#8fbfb2',
-            '#c9c9d1'
-        ];
+        var palette = dark
+            ? ['#6f9bc7', '#5fc2ab', '#f0c04b', '#ff8a4d', '#9fb3d1', '#a7d6c9', '#4a5568']
+            : ['#2C4A6B', '#2F8C7A', '#D19A1D', '#E2611C', '#6b7ba0', '#8fbfb2', '#c9c9d1'];
+
+        var gridColor = dark ? '#263140' : '#eef1f4';
+        var textColor = dark ? '#a9b4c2' : '#6b7280';
 
         Chart.defaults.font.family =
             "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 
-        Chart.defaults.color = '#6b7280';
+        Chart.defaults.color = textColor;
 
 
         /*
@@ -1441,7 +1509,7 @@ document.addEventListener(
 
                             backgroundColor: palette,
                             borderWidth: 2,
-                            borderColor: '#fff'
+                            borderColor: dark ? '#171f29' : '#fff'
                         }
 
                     ]
@@ -1460,7 +1528,13 @@ document.addEventListener(
 
                         legend: {
 
-                            position: 'bottom'
+                            position: 'bottom',
+
+                            labels: {
+
+                                color: textColor
+
+                            }
 
                         }
 
@@ -1500,7 +1574,7 @@ document.addEventListener(
 
                             backgroundColor: palette,
                             borderWidth: 2,
-                            borderColor: '#fff'
+                            borderColor: dark ? '#171f29' : '#fff'
                         }
 
                     ]
@@ -1519,7 +1593,13 @@ document.addEventListener(
 
                         legend: {
 
-                            position: 'bottom'
+                            position: 'bottom',
+
+                            labels: {
+
+                                color: textColor
+
+                            }
 
                         }
 
@@ -1564,7 +1644,7 @@ document.addEventListener(
                                     ->values()
                             ),
 
-                            backgroundColor: '#2C4A6B',
+                            backgroundColor: dark ? '#6f9bc7' : '#2C4A6B',
                             borderRadius: 6,
                             maxBarThickness: 42
                         }
@@ -1597,15 +1677,27 @@ document.addEventListener(
 
                             max: 100,
 
+                            ticks: {
+
+                                color: textColor
+
+                            },
+
                             grid: {
 
-                                color: '#eef1f4'
+                                color: gridColor
 
                             }
 
                         },
 
                         x: {
+
+                            ticks: {
+
+                                color: textColor
+
+                            },
 
                             grid: {
 
@@ -1655,9 +1747,9 @@ document.addEventListener(
 
                             ],
 
-                            backgroundColor: ['#2C4A6B', '#2F8C7A'],
+                            backgroundColor: dark ? ['#6f9bc7', '#5fc2ab'] : ['#2C4A6B', '#2F8C7A'],
                             borderWidth: 2,
-                            borderColor: '#fff'
+                            borderColor: dark ? '#171f29' : '#fff'
 
                         }
 
@@ -1677,7 +1769,13 @@ document.addEventListener(
 
                         legend: {
 
-                            position: 'bottom'
+                            position: 'bottom',
+
+                            labels: {
+
+                                color: textColor
+
+                            }
 
                         }
 
@@ -1718,7 +1816,7 @@ document.addEventListener(
 
                             backgroundColor: palette,
                             borderWidth: 2,
-                            borderColor: '#fff'
+                            borderColor: dark ? '#171f29' : '#fff'
 
                         }
 
@@ -1738,7 +1836,13 @@ document.addEventListener(
 
                         legend: {
 
-                            position: 'bottom'
+                            position: 'bottom',
+
+                            labels: {
+
+                                color: textColor
+
+                            }
 
                         }
 
@@ -1777,9 +1881,11 @@ document.addEventListener(
                                 array_values($ncHseParClasse)
                             ),
 
-                            backgroundColor: ['#E2611C', '#D19A1D', '#2C4A6B', '#6b7ba0'],
+                            backgroundColor: dark
+                                ? ['#ff8a4d', '#f0c04b', '#6f9bc7', '#9fb3d1']
+                                : ['#E2611C', '#D19A1D', '#2C4A6B', '#6b7ba0'],
                             borderWidth: 2,
-                            borderColor: '#fff'
+                            borderColor: dark ? '#171f29' : '#fff'
 
                         }
 
@@ -1799,7 +1905,13 @@ document.addEventListener(
 
                         legend: {
 
-                            position: 'bottom'
+                            position: 'bottom',
+
+                            labels: {
+
+                                color: textColor
+
+                            }
 
                         }
 

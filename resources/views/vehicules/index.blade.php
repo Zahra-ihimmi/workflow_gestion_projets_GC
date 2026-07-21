@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'Liste des Véhicules')
 @section('content')
 
 <h2>Liste des Véhicules</h2>
@@ -58,7 +58,9 @@ Modifier
 
 @method('DELETE')
 
-<button>
+<button
+    class="btn btn-danger btn-sm"
+                            onclick="return confirm('Supprimer ce véhicule ?')">
 
 Supprimer
 

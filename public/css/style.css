@@ -3674,3 +3674,24 @@ td .badge:not([class*="bg-"]) {
         justify-content: center !important;
     }
 }
+/* ============================================
+   deconnexion
+   ============================================ */
+
+.dropdown-menu form {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu form button.dropdown-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-menu form button.dropdown-item:hover {
+    background-color: #f5f5f5;
+}

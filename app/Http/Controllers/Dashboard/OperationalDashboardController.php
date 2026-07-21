@@ -647,7 +647,7 @@ class OperationalDashboardController extends Controller
 
                     return strtolower(
                         trim($commande->complexite ?? '')
-                    ) === 'classe a';
+                    ) === 'Classe A';
 
                 })
                 ->count(),
@@ -657,7 +657,7 @@ class OperationalDashboardController extends Controller
 
                     return strtolower(
                         trim($commande->complexite ?? '')
-                    ) === 'classe b';
+                    ) === 'Classe B';
 
                 })
                 ->count(),
@@ -667,7 +667,7 @@ class OperationalDashboardController extends Controller
 
                     return strtolower(
                         trim($commande->complexite ?? '')
-                    ) === 'classe c';
+                    ) === 'Classe C';
 
                 })
                 ->count(),

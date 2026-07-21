@@ -1,76 +1,176 @@
 @extends('layouts.app')
 
+@section('breadcrumb', 'Liste des Rapports journaliers de Travaux')
+
 @section('content')
 
 <h2>Liste des Rapports de Travaux</h2>
 
 <a href="{{ route('rapport-travaux.create') }}">
-Ajouter un rapport
+    Ajouter un rapport
 </a>
 
 <br><br>
 
+@if(session('success'))
+
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+
+@endif
+
+
 <table border="1">
 
-<tr>
+    <tr>
 
-<th>Code</th>
+        <th>Code</th>
 
-<th>Commande</th>
+        <th>Commande</th>
 
-<th>Date</th>
+        <th>Date</th>
 
-<th>Ecart HSE</th>
+        <th>Activités réalisées</th>
 
-<th>Ecart Qualité</th>
+        <th>Ecart HSE</th>
 
-<th>Actions</th>
+        <th>Ecart Qualité</th>
 
-</tr>
+        <th>Actions</th>
 
-@foreach($rapports as $rapport)
+    </tr>
 
-<tr>
 
-<td>{{ $rapport->code }}</td>
+    @forelse($rapports as $rapport)
 
-<td>{{ $rapport->commande->code }}</td>
+        <tr>
 
-<td>{{ $rapport->date }}</td>
+            {{-- Code du rapport --}}
+            <td>
+                {{ $rapport->code }}
+            </td>
 
-<td>{{ $rapport->ecart_hse }}</td>
 
-<td>{{ $rapport->ecart_qualite }}</td>
+            {{-- Commande --}}
+            <td>
+                {{ $rapport->commande->code }}
+            </td>
 
-<td>
 
-<a href="{{ route('rapport-travaux.edit',$rapport->id) }}">
-Modifier
-</a>
+            {{-- Date --}}
+            <td>
+                {{ $rapport->date }}
+            </td>
 
-<form action="{{ route('rapport-travaux.destroy',$rapport->id) }}" method="POST">
 
-@csrf
-@method('DELETE')
+            {{-- Activités --}}
+            <td>
 
-<button>
+                @forelse($rapport->rapportActivites as $rapportActivite)
 
-Supprimer
+                    <div style="margin-bottom: 8px;">
 
-</button>
+                        <strong>
+                            {{ $rapportActivite->prix->code }}
+                        </strong>
 
-</form>
+                        -
 
-</td>
+                        {{ $rapportActivite->activite }}
 
-</tr>
+                        <span
+                            style="
+                                background-color: #0d6efd;
+                                color: white;
+                                padding: 3px 7px;
+                                border-radius: 4px;
+                                margin-left: 5px;
+                            ">
 
-@endforeach
+                            {{ $rapportActivite->avancement }}%
+
+                        </span>
+
+                    </div>
+
+                @empty
+
+                    <span>
+                        Aucune activité
+                    </span>
+
+                @endforelse
+
+            </td>
+
+
+            {{-- Ecart HSE --}}
+            <td>
+                {{ $rapport->ecart_hse }}
+            </td>
+
+
+            {{-- Ecart Qualité --}}
+            <td>
+                {{ $rapport->ecart_qualite }}
+            </td>
+
+
+            {{-- Actions --}}
+            <td>
+
+                <a href="{{ route('rapport-travaux.edit', $rapport->id) }}">
+                    Modifier
+                </a>
+
+
+                <form
+                    action="{{ route('rapport-travaux.destroy', $rapport->id) }}"
+                    method="POST"
+                    style="display:inline;">
+
+                    @csrf
+
+                    @method('DELETE')
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Supprimer ce rapport de travaux ?')">
+
+                        Supprimer
+
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+    @empty
+
+        <tr>
+
+            <td colspan="7" style="text-align:center;">
+
+                Aucun rapport de travaux trouvé.
+
+            </td>
+
+        </tr>
+
+    @endforelse
 
 </table>
 
+
 <br>
 
+
 {{ $rapports->links() }}
+
 
 @endsection

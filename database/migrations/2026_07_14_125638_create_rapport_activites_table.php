@@ -30,9 +30,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            // Empêche d'avoir deux fois le même prix
-            // dans le même rapport
-            $table->unique(['rapport_travaux_id', 'prix_id']);
+            
         });
     }
 

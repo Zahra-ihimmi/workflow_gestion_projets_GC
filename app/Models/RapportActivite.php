@@ -15,11 +15,17 @@ class RapportActivite extends Model
 
     public function rapportTravaux()
     {
-        return $this->belongsTo(RapportTravaux::class);
+        return $this->belongsTo(
+            RapportTravaux::class,
+            'rapport_travaux_id'
+        );
     }
 
     public function prix()
     {
-        return $this->belongsTo(Prix::class);
+        return $this->belongsTo(
+            Prix::class,
+            'prix_id'
+        );
     }
 }

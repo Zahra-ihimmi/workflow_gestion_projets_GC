@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumb', 'Liste des Pointages')
 @section('content')
 
 <h2>Liste des Pointages</h2>
@@ -54,7 +54,9 @@ Modifier
 
 @method('DELETE')
 
-<button>
+<button
+    class="btn btn-danger btn-sm"
+                            onclick="return confirm('Supprimer ce pointage ?')">
 
 Supprimer
 

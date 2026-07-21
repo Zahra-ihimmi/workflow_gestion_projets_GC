@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Dashboard Analytique')
-
+@section('breadcrumb', 'Dashboard analytique')
 @section('content')
 
 <div class="page-header">

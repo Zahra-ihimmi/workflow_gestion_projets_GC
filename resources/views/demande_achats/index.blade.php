@@ -1,137 +1,135 @@
 @extends('layouts.app')
 
+@section('breadcrumb', "Liste des demandes d'achat")
 
 @section('content')
 
+<div class="container mt-4">
 
-<h2>Liste des demandes d'achat</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
+        <h2 class="mb-0">
+            Liste des demandes d'achat
+        </h2>
 
-<a href="{{ route('demande-achats.create') }}">
-    Ajouter une demande d'achat
-</a>
+        <a href="{{ route('demande-achats.create') }}" class="btn btn-primary">
+            Ajouter une demande d'achat
+        </a>
 
+    </div>
 
-<br><br>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    <table class="table table-bordered table-hover">
 
-<table border="1" cellpadding="10">
+        <thead class="table-dark">
 
+            <tr>
+                <th>Code</th>
+                <th>LB</th>
+                <th>Utilisateur</th>
+                <th>Estimation</th>
+                <th>Date saisie</th>
+                <th>Acheteur</th>
+                <th>Type projet</th>
+                <th>Catégorie</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
 
-<tr>
+        </thead>
 
-<th>Code</th>
+        <tbody>
 
-<th>LB</th>
+            @forelse($demandeAchats as $da)
 
-<th>Utilisateur</th>
+                <tr>
 
-<th>Estimation</th>
+                    <td>
+                        {{ $da->code }}
+                    </td>
 
-<th>Date saisi</th>
+                    <td>
+                        {{ $da->ligneBudgetaire->intitule ?? '-' }}
+                    </td>
 
-<th>Acheteur</th>
+                    <td>
+                        {{ $da->utilisateur->nom ?? '' }}
+                        {{ $da->utilisateur->prenom ?? '' }}
+                    </td>
 
-<th>Type projet</th>
+                    <td>
+                        {{ number_format($da->estimation, 2, ',', ' ') }}
+                    </td>
 
-<th>Catégorie</th>
+                    <td>
+                        {{ $da->date_saisi }}
+                    </td>
 
-<th>Statut</th>
+                    <td>
+                        {{ $da->acheteur }}
+                    </td>
 
-<th>Actions</th>
+                    <td>
+                        {{ $da->type_projet }}
+                    </td>
 
-</tr>
+                    <td>
+                        {{ $da->categorie }}
+                    </td>
 
+                    <td>
+                        {{ $da->statut }}
+                    </td>
 
+                    <td>
 
-@foreach($demandeAchats as $da)
+                        <a href="{{ route('demande-achats.edit', $da->id) }}"
+                           class="btn btn-success btn-sm">
+                            Modifier
+                        </a>
 
+                        <form action="{{ route('demande-achats.destroy', $da->id) }}"
+                              method="POST"
+                              class="d-inline">
 
-<tr>
+                            @csrf
+                            @method('DELETE')
 
-<td>
-{{ $da->code }}
-</td>
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Supprimer cette demande d’achat ?')">
+                                Supprimer
+                            </button>
 
+                        </form>
 
-<td>
-{{ $da->ligneBudgetaire->intitule }}
-</td>
+                    </td>
 
+                </tr>
 
-<td>
-{{ $da->utilisateur->nom }}
-{{ $da->utilisateur->prenom }}
-</td>
+            @empty
 
+                <tr>
+                    <td colspan="10" class="text-center">
+                        Aucune demande d'achat trouvée.
+                    </td>
+                </tr>
 
-<td>
-{{ $da->estimation }}
-</td>
+            @endforelse
 
+        </tbody>
 
-<td>
-{{ $da->date_saisi }}
-</td>
+    </table>
 
+    <div class="mt-3">
+        {{ $demandeAchats->links() }}
+    </div>
 
-<td>
-{{ $da->acheteur }}
-</td>
-
-
-<td>
-{{ $da->type_projet }}
-</td>
-
-
-<td>
-{{ $da->categorie }}
-</td>
-
-
-<td>
-{{ $da->statut }}
-</td>
-
-
-<td>
-
-<a href="{{ route('demande-achats.edit',$da->id) }}">
-Modifier
-</a>
-
-
-<form action="{{ route('demande-achats.destroy',$da->id) }}" method="POST">
-
-    @csrf
-
-    @method('DELETE')
-
-
-    <button type="submit">
-        Supprimer
-    </button>
-
-</form>
-
-
-</td>
-
-
-</tr>
-
-
-@endforeach
-
-
-</table>
-
-
-<br>
-
-
-{{ $demandeAchats->links() }}
-
+</div>
 
 @endsection

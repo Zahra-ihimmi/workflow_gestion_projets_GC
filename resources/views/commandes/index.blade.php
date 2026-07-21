@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('breadcrumb', 'Liste des commandes')
 @section('content')
 
 
