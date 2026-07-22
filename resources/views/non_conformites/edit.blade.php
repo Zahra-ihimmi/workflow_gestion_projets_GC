@@ -73,7 +73,7 @@ Critique
 
 <label>Type</label>
 
-<select name="type">
+<select name="type" id="type" required>
 
 <option
 value="Qualité"
@@ -92,7 +92,18 @@ HSE
 </option>
 
 </select>
+<br><br>
+<label for="description">
+        Description de la non-conformité
+    </label>
 
+    <select
+        name="description"
+        id="description"
+        class="form-control"
+        required>
+
+    </select>
 <br><br>
 
 <label>Echéance</label>
@@ -131,5 +142,124 @@ Modifier
 </button>
 
 </form>
+<script>
 
+const descriptions = {
+
+    HSE: [
+        "Défaillance Technique",
+        "Défaillance Organisationnelle",
+        "Erreur Humaine",
+        "Non-conformité Environnementale",
+        "Situation Dangereuse",
+        "Violation de règle",
+        "Défaillance EPI",
+        "Manque de Signalisation",
+        "Manque de Formation",
+        "Défaillance Systémique"
+    ],
+
+    Qualité: [
+        "NC liée à l'environnement d'exécution",
+        "Conception ou plan erroné",
+        "Défaut de contrôle ou d'essai",
+        "Non-respect d'une procédure ou méthode",
+        "Documentation ou traçabilité manquante",
+        "Produits ou équipements NC",
+        "Anomalie de finition ou esthétique",
+        "Vice de mise en œuvre ou d'exécution",
+        "Défaut de matériau",
+        "Excès dimensionnel ou géométrique"
+    ]
+
+};
+
+
+const typeSelect =
+    document.getElementById('type');
+
+const descriptionSelect =
+    document.getElementById('description');
+
+
+function chargerDescriptions(
+    type,
+    descriptionSelectionnee = null
+) {
+
+    descriptionSelect.innerHTML = '';
+
+
+    const defaultOption =
+        document.createElement('option');
+
+    defaultOption.value = '';
+
+    defaultOption.textContent =
+        'Sélectionner une description';
+
+    descriptionSelect.appendChild(
+        defaultOption
+    );
+
+
+    if (descriptions[type]) {
+
+        descriptions[type].forEach(
+            function (description) {
+
+                const option =
+                    document.createElement('option');
+
+                option.value =
+                    description;
+
+                option.textContent =
+                    description;
+
+
+                if (
+                    description ===
+                    descriptionSelectionnee
+                ) {
+
+                    option.selected = true;
+
+                }
+
+
+                descriptionSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+// Charger la description existante
+
+chargerDescriptions(
+    typeSelect.value,
+    @json($nonConformite->description)
+);
+
+
+// Changer les options lorsque le type change
+
+typeSelect.addEventListener(
+    'change',
+    function () {
+
+        chargerDescriptions(
+            this.value
+        );
+
+    }
+);
+
+</script>
 @endsection

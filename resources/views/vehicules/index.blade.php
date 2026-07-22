@@ -76,8 +76,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $vehicules->links() }}
 
 @endsection

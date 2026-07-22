@@ -14,7 +14,7 @@ class PersonnelController extends Controller
     {
         $personnels = Personnel::with('fournisseur')
                     ->orderBy('nom')
-                    ->paginate(10);
+                    ->get();
 
         return view('personnels.index', compact('personnels'));
     }

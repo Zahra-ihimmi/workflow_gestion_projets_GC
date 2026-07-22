@@ -14,7 +14,7 @@ class DemandeAchatController extends Controller
             'utilisateur'
         ])
         ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        ->get();
 
 
         return view('demande_achats.index', compact('demandeAchats'));

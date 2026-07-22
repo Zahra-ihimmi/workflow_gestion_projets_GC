@@ -79,8 +79,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $plannings->links() }}
 
 @endsection

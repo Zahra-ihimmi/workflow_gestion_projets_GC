@@ -31,6 +31,12 @@
 
         <th>Date</th>
 
+        <th>CIN Rapporteur</th>
+
+        <th>Météo matin</th>
+
+        <th>Météo soir</th>
+
         <th>Activités réalisées</th>
 
         <th>Ecart HSE</th>
@@ -61,6 +67,24 @@
             {{-- Date --}}
             <td>
                 {{ $rapport->date }}
+            </td>
+
+
+            {{-- CIN du rapporteur --}}
+            <td>
+                {{ $rapport->cin_reporteur }}
+            </td>
+
+
+            {{-- Météo matin --}}
+            <td>
+                {{ $rapport->meteo_matin }}
+            </td>
+
+
+            {{-- Météo soir --}}
+            <td>
+                {{ $rapport->meteo_soir }}
             </td>
 
 
@@ -154,7 +178,7 @@
 
         <tr>
 
-            <td colspan="7" style="text-align:center;">
+            <td colspan="10" style="text-align:center;">
 
                 Aucun rapport de travaux trouvé.
 
@@ -167,10 +191,7 @@
 </table>
 
 
-<br>
 
-
-{{ $rapports->links() }}
 
 
 @endsection

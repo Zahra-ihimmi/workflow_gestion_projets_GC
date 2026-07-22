@@ -126,9 +126,7 @@
 
     </table>
 
-    <div class="mt-3">
-        {{ $demandeAchats->links() }}
-    </div>
+    
 
 </div>
 

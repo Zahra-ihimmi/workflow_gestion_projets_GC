@@ -14,7 +14,7 @@ class FactureController extends Controller
     {
         $factures = Facture::with('decompte')
                     ->orderBy('created_at','desc')
-                    ->paginate(10);
+                    ->get();
 
         return view('factures.index', compact('factures'));
     }

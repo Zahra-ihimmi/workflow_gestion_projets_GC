@@ -123,3 +123,75 @@ Route::post('/reset-password', [
 
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    /*
+|--------------------------------------------------------------------------
+| formulaire externe rapport journalier
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/externe/rapport-journalier',
+    [RapportTravauxController::class, 'createExterne']
+)->name('externe.rapport-journalier');
+Route::post(
+        '/externe/rapport-journalier',
+        [RapportTravauxController::class, 'storeExterne']
+    )->name('externe.rapport-journalier.store');
+
+Route::get(
+        '/externe/rapport-journalier/succes',
+        function () {
+            return view('rapport_travaux.success-externe');
+        }
+    )->name('externe.rapport-journalier.success');
+
+   /*
+|--------------------------------------------------------------------------
+| formulaire externe non conformité
+|--------------------------------------------------------------------------
+*/
+Route::get(
+    '/externe/non-conformite',
+    [NonConformiteController::class, 'createExterne']
+)->name('externe.non-conformites.create');
+
+
+Route::post(
+    '/externe/non-conformite',
+    [NonConformiteController::class, 'storeExterne']
+)->name('externe.non-conformites.store');
+
+   /*
+|--------------------------------------------------------------------------
+| formulaire externe formation
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/externe/formation',
+    [FormationController::class, 'createExterne']
+)->name('externe.formations.create');
+
+
+Route::post(
+    '/externe/formation',
+    [FormationController::class, 'storeExterne']
+)->name('externe.formations.store');
+
+
+   /*
+|--------------------------------------------------------------------------
+| formulaire externe plan d'action
+|--------------------------------------------------------------------------
+*/
+Route::get(
+    '/externe/plan-action',
+    [PlanActionController::class, 'createExterne']
+)->name('externe.plan-actions.create');
+
+
+Route::post(
+    '/externe/plan-action',
+    [PlanActionController::class, 'storeExterne']
+)->name('externe.plan-actions.store');

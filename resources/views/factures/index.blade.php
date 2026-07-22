@@ -72,8 +72,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $factures->links() }}
 
 @endsection

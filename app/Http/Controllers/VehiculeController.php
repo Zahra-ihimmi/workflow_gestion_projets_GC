@@ -13,7 +13,7 @@ class VehiculeController extends Controller
     {
         $vehicules = Vehicule::with('fournisseur')
                     ->orderBy('date_debut','desc')
-                    ->paginate(10);
+                    ->get();
 
         return view('vehicules.index', compact('vehicules'));
     }

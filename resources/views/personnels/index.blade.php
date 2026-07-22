@@ -96,8 +96,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $personnels->links() }}
 
 @endsection

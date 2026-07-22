@@ -15,7 +15,7 @@ class PlanActionController extends Controller
     {
         $planActions = PlanAction::with('commande','personnel')
                         ->orderBy('created_at','desc')
-                        ->paginate(10);
+                        ->get();
 
         return view('plan_actions.index', compact('planActions'));
     }
@@ -154,6 +154,45 @@ class PlanActionController extends Controller
 
         return redirect()->route('plan-actions.index');
 
+    }
+
+    public function createExterne()
+    {
+        $commandes = Commande::all();
+
+        $personnels = Personnel::all();
+
+        return view(
+            'plan_actions.create-externe',
+            compact('commandes', 'personnels')
+        );
+    }
+    public function storeExterne(Request $request)
+    {
+        $request->validate([
+            'commande_id' => 'required|exists:commandes,id',
+            'personnel_cin' => 'required|exists:personnels,cin',
+            'date_spa' => 'required|date',
+            'activite' => 'required|string|max:255',
+            'dangers' => 'required|string|max:255',
+            'mesures_preventives' => 'required|string',
+        ]);
+
+        PlanAction::create([
+            'commande_id' => $request->commande_id,
+            'personnel_cin' => $request->personnel_cin,
+            'date_spa' => $request->date_spa,
+            'activite' => $request->activite,
+            'dangers' => $request->dangers,
+            'mesures_preventives' => $request->mesures_preventives,
+        ]);
+
+        return redirect()
+            ->route('externe.plan-actions.create')
+            ->with(
+                'success',
+                'Le plan d\'action a été enregistré avec succès.'
+            );
     }
 
 }

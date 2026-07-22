@@ -13,7 +13,7 @@ class HabilitationController extends Controller
     {
         $habilitations = Habilitation::with('personnel')
                         ->orderBy('date_obtention','desc')
-                        ->paginate(10);
+                        ->get();
 
         return view('habilitations.index',compact('habilitations'));
     }

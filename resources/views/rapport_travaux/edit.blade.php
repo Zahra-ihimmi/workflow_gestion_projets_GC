@@ -1,84 +1,171 @@
 @extends('layouts.app')
 
+@section('breadcrumb', 'Modifier un Rapport de Travaux')
+
 @section('content')
 
 <h2>Modifier un Rapport de Travaux</h2>
 
-<form action="{{ route('rapport-travaux.update',$rapport->id) }}" method="POST">
+<form
+    action="{{ route('rapport-travaux.update', $rapport->id) }}"
+    method="POST">
 
-@csrf
-@method('PUT')
+    @csrf
+    @method('PUT')
 
-<label>Commande</label>
 
-<select name="commande_id">
+    {{-- Commande --}}
 
-@foreach($commandes as $commande)
+    <label>
+        Commande
+    </label>
 
-<option
-value="{{ $commande->id }}"
-{{ $commande->id == $rapport->commande_id ? 'selected' : '' }}>
+    <select name="commande_id">
 
-{{ $commande->code }}
+        @foreach($commandes as $commande)
 
-</option>
+            <option
+                value="{{ $commande->id }}"
+                {{ $commande->id == $rapport->commande_id ? 'selected' : '' }}>
 
-@endforeach
+                {{ $commande->code }}
 
-</select>
+            </option>
 
-<br><br>
+        @endforeach
 
-<label>Date</label>
+    </select>
 
-<input
-type="date"
-name="date"
-value="{{ $rapport->date }}">
 
-<br><br>
+    <br><br>
 
-<label>Ecart HSE</label>
 
-<select name="ecart_hse">
+    {{-- Date --}}
 
-<option value="Non"
-{{ $rapport->ecart_hse == 'Non' ? 'selected' : '' }}>
-Non
-</option>
+    <label>
+        Date
+    </label>
 
-<option value="Oui"
-{{ $rapport->ecart_hse == 'Oui' ? 'selected' : '' }}>
-Oui
-</option>
+    <input
+        type="date"
+        name="date"
+        value="{{ $rapport->date }}">
 
-</select>
 
-<br><br>
+    <br><br>
 
-<label>Ecart Qualité</label>
 
-<select name="ecart_qualite">
+    {{-- CIN Rapporteur --}}
 
-<option value="Non"
-{{ $rapport->ecart_qualite == 'Non' ? 'selected' : '' }}>
-Non
-</option>
+    <label>
+        CIN du rapporteur
+    </label>
 
-<option value="Oui"
-{{ $rapport->ecart_qualite == 'Oui' ? 'selected' : '' }}>
-Oui
-</option>
+    <input
+        type="text"
+        name="cin_reporteur"
+        value="{{ $rapport->cin_reporteur }}"
+        placeholder="Ex : AB123456">
 
-</select>
 
-<br><br>
+    <br><br>
 
-<button>
 
-Modifier
+    {{-- Météo matin --}}
 
-</button>
+    <label>
+        Météo du matin
+    </label>
+
+    <input
+        type="text"
+        name="meteo_matin"
+        value="{{ $rapport->meteo_matin }}"
+        placeholder="Ex : Ensoleillé, Nuageux, Pluvieux">
+
+
+    <br><br>
+
+
+    {{-- Météo soir --}}
+
+    <label>
+        Météo du soir
+    </label>
+
+    <input
+        type="text"
+        name="meteo_soir"
+        value="{{ $rapport->meteo_soir }}"
+        placeholder="Ex : Ensoleillé, Nuageux, Pluvieux">
+
+
+    <br><br>
+
+
+    {{-- Ecart HSE --}}
+
+    <label>
+        Ecart HSE
+    </label>
+
+    <select name="ecart_hse">
+
+        <option
+            value="Non"
+            {{ $rapport->ecart_hse == 'Non' ? 'selected' : '' }}>
+
+            Non
+
+        </option>
+
+        <option
+            value="Oui"
+            {{ $rapport->ecart_hse == 'Oui' ? 'selected' : '' }}>
+
+            Oui
+
+        </option>
+
+    </select>
+
+
+    <br><br>
+
+
+    {{-- Ecart Qualité --}}
+
+    <label>
+        Ecart Qualité
+    </label>
+
+    <select name="ecart_qualite">
+
+        <option
+            value="Non"
+            {{ $rapport->ecart_qualite == 'Non' ? 'selected' : '' }}>
+
+            Non
+
+        </option>
+
+        <option
+            value="Oui"
+            {{ $rapport->ecart_qualite == 'Oui' ? 'selected' : '' }}>
+
+            Oui
+
+        </option>
+
+    </select>
+
+
+    <br><br>
+
+
+    <button>
+        Modifier
+    </button>
 
 </form>
 

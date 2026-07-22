@@ -14,7 +14,7 @@ class PrixController extends Controller
     {
         $prix = Prix::with('commande')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();
 
         return view('prix.index', compact('prix'));
     }

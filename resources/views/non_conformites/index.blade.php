@@ -75,6 +75,7 @@
         <th>Date</th>
         <th>Classe</th>
         <th>Type</th>
+        <th>Description</th>
         <th>Échéance</th>
         <th>Personnel</th>
         <th>Actions</th>
@@ -128,6 +129,12 @@
         </td>
 
 
+        {{-- Description --}}
+        <td>
+            {{ $nc->description }}
+        </td>
+
+
         {{-- Échéance --}}
         <td>
             {{ $nc->echeance }}
@@ -148,9 +155,10 @@
                 Modifier
             </a>
 
-            <form action="{{ route('non-conformites.destroy', $nc->id) }}"
-                  method="POST"
-                  style="display:inline;">
+            <form
+                action="{{ route('non-conformites.destroy', $nc->id) }}"
+                method="POST"
+                style="display:inline;">
 
                 @csrf
                 @method('DELETE')
@@ -168,10 +176,5 @@
     @endforeach
 
 </table>
-
-
-<br>
-
-{{ $nonConformites->links() }}
 
 @endsection

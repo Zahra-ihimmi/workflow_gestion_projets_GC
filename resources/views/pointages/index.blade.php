@@ -72,8 +72,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $pointages->links() }}
 
 @endsection

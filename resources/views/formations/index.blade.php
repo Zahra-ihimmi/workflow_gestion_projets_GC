@@ -80,8 +80,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $formations->links() }}
 
 @endsection

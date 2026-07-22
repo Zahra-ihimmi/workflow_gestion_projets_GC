@@ -12,6 +12,9 @@ class RapportTravaux extends Model
         'code',
         'commande_id',
         'date',
+        'cin_reporteur',
+        'meteo_matin',
+        'meteo_soir',
         'ecart_hse',
         'ecart_qualite',
     ];

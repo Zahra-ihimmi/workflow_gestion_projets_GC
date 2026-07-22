@@ -85,8 +85,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $decomptes->links() }}
 
 @endsection

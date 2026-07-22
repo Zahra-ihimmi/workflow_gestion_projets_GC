@@ -70,8 +70,6 @@
 
 </table>
 
-<br>
 
-{{ $prix->links() }}
 
 @endsection

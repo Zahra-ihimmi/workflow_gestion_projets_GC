@@ -84,8 +84,5 @@ Supprimer
 
 </table>
 
-<br>
-
-{{ $fournisseurs->links() }}
 
 @endsection

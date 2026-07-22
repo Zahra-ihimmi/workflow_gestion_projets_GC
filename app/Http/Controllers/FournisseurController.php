@@ -12,7 +12,7 @@ class FournisseurController extends Controller
     public function index()
     {
         $fournisseurs = Fournisseur::orderBy('nom')
-                        ->paginate(10);
+                        ->get();
 
         return view('fournisseurs.index', compact('fournisseurs'));
     }

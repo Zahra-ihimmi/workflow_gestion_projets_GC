@@ -58,7 +58,67 @@
                 required>
 
         </div>
+    
+        {{-- CIN du rapporteur --}}
 
+        <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+
+                CIN du rapporteur
+                <span class="text-danger">*</span>
+
+            </label>
+
+            <input
+                type="text"
+                name="cin_reporteur"
+                class="form-control"
+                placeholder="Ex : AB123456"
+                value="{{ old('cin_reporteur') }}"
+                required>
+
+        </div>
+
+
+        {{-- Météo du matin --}}
+
+        <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+
+                Météo du matin
+
+            </label>
+
+            <input
+                type="text"
+                name="meteo_matin"
+                class="form-control"
+                placeholder="Ex : Ensoleillé, Nuageux, Pluvieux..."
+                value="{{ old('meteo_matin') }}">
+
+        </div>
+
+
+        {{-- Météo du soir --}}
+
+        <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+
+                Météo du soir
+
+            </label>
+
+            <input
+                type="text"
+                name="meteo_soir"
+                class="form-control"
+                placeholder="Ex : Ensoleillé, Nuageux, Pluvieux..."
+                value="{{ old('meteo_soir') }}">
+
+        </div>
 
         {{-- Écart HSE --}}
         <div class="mb-3">

@@ -13,7 +13,7 @@ class DecompteController extends Controller
     {
         $decomptes = Decompte::with('commande')
                         ->orderBy('created_at','desc')
-                        ->paginate(10);
+                        ->get();
 
         return view('decomptes.index', compact('decomptes'));
     }

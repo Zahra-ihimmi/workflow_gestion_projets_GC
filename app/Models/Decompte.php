@@ -30,4 +30,8 @@ class Decompte extends Model
     {
         return $this->belongsTo(Commande::class);
     }
+    public function facture()
+    {
+        return $this->hasOne(Facture::class);
+    }
 }

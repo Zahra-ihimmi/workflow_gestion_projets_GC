@@ -17,6 +17,7 @@ class NonConformite extends Model
         'classe',
 
         'type',
+        'description',
 
         'echeance',
 

@@ -15,7 +15,7 @@ class NonConformiteController extends Controller
     {
         $nonConformites = NonConformite::with('commande','personnel')
                         ->orderBy('created_at','desc')
-                        ->paginate(10);
+                        ->get();
 
         return view('non_conformites.index',compact('nonConformites'));
     }
@@ -44,8 +44,8 @@ class NonConformiteController extends Controller
 
         'classe' => 'required',
 
-        'type' => 'required',
-
+        'type' => 'required|in:HSE,Qualité',
+        'description' => 'required|string',
         'echeance' => 'nullable|date',
 
         'personnel_cin' => 'required',
@@ -84,7 +84,7 @@ class NonConformiteController extends Controller
         'classe' => $request->classe,
 
         'type' => $request->type,
-
+        'description' => $request->description,
         'echeance' => $request->echeance,
 
         'personnel_cin' => $request->personnel_cin,
@@ -126,7 +126,8 @@ class NonConformiteController extends Controller
 
             'classe'=>'required',
 
-            'type'=>'required',
+            'type' => 'required|in:HSE,Qualité',
+            'description' => 'required|string',
 
             'echeance'=>'nullable',
 
@@ -145,7 +146,7 @@ class NonConformiteController extends Controller
             'classe'=>$request->classe,
 
             'type'=>$request->type,
-
+            'description' => $request->description,
             'echeance'=>$request->echeance,
 
             'personnel_cin'=>$request->personnel_cin,
@@ -167,6 +168,82 @@ class NonConformiteController extends Controller
 
         return redirect()->route('non-conformites.index');
 
+    }
+
+    public function createExterne()
+    {
+        $commandes = Commande::all();
+
+        $personnels = Personnel::all();
+
+        return view(
+            'non_conformites.create-externe',
+            compact('commandes', 'personnels')
+        );
+    }
+    public function storeExterne(Request $request)
+    {
+        $request->validate([
+
+        'commande_id' => 'required',
+
+        'date' => 'required|date',
+
+        'classe' => 'required',
+
+        'type' => 'required|in:HSE,Qualité',
+        'description' => 'required|string',
+        'echeance' => 'nullable|date',
+
+        'personnel_cin' => 'required',
+
+    ]);
+
+
+    // Génération automatique du code
+
+    if ($request->type == "Qualité") {
+        $prefixe = "NCQTY";
+    } else {
+        $prefixe = "NCHSE";
+    }
+
+    $dernierNumero = NonConformite::where('code', 'like', $prefixe . '-%')
+        ->get()
+        ->map(function ($item) {
+            return (int) substr($item->code, -3);
+        })
+        ->max();
+
+    $numero = $dernierNumero ? $dernierNumero + 1 : 1;
+
+    $code = $prefixe . '-' . str_pad($numero, 3, '0', STR_PAD_LEFT);
+
+
+    NonConformite::create([
+
+        'code' => $code,
+
+        'commande_id' => $request->commande_id,
+
+        'date' => $request->date,
+
+        'classe' => $request->classe,
+
+        'type' => $request->type,
+        'description' => $request->description,
+        'echeance' => $request->echeance,
+
+        'personnel_cin' => $request->personnel_cin,
+
+    ]);
+
+    return redirect()
+    ->route('externe.non-conformites.create')
+    ->with(
+        'success',
+        'La non-conformité a été enregistrée avec succès.'
+    );
     }
 
 }

@@ -14,7 +14,7 @@ class LigneBudgetaireController extends Controller
     {
         $ligneBudgetaires = LigneBudgetaire::with('utilisateur')
                             ->orderBy('created_at', 'desc')
-                            ->paginate(10);
+                            ->get();
 
         return view('ligne_budgetaires.index', compact('ligneBudgetaires'));
     }

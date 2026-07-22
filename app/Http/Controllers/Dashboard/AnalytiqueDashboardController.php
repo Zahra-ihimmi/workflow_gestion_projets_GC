@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\LigneBudgetaire;
 use App\Models\Fournisseur;
+use App\Models\Utilisateur;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AnalytiqueDashboardController extends Controller
@@ -22,6 +24,10 @@ class AnalytiqueDashboardController extends Controller
         $client = $request->input('client');
 
         $fournisseurId = $request->input('fournisseur_id');
+
+        $chefProjetId = $request->input('chef_projet_id');
+
+        $commandeId = $request->input('commande_id');
 
         $periode = $request->input(
             'periode',
@@ -67,20 +73,41 @@ class AnalytiqueDashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | REQUÊTE PRINCIPALE
+        | LISTE DES CHEFS DE PROJET
         |--------------------------------------------------------------------------
         |
-        | On récupère les LB avec :
-        |
-        | LB
-        |  └── DA
-        |       └── CMD
-        |            └── Fournisseur
+        | Le chef de projet est lié à la LB via utilisateur_id.
         |
         */
 
+        $chefsProjet = Utilisateur::query()
+            ->orderBy('nom')
+            ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | LISTE DES COMMANDES
+        |--------------------------------------------------------------------------
+        */
+
+        $commandesListe = \App\Models\Commande::query()
+            ->orderBy('code')
+            ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | REQUÊTE PRINCIPALE
+        |--------------------------------------------------------------------------
+        */
+
         $query = LigneBudgetaire::with([
-            'demandesAchats.commande.fournisseur'
+            'utilisateur',
+            'demandesAchats.commande.fournisseur',
+            'demandesAchats.commande.prix',
+            'demandesAchats.commande.decomptes',
+            'demandesAchats.commande.decomptes.facture',
         ]);
 
 
@@ -118,6 +145,22 @@ class AnalytiqueDashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | FILTRE CHEF DE PROJET
+        |--------------------------------------------------------------------------
+        */
+
+        if ($chefProjetId) {
+
+            $query->where(
+                'utilisateur_id',
+                $chefProjetId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
         | FILTRE PÉRIODE
         |--------------------------------------------------------------------------
         */
@@ -141,14 +184,13 @@ class AnalytiqueDashboardController extends Controller
 
             case 'trimestre_courant':
 
-                $query
-                    ->whereBetween(
-                        'date_objective',
-                        [
-                            now()->startOfQuarter(),
-                            now()->endOfQuarter()
-                        ]
-                    );
+                $query->whereBetween(
+                    'date_objective',
+                    [
+                        now()->startOfQuarter(),
+                        now()->endOfQuarter()
+                    ]
+                );
 
                 break;
 
@@ -185,8 +227,6 @@ class AnalytiqueDashboardController extends Controller
 
             case 'toutes':
 
-                // Aucun filtre temporel
-
                 break;
 
         }
@@ -205,14 +245,6 @@ class AnalytiqueDashboardController extends Controller
         |--------------------------------------------------------------------------
         | FILTRE FOURNISSEUR
         |--------------------------------------------------------------------------
-        |
-        | Le fournisseur est lié à la commande.
-        |
-        | LB
-        |  └── DA
-        |       └── CMD
-        |            └── Fournisseur
-        |
         */
 
         if ($fournisseurId) {
@@ -226,6 +258,32 @@ class AnalytiqueDashboardController extends Controller
                             return optional(
                                 $da->commande
                             )->fournisseur_id == $fournisseurId;
+
+                        });
+
+                })
+                ->values();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FILTRE COMMANDE
+        |--------------------------------------------------------------------------
+        */
+
+        if ($commandeId) {
+
+            $lignesBudgetaires = $lignesBudgetaires
+                ->filter(function ($lb) use ($commandeId) {
+
+                    return $lb->demandesAchats
+                        ->contains(function ($da) use ($commandeId) {
+
+                            return optional(
+                                $da->commande
+                            )->id == $commandeId;
 
                         });
 
@@ -265,33 +323,17 @@ class AnalytiqueDashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | KPI : BUDGET TOTAL
+        | KPI : MONTANT ENVELOPPE BUDGÉTAIRE
         |--------------------------------------------------------------------------
+        |
+        | Montant LB
+        |
         */
 
-        $budgetTotal = $lignesBudgetaires
+        $montantEnveloppeBudgetaire = $lignesBudgetaires
             ->sum('montant_estimatif');
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | KPI : BUDGET PAR TYPE
-        |--------------------------------------------------------------------------
-        */
-
-        $montantCapex = $lignesBudgetaires
-            ->where('type', 'CAPEX')
-            ->sum('montant_estimatif');
-
-        $montantOpex = $lignesBudgetaires
-            ->where('type', 'OPEX')
-            ->sum('montant_estimatif');
-
-        $montantPdr = $lignesBudgetaires
-            ->where('type', 'PDR')
-            ->sum('montant_estimatif');
-
-
+        $budgetTotal = $montantEnveloppeBudgetaire;
         /*
         |--------------------------------------------------------------------------
         | CALCUL DES DA
@@ -322,21 +364,15 @@ class AnalytiqueDashboardController extends Controller
 
             })
             ->filter();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | NOMBRE DE COMMANDES
-        |--------------------------------------------------------------------------
-        */
-
         $nombreCommandes = $commandes->count();
-
 
         /*
         |--------------------------------------------------------------------------
         | MONTANT ENGAGÉ
         |--------------------------------------------------------------------------
+        |
+        | Montant total des CMD
+        |
         */
 
         $montantEngage = $commandes
@@ -345,12 +381,293 @@ class AnalytiqueDashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | CONSOMMATION LB
+        |--------------------------------------------------------------------------
+        |
+        | Montant total des CMD liées
+        |
+        */
+
+        $consommationLB = $commandes
+            ->sum('montant_ht');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | RESTE LB
+        |--------------------------------------------------------------------------
+        */
+
+        $resteLB = $montantEnveloppeBudgetaire
+            - $consommationLB;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DÉCOMPTES
+        |--------------------------------------------------------------------------
+        */
+
+        $decomptes = $commandes
+            ->flatMap(function ($commande) {
+
+                return $commande->decomptes;
+
+            });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MONTANT ATTACHÉ
+        |--------------------------------------------------------------------------
+        |
+        | Quantité attachée SES × Prix unitaire PRX
+        |
+        */
+
+        $montantAttache = 0;
+
+
+        foreach ($decomptes as $decompte) {
+
+            $commande = $decompte->commande;
+
+            if (!$commande) {
+                continue;
+            }
+
+            /*
+            |--------------------------------------------------------------
+            | Recherche du prix correspondant
+            |--------------------------------------------------------------
+            |
+            | Le décompte et le prix appartiennent à la même commande.
+            |
+            | On utilise ici la désignation pour identifier
+            | le prix correspondant au décompte.
+            |
+            */
+
+            $prix = $commande->prix
+                ->firstWhere(
+                    'designation',
+                    $decompte->designation
+                );
+
+
+            if ($prix) {
+
+                $montantAttache +=
+
+                    $decompte->quantite_attachee
+
+                    *
+
+                    $prix->prix_unitaire;
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MONTANT EN ATTENTE DE FACTURATION
+        |--------------------------------------------------------------------------
+        |
+        | Montant attaché des décomptes
+        | dont le statut est "attente validation"
+        |
+        */
+
+        $montantAttenteFacturation = 0;
+
+
+        foreach (
+            $decomptes->where(
+                'statut_validation',
+                'attente validation'
+            )
+            as $decompte
+        ) {
+
+            $commande = $decompte->commande;
+
+            if (!$commande) {
+                continue;
+            }
+
+
+            $prix = $commande->prix
+                ->firstWhere(
+                    'designation',
+                    $decompte->designation
+                );
+
+
+            if ($prix) {
+
+                $montantAttenteFacturation +=
+
+                    $decompte->quantite_attachee
+
+                    *
+
+                    $prix->prix_unitaire;
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FACTURES
+        |--------------------------------------------------------------------------
+        */
+
+        $factures = $decomptes
+            ->map(function ($decompte) {
+
+                return $decompte->facture;
+
+            })
+            ->filter();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MONTANT PAYÉ
+        |--------------------------------------------------------------------------
+        |
+        | Montant facturé
+        |
+        */
+
+        $montantPaye = $factures
+            ->sum('montant');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | NOMBRE TOTAL DE FACTURES
+        |--------------------------------------------------------------------------
+        */
+
+        $nombreFacturesTotal = $factures
+            ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | NOMBRE DE FACTURES ÉCHUES
+        |--------------------------------------------------------------------------
+        */
+
+        $nombreFacturesEchues = $factures
+            ->filter(function ($facture) {
+
+                $decompte = $facture->decompte;
+
+                if (!$decompte) {
+                    return false;
+                }
+
+
+                $commande = $decompte->commande;
+
+                if (!$commande) {
+                    return false;
+                }
+
+
+                /*
+                |----------------------------------------------------------
+                | Extraction du nombre de jours
+                |----------------------------------------------------------
+                |
+                | Exemple :
+                | "30 jours" → 30
+                |
+                */
+
+                preg_match(
+                    '/\d+/',
+                    $commande->mode_facturation,
+                    $matches
+                );
+
+
+                if (!isset($matches[0])) {
+                    return false;
+                }
+
+
+                $nombreJours = (int) $matches[0];
+
+
+                $dateEcheance = Carbon::parse(
+                    $facture->date_depot
+                )->addDays(
+                    $nombreJours
+                );
+
+
+                return now()->greaterThan(
+                    $dateEcheance
+                );
+
+            })
+            ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | NOMBRE DE DÉCOMPTES EN ATTENTE DE VALIDATION
+        |--------------------------------------------------------------------------
+        */
+
+        $nombreDecomptesAttenteValidation = $decomptes
+            ->where(
+                'statut_validation',
+                'attente validation'
+            )
+            ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DISTRIBUTION DES PAIEMENTS PAR MOIS
+        |--------------------------------------------------------------------------
+        */
+
+        $paiementsParMois = array_fill(
+            1,
+            12,
+            0
+        );
+
+
+        foreach ($factures as $facture) {
+
+            $mois = Carbon::parse(
+                $facture->date_depot
+            )->month;
+
+
+            $paiementsParMois[$mois] +=
+                (float) $facture->montant;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
         | BUDGET RESTANT
         |--------------------------------------------------------------------------
         */
 
-        $budgetRestant = $budgetTotal
-            - $montantEngage;
+        $budgetRestant = $resteLB;
 
 
         /*
@@ -359,9 +676,15 @@ class AnalytiqueDashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $tauxEngagement = $budgetTotal > 0
+        $tauxEngagement =
 
-            ? ($montantEngage / $budgetTotal) * 100
+            $montantEnveloppeBudgetaire > 0
+
+            ? (
+                $montantEngage
+                /
+                $montantEnveloppeBudgetaire
+            ) * 100
 
             : 0;
 
@@ -370,10 +693,6 @@ class AnalytiqueDashboardController extends Controller
         |--------------------------------------------------------------------------
         | PROJETS LANCÉS
         |--------------------------------------------------------------------------
-        |
-        | Une LB est considérée comme lancée
-        | si elle possède au moins une CMD.
-        |
         */
 
         $projetsLances = $lignesBudgetaires
@@ -404,10 +723,6 @@ class AnalytiqueDashboardController extends Controller
         |--------------------------------------------------------------------------
         | PROJETS EN RETARD
         |--------------------------------------------------------------------------
-        |
-        | Date objectif dépassée
-        | et projet non lancé.
-        |
         */
 
         $projetsEnRetard = $lignesBudgetaires
@@ -419,9 +734,11 @@ class AnalytiqueDashboardController extends Controller
 
                 }
 
-                $dateObjectif = \Carbon\Carbon::parse(
+
+                $dateObjectif = Carbon::parse(
                     $lb->date_objective
                 );
+
 
                 $estLance = $lb->demandesAchats
                     ->contains(function ($da) {
@@ -429,6 +746,7 @@ class AnalytiqueDashboardController extends Controller
                         return $da->commande !== null;
 
                     });
+
 
                 return $dateObjectif->isPast()
                     && !$estLance;
@@ -452,9 +770,11 @@ class AnalytiqueDashboardController extends Controller
 
                 }
 
-                $dateObjectif = \Carbon\Carbon::parse(
+
+                $dateObjectif = Carbon::parse(
                     $lb->date_objective
                 );
+
 
                 $estLance = $lb->demandesAchats
                     ->contains(function ($da) {
@@ -462,6 +782,7 @@ class AnalytiqueDashboardController extends Controller
                         return $da->commande !== null;
 
                     });
+
 
                 return $dateObjectif->isPast()
                     && !$estLance;
@@ -486,6 +807,7 @@ class AnalytiqueDashboardController extends Controller
 
                     });
 
+
                 return !$estLance;
 
             })
@@ -508,6 +830,10 @@ class AnalytiqueDashboardController extends Controller
 
                 'fournisseurs',
 
+                'chefsProjet',
+
+                'commandesListe',
+
                 'lignesBudgetaires',
 
                 'projetId',
@@ -515,6 +841,10 @@ class AnalytiqueDashboardController extends Controller
                 'client',
 
                 'fournisseurId',
+
+                'chefProjetId',
+
+                'commandeId',
 
                 'periode',
 
@@ -526,13 +856,7 @@ class AnalytiqueDashboardController extends Controller
 
                 'nombrePdr',
 
-                'budgetTotal',
-
-                'montantCapex',
-
-                'montantOpex',
-
-                'montantPdr',
+                'montantEnveloppeBudgetaire',
 
                 'demandesAchats',
 
@@ -544,9 +868,27 @@ class AnalytiqueDashboardController extends Controller
 
                 'montantEngage',
 
+                'consommationLB',
+
+                'resteLB',
+
                 'budgetRestant',
 
                 'tauxEngagement',
+
+                'montantAttache',
+
+                'montantPaye',
+
+                'montantAttenteFacturation',
+
+                'nombreFacturesTotal',
+
+                'nombreFacturesEchues',
+
+                'nombreDecomptesAttenteValidation',
+
+                'paiementsParMois',
 
                 'projetsLances',
 
@@ -556,7 +898,8 @@ class AnalytiqueDashboardController extends Controller
 
                 'listeProjetsEnRetard',
 
-                'listeProjetsALancer'
+                'listeProjetsALancer',
+                'budgetTotal'
 
             )
         );

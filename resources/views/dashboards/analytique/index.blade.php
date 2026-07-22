@@ -2,18 +2,21 @@
 
 @section('title', 'Dashboard Analytique')
 @section('breadcrumb', 'Dashboard analytique')
+
 @section('content')
 
 <div class="page-header">
 
     <div>
+
         <h1 class="page-title">
             Dashboard Analytique
         </h1>
 
         <p class="page-subtitle">
-            Analyse détaillée des projets, études, commandes et engagements
+            Analyse détaillée des projets, études, commandes et paiements
         </p>
+
     </div>
 
 </div>
@@ -120,6 +123,41 @@
                 </div>
 
 
+                {{-- CHEF DE PROJET --}}
+
+                <div class="col-md-3">
+
+                    <label class="filter-label">
+                        Chef de projet
+                    </label>
+
+                    <select
+                        name="chef_projet_id"
+                        class="form-control"
+                    >
+
+                        <option value="">
+                            Tous les chefs de projet
+                        </option>
+
+                        @foreach($chefsProjet as $chefProjet)
+
+                            <option
+                                value="{{ $chefProjet->id }}"
+                                {{ $chefProjetId == $chefProjet->id ? 'selected' : '' }}
+                            >
+
+                                {{ $chefProjet->nom }}
+
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+
                 {{-- FOURNISSEUR --}}
 
                 <div class="col-md-3">
@@ -145,6 +183,41 @@
                             >
 
                                 {{ $fournisseur->nom }}
+
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+
+                {{-- COMMANDE --}}
+
+                <div class="col-md-3">
+
+                    <label class="filter-label">
+                        Commande
+                    </label>
+
+                    <select
+                        name="commande_id"
+                        class="form-control"
+                    >
+
+                        <option value="">
+                            Toutes les commandes
+                        </option>
+
+                        @foreach($commandesListe as $commande)
+
+                            <option
+                                value="{{ $commande->id }}"
+                                {{ $commandeId == $commande->id ? 'selected' : '' }}
+                            >
+
+                                {{ $commande->code }}
 
                             </option>
 
@@ -231,10 +304,9 @@
                 </button>
 
 
-                <a
-                    href="{{ route('dashboard.analytique') }}"
-                    class="btn btn-light"
-                >
+                
+                    <a href="{{ route('dashboard.analytique') }}"
+                    class="btn btn-light">
 
                     <i class="fa fa-refresh"></i>
 
@@ -253,42 +325,35 @@
 
 
 {{-- ========================================================= --}}
-{{-- KPI PRINCIPAUX --}}
+{{-- SUIVI DES PAIEMENTS --}}
 {{-- ========================================================= --}}
 
-<div class="row g-3 mt-3">
+<div class="page-header mt-4">
 
+    <div>
 
-    {{-- TOTAL PROJETS --}}
+        <h2 class="page-title">
+            Suivi des paiements
+        </h2>
 
-    <div class="col-xl-3 col-md-6">
-
-        <div class="analytics-kpi-card">
-
-            <div class="analytics-kpi-icon">
-
-                <i class="fa fa-folder-open"></i>
-
-            </div>
-
-            <div>
-
-                <div class="analytics-kpi-label">
-                    Projets analysés
-                </div>
-
-                <div class="analytics-kpi-value">
-                    {{ $totalProjets }}
-                </div>
-
-            </div>
-
-        </div>
+        <p class="page-subtitle">
+            Suivi financier des lignes budgétaires, commandes, décomptes et factures
+        </p>
 
     </div>
 
+</div>
 
-    {{-- BUDGET LB --}}
+
+
+{{-- ========================================================= --}}
+{{-- KPI FINANCIERS --}}
+{{-- ========================================================= --}}
+
+<div class="row g-3">
+
+
+    {{-- MONTANT ENVELOPPE BUDGÉTAIRE --}}
 
     <div class="col-xl-3 col-md-6">
 
@@ -303,13 +368,13 @@
             <div>
 
                 <div class="analytics-kpi-label">
-                    Budget LB
+                    Montant enveloppe budgétaire
                 </div>
 
                 <div class="analytics-kpi-value">
 
                     {{ number_format(
-                        $budgetTotal,
+                        $montantEnveloppeBudgetaire,
                         2,
                         ',',
                         ' '
@@ -324,6 +389,7 @@
         </div>
 
     </div>
+
 
 
     {{-- MONTANT ENGAGÉ --}}
@@ -364,7 +430,47 @@
     </div>
 
 
-    {{-- BUDGET RESTANT --}}
+
+    {{-- CONSOMMATION LB --}}
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+
+                <i class="fa fa-bar-chart"></i>
+
+            </div>
+
+            <div>
+
+                <div class="analytics-kpi-label">
+                    Consommation LB
+                </div>
+
+                <div class="analytics-kpi-value">
+
+                    {{ number_format(
+                        $consommationLB,
+                        2,
+                        ',',
+                        ' '
+                    ) }}
+
+                    <span>DH</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- RESTE LB --}}
 
     <div class="col-xl-3 col-md-6">
 
@@ -379,13 +485,13 @@
             <div>
 
                 <div class="analytics-kpi-label">
-                    Budget restant
+                    Reste LB
                 </div>
 
                 <div class="analytics-kpi-value">
 
                     {{ number_format(
-                        $budgetRestant,
+                        $resteLB,
                         2,
                         ',',
                         ' '
@@ -406,30 +512,41 @@
 
 
 {{-- ========================================================= --}}
-{{-- KPI OPÉRATIONNELS DU PROJET --}}
+{{-- KPI PAIEMENTS --}}
 {{-- ========================================================= --}}
 
 <div class="row g-3 mt-1">
 
 
-    {{-- DA --}}
+    {{-- MONTANT PAYÉ --}}
 
     <div class="col-xl-3 col-md-6">
 
         <div class="analytics-mini-card">
 
             <div class="mini-icon">
-                <i class="fa fa-shopping-cart"></i>
+
+                <i class="fa fa-credit-card"></i>
+
             </div>
 
             <div>
 
                 <span>
-                    Demandes d'achat
+                    Montant payé
                 </span>
 
                 <strong>
-                    {{ $nombreDA }}
+
+                    {{ number_format(
+                        $montantPaye,
+                        2,
+                        ',',
+                        ' '
+                    ) }}
+
+                    DH
+
                 </strong>
 
             </div>
@@ -439,78 +556,105 @@
     </div>
 
 
-    {{-- COMMANDES --}}
+
+    {{-- MONTANT ATTACHÉ --}}
 
     <div class="col-xl-3 col-md-6">
 
         <div class="analytics-mini-card">
 
             <div class="mini-icon">
+
+                <i class="fa fa-paperclip"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Montant attaché
+                </span>
+
+                <strong>
+
+                    {{ number_format(
+                        $montantAttache,
+                        2,
+                        ',',
+                        ' '
+                    ) }}
+
+                    DH
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- ATTENTE DE FACTURATION --}}
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="analytics-mini-card">
+
+            <div class="mini-icon">
+
+                <i class="fa fa-hourglass-half"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Montant attente de facturation
+                </span>
+
+                <strong>
+
+                    {{ number_format(
+                        $montantAttenteFacturation,
+                        2,
+                        ',',
+                        ' '
+                    ) }}
+
+                    DH
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- NOMBRE FACTURES --}}
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="analytics-mini-card">
+
+            <div class="mini-icon">
+
                 <i class="fa fa-file-text-o"></i>
+
             </div>
 
             <div>
 
                 <span>
-                    Commandes
+                    Nombre de facture totale
                 </span>
 
                 <strong>
-                    {{ $nombreCommandes }}
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    {{-- PROJETS LANCÉS --}}
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="analytics-mini-card">
-
-            <div class="mini-icon">
-                <i class="fa fa-play-circle"></i>
-            </div>
-
-            <div>
-
-                <span>
-                    Projets lancés
-                </span>
-
-                <strong>
-                    {{ $projetsLances }}
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    {{-- PROJETS À LANCER --}}
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="analytics-mini-card">
-
-            <div class="mini-icon">
-                <i class="fa fa-clock-o"></i>
-            </div>
-
-            <div>
-
-                <span>
-                    Projets à lancer
-                </span>
-
-                <strong>
-                    {{ $projetsALancer }}
+                    {{ $nombreFacturesTotal }}
                 </strong>
 
             </div>
@@ -524,13 +668,81 @@
 
 
 {{-- ========================================================= --}}
-{{-- TAUX D'ENGAGEMENT --}}
+{{-- KPI FACTURES ET DÉCOMPTES --}}
+{{-- ========================================================= --}}
+
+<div class="row g-3 mt-1">
+
+
+    {{-- FACTURES ÉCHUES --}}
+
+    <div class="col-xl-6 col-md-6">
+
+        <div class="analytics-mini-card">
+
+            <div class="mini-icon">
+
+                <i class="fa fa-exclamation-triangle"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Nombre de facture échues
+                </span>
+
+                <strong>
+                    {{ $nombreFacturesEchues }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- DÉCOMPTES EN ATTENTE --}}
+
+    <div class="col-xl-6 col-md-6">
+
+        <div class="analytics-mini-card">
+
+            <div class="mini-icon">
+
+                <i class="fa fa-clock-o"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Nombre de décompte en attente validation
+                </span>
+
+                <strong>
+                    {{ $nombreDecomptesAttenteValidation }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{{-- ========================================================= --}}
+{{-- DISTRIBUTION DES PAIEMENTS PAR MOIS --}}
 {{-- ========================================================= --}}
 
 <div class="row g-3 mt-3">
 
-
-    <div class="col-lg-6">
+    <div class="col-lg-12">
 
         <div class="card analytics-panel">
 
@@ -540,7 +752,7 @@
 
                     <i class="fa fa-line-chart"></i>
 
-                    Taux d'engagement budgétaire
+                    Distribution des paiements par mois
 
                 </div>
 
@@ -549,107 +761,52 @@
 
             <div class="card-body">
 
-                <div class="progress-container">
+                <div style="height: 350px;">
 
-                    <div class="progress-info">
-
-                        <span>
-                            Budget engagé
-                        </span>
-
-                        <strong>
-                            {{ number_format(
-                                $tauxEngagement,
-                                1,
-                                ',',
-                                ' '
-                            ) }} %
-                        </strong>
-
-                    </div>
-
-
-                    <div class="progress">
-
-                        <div
-                            class="progress-bar"
-                            role="progressbar"
-                            style="width: {{ min($tauxEngagement, 100) }}%"
-                        >
-                        </div>
-
-                    </div>
+                    <canvas
+                        id="paiementsParMoisChart"
+                    >
+                    </canvas>
 
                 </div>
 
+            </div>
 
-                <div class="budget-summary mt-4">
+        </div>
 
-                    <div>
+    </div>
 
-                        <span>
-                            Budget LB
-                        </span>
-
-                        <strong>
-
-                            {{ number_format(
-                                $budgetTotal,
-                                2,
-                                ',',
-                                ' '
-                            ) }}
-
-                            DH
-
-                        </strong>
-
-                    </div>
+</div>
 
 
-                    <div>
 
-                        <span>
-                            Engagé
-                        </span>
+{{-- ========================================================= --}}
+{{-- KPI EXISTANTS --}}
+{{-- ========================================================= --}}
 
-                        <strong>
-
-                            {{ number_format(
-                                $montantEngage,
-                                2,
-                                ',',
-                                ' '
-                            ) }}
-
-                            DH
-
-                        </strong>
-
-                    </div>
+<div class="row g-3 mt-4">
 
 
-                    <div>
+    {{-- TOTAL PROJETS --}}
 
-                        <span>
-                            Restant
-                        </span>
+    <div class="col-xl-3 col-md-6">
 
-                        <strong>
+        <div class="analytics-kpi-card">
 
-                            {{ number_format(
-                                $budgetRestant,
-                                2,
-                                ',',
-                                ' '
-                            ) }}
+            <div class="analytics-kpi-icon">
 
-                            DH
+                <i class="fa fa-folder-open"></i>
 
-                        </strong>
+            </div>
 
-                    </div>
+            <div>
 
+                <div class="analytics-kpi-label">
+                    Projets analysés
+                </div>
+
+                <div class="analytics-kpi-value">
+                    {{ $totalProjets }}
                 </div>
 
             </div>
@@ -660,7 +817,112 @@
 
 
 
-    {{-- RÉPARTITION TYPES --}}
+    {{-- DA --}}
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+
+                <i class="fa fa-shopping-cart"></i>
+
+            </div>
+
+            <div>
+
+                <div class="analytics-kpi-label">
+                    Demandes d'achat
+                </div>
+
+                <div class="analytics-kpi-value">
+                    {{ $nombreDA }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- COMMANDES --}}
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+
+                <i class="fa fa-file-text-o"></i>
+
+            </div>
+
+            <div>
+
+                <div class="analytics-kpi-label">
+                    Commandes
+                </div>
+
+                <div class="analytics-kpi-value">
+                    {{ $nombreCommandes }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- TAUX ENGAGEMENT --}}
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+
+                <i class="fa fa-percent"></i>
+
+            </div>
+
+            <div>
+
+                <div class="analytics-kpi-label">
+                    Taux d'engagement
+                </div>
+
+                <div class="analytics-kpi-value">
+
+                    {{ number_format(
+                        $tauxEngagement,
+                        1,
+                        ',',
+                        ' '
+                    ) }}
+
+                    %
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{{-- ========================================================= --}}
+{{-- RÉPARTITION DES PROJETS --}}
+{{-- ========================================================= --}}
+
+<div class="row g-3 mt-3">
 
     <div class="col-lg-6">
 
@@ -1218,62 +1480,95 @@ document.addEventListener(
     'DOMContentLoaded',
     function () {
 
-        const ctx =
-            document
-                .getElementById(
-                    'typeProjetChart'
-                );
 
-        if (!ctx) {
-            return;
-        }
+        /*
+        |--------------------------------------------------------------------------
+        | DISTRIBUTION DES PAIEMENTS PAR MOIS
+        |--------------------------------------------------------------------------
+        */
+
+        const paiementsCtx =
+            document.getElementById(
+                'paiementsParMoisChart'
+            );
 
 
-        new Chart(
-            ctx,
-            {
+        if (paiementsCtx) {
 
-                type: 'doughnut',
+            new Chart(
+                paiementsCtx,
+                {
 
-                data: {
+                    type: 'bar',
 
-                    labels: [
-                        'CAPEX',
-                        'OPEX',
-                        'PDR'
-                    ],
+                    data: {
 
-                    datasets: [
+                        labels: [
 
-                        {
+                            'Janvier',
+                            'Février',
+                            'Mars',
+                            'Avril',
+                            'Mai',
+                            'Juin',
+                            'Juillet',
+                            'Août',
+                            'Septembre',
+                            'Octobre',
+                            'Novembre',
+                            'Décembre'
 
-                            data: [
+                        ],
 
-                                {{ $nombreCapex }},
+                        datasets: [
 
-                                {{ $nombreOpex }},
+                            {
 
-                                {{ $nombrePdr }}
+                                label:
+                                    'Montant payé (DH)',
 
-                            ]
+                                data: [
 
-                        }
+                                    @foreach(
+                                        $paiementsParMois
+                                        as $montant
+                                    )
 
-                    ]
+                                        {{ $montant }},
 
-                },
+                                    @endforeach
 
-                options: {
+                                ]
 
-                    responsive: true,
+                            }
 
-                    maintainAspectRatio: false,
+                        ]
 
-                    plugins: {
+                    },
 
-                        legend: {
+                    options: {
 
-                            position: 'bottom'
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        scales: {
+
+                            y: {
+
+                                beginAtZero: true
+
+                            }
+
+                        },
+
+                        plugins: {
+
+                            legend: {
+
+                                display: true
+
+                            }
 
                         }
 
@@ -1281,9 +1576,85 @@ document.addEventListener(
 
                 }
 
-            }
+            );
 
-        );
+        }
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | RÉPARTITION DU PORTEFEUILLE
+        |--------------------------------------------------------------------------
+        */
+
+        const typeProjetCtx =
+            document.getElementById(
+                'typeProjetChart'
+            );
+
+
+        if (typeProjetCtx) {
+
+            new Chart(
+                typeProjetCtx,
+                {
+
+                    type: 'doughnut',
+
+                    data: {
+
+                        labels: [
+
+                            'CAPEX',
+                            'OPEX',
+                            'PDR'
+
+                        ],
+
+                        datasets: [
+
+                            {
+
+                                data: [
+
+                                    {{ $nombreCapex }},
+
+                                    {{ $nombreOpex }},
+
+                                    {{ $nombrePdr }}
+
+                                ]
+
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            legend: {
+
+                                position: 'bottom'
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+        }
 
     }
 

@@ -13,7 +13,7 @@ class PointageController extends Controller
     {
         $pointages = Pointage::with('personnel')
                     ->orderBy('date','desc')
-                    ->paginate(10);
+                    ->get();
 
         return view('pointages.index', compact('pointages'));
     }

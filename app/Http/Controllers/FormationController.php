@@ -14,7 +14,7 @@ class FormationController extends Controller
     {
         $formations = Formation::with('personnel')
                         ->orderBy('date','desc')
-                        ->paginate(10);
+                        ->get();
 
         return view('formations.index', compact('formations'));
     }
@@ -141,5 +141,41 @@ class FormationController extends Controller
         return redirect()->route('formations.index');
 
     }
+
+    public function createExterne()
+    {
+        $personnels = Personnel::all();
+
+        return view(
+            'formations.create-externe',
+            compact('personnels')
+        );
+    }
+    public function storeExterne(Request $request)
+    {
+        $request->validate([
+            'personnel_cin' => 'required|exists:personnels,cin',
+            'date' => 'required|date',
+            'theme' => 'required|string|max:255',
+            'animateur' => 'required|string|max:255',
+            'score' => 'nullable|numeric|min:0|max:100',
+        ]);
+
+        Formation::create([
+            'personnel_cin' => $request->personnel_cin,
+            'date' => $request->date,
+            'theme' => $request->theme,
+            'animateur' => $request->animateur,
+            'score' => $request->score,
+        ]);
+
+        return redirect()
+            ->route('externe.formations.create')
+            ->with(
+                'success',
+                'La formation a été enregistrée avec succès.'
+            );
+    }
+    
 
 }

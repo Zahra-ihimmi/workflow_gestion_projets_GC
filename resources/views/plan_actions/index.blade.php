@@ -84,8 +84,6 @@ Supprimer
 
 </table>
 
-<br>
 
-{{ $planActions->links() }}
 
 @endsection

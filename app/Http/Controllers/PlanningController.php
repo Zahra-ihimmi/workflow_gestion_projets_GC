@@ -14,7 +14,7 @@ class PlanningController extends Controller
     {
         $plannings = Planning::with('prix')
                         ->orderBy('created_at','desc')
-                        ->paginate(10);
+                        ->get();
 
         return view('plannings.index',compact('plannings'));
     }

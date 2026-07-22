@@ -171,10 +171,7 @@ Modifier
 </table>
 
 
-<br>
 
-
-{{ $commandes->links() }}
 
 
 @endsection
