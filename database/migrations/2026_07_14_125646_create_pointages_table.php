@@ -26,7 +26,8 @@ return new class extends Migration
             $table->foreign('personnel_cin')
                   ->references('cin')
                   ->on('personnels')
-                  ->cascadeOnDelete();
+                  ->cascadeOnDelete()
+                  ->onUpdate('cascade');
         });
     }
 

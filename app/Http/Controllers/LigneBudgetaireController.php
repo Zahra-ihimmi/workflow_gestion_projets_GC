@@ -42,7 +42,9 @@ class LigneBudgetaireController extends Controller
         ]);
 
 
-        return redirect()->route('ligne-budgetaires.index');
+        return redirect()
+            ->route('ligne-budgetaires.index')
+            ->with('success', 'Ligne budgétaire ajoutée avec succès');
 
     }
 

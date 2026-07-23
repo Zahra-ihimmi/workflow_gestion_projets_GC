@@ -52,8 +52,9 @@ class HabilitationController extends Controller
 
         ]);
 
-        return redirect()->route('habilitations.index');
-
+        return redirect()
+    ->route('habilitations.index')
+    ->with('success', 'Habilitation ajoutée avec succès');
     }
 
     public function edit($id)
@@ -99,7 +100,9 @@ class HabilitationController extends Controller
 
         ]);
 
-        return redirect()->route('habilitations.index');
+        return redirect()
+            ->route('habilitations.index')
+            ->with('success', 'Habilitation mise à jour avec succès');
 
     }
 

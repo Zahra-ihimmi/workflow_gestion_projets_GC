@@ -56,24 +56,26 @@ Ajouter un décompte
 
 <td>
 
-<a href="{{ route('decomptes.edit',$decompte->id) }}">
-Modifier
+<a href="{{ route('decomptes.edit',$decompte->id) }}"
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 </a>
 
-<form action="{{ route('decomptes.destroy',$decompte->id) }}"
-method="POST">
+<form id="delete-form-{{ $decompte->id }}"
+      action="{{ route('decomptes.destroy', $decompte->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
+    @csrf
+    @method('DELETE')
 
-@method('DELETE')
-
-<button
-class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer cette ligne budgétaire ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $decompte->id }})"
+            title="Supprimer">
+            <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
 

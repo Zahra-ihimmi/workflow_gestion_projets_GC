@@ -46,25 +46,27 @@ Ajouter un Véhicule
 
 <td>
 
-<a href="{{ route('vehicules.edit',$vehicule->id) }}">
-
-Modifier
+<a href="{{ route('vehicules.edit',$vehicule->id) }}"
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 
 </a>
 
-<form action="{{ route('vehicules.destroy',$vehicule->id) }}" method="POST">
+<form id="delete-form-{{ $vehicule->id }}"
+      action="{{ route('vehicules.destroy', $vehicule   ->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
+    @csrf
+    @method('DELETE')
 
-@method('DELETE')
-
-<button
-    class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer ce véhicule ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $vehicule->id }})"
+            title="Supprimer">
+        <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
 

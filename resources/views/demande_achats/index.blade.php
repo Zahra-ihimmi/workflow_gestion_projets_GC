@@ -89,21 +89,24 @@
                     <td>
 
                         <a href="{{ route('demande-achats.edit', $da->id) }}"
-                           class="btn btn-success btn-sm">
-                            Modifier
+                           class="btn btn-success btn-sm"
+                        title="Modifier">
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </a>
 
-                        <form action="{{ route('demande-achats.destroy', $da->id) }}"
-                              method="POST"
-                              class="d-inline">
+                        <form id="delete-form-{{ $da->id }}"
+                            action="{{ route('demande-achats.destroy', $da->id) }}"
+                            method="POST"
+                            class="d-inline">
 
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit"
+                            <button type="button"
                                     class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Supprimer cette demande d’achat ?')">
-                                Supprimer
+                                    onclick="confirmDelete({{ $da->id }})"
+                                    title="Supprimer">
+                                   <i class="fa-solid fa-trash"></i>
                             </button>
 
                         </form>

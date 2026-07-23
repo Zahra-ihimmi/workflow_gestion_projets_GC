@@ -62,7 +62,9 @@ class PointageController extends Controller
 
         ]);
 
-        return redirect()->route('pointages.index');
+        return redirect()
+    ->route('pointages.index')
+    ->with('success', 'Pointage ajouté avec succès');
 
     }
 
@@ -105,7 +107,9 @@ class PointageController extends Controller
 
         ]);
 
-        return redirect()->route('pointages.index');
+        return redirect()
+    ->route('pointages.index')
+    ->with('success', 'Pointage mis à jour avec succès');
 
     }
 

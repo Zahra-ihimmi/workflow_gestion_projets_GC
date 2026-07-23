@@ -50,24 +50,26 @@ Ajouter un Planning
 
 <td>
 
-<a href="{{ route('plannings.edit',$planning->id) }}">
-
-Modifier
-
+<a href="{{ route('plannings.edit',$planning->id) }}"
+    class="btn btn-success btn-sm"
+    title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 </a>
 
-<form action="{{ route('plannings.destroy',$planning->id) }}" method="POST">
+<form id="delete-form-{{ $planning->id }}"
+      action="{{ route('plannings.destroy', $planning->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
-@method('DELETE')
+    @csrf
+    @method('DELETE')
 
-<button
-    class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer cette ce jalon ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $planning->id }})"
+            title="Supprimer">
+        <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
 

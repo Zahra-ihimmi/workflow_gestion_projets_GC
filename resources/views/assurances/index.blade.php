@@ -50,25 +50,27 @@ Ajouter une Assurance
 
 <td>
 
-<a href="{{ route('assurances.edit',$assurance->id) }}">
+<a href="{{ route('assurances.edit',$assurance->id) }}"
 
-Modifier
-
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 </a>
 
-<form action="{{ route('assurances.destroy',$assurance->id) }}" method="POST">
+<form id="delete-form-{{ $assurance->id }}"
+      action="{{ route('assurances.destroy', $assurance->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
+    @csrf
+    @method('DELETE')
 
-@method('DELETE')
-
-<button
-    class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer cette assurance ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $assurance->id }})"
+            title="Supprimer">
+            <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
 

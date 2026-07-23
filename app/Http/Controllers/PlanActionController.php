@@ -82,7 +82,9 @@ class PlanActionController extends Controller
 
         ]);
 
-        return redirect()->route('plan-actions.index');
+        return redirect()
+    ->route('plan-actions.index')
+    ->with('success', 'Plan d\'action ajouté avec succès');
 
     }
 
@@ -140,7 +142,9 @@ class PlanActionController extends Controller
 
         ]);
 
-        return redirect()->route('plan-actions.index');
+        return redirect()
+    ->route('plan-actions.index')
+    ->with('success', 'Plan d\'action ajouté avec succès');
 
     }
 

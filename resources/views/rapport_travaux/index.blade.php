@@ -144,28 +144,27 @@
             {{-- Actions --}}
             <td>
 
-                <a href="{{ route('rapport-travaux.edit', $rapport->id) }}">
-                    Modifier
+                <a href="{{ route('rapport-travaux.edit', $rapport->id) }}"
+                    class="btn btn-success btn-sm"
+                    title="Modifier">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </a>
 
 
-                <form
+                <form id="delete-form-{{ $rapport->id }}"
                     action="{{ route('rapport-travaux.destroy', $rapport->id) }}"
                     method="POST"
-                    style="display:inline;">
+                    class="d-inline">
 
                     @csrf
-
                     @method('DELETE')
 
-
-                    <button
-                        type="submit"
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('Supprimer ce rapport de travaux ?')">
-
-                        Supprimer
-
+                    <button type="button"
+                            class="btn btn-danger btn-sm"
+                            onclick="confirmDelete({{ $rapport->id }})"
+                            title="Supprimer">
+                        <i class="fa-solid fa-trash"></i>
                     </button>
 
                 </form>

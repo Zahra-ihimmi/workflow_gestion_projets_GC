@@ -18,6 +18,27 @@
     @stack('styles')
 </head>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const successMessage = document.getElementById('success-message');
+
+        if (successMessage) {
+
+            setTimeout(function () {
+
+                successMessage.style.opacity = '0';
+
+                setTimeout(function () {
+                    successMessage.remove();
+                }, 500);
+
+            }, 3000);
+
+        }
+
+    });
+</script>
 <body>
 
     <div id="app">
@@ -27,17 +48,111 @@
             @include('partials.header')
             
             <main class="content">
+                {{-- MESSAGE DE SUCCÈS GLOBAL --}}
+                    @if(session('success'))
+                        <div id="success-message" class="success-card">
+                            <div class="success-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+
+                            <div class="success-text">
+                                {{ session('success') }}
+                            </div>
+                        </div>
+                    @endif
                 @yield('content')
             </main>
             
             @include('partials.footer')
         </div>
     </div>
+    {{-- MODAL GLOBALE DE SUPPRESSION --}}
+    <div id="deleteModal" class="delete-modal">
 
+        <div class="delete-modal-content">
+
+            <div class="delete-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <h3>Confirmation de suppression</h3>
+
+            <p>
+                Êtes-vous sûr de vouloir supprimer cet élément ?
+            </p>
+
+            <span>
+                Cette action est irréversible.
+            </span>
+
+            <div class="delete-actions">
+
+                <button type="button"
+                        class="btn-cancel"
+                        onclick="closeDeleteModal()">
+                    Annuler
+                </button>
+
+                <button type="button"
+                        class="btn-confirm-delete"
+                        onclick="submitDelete()">
+                    Oui, supprimer
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
     <!-- Scripts -->
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    
+    {{-- SCRIPT DE SUPPRESSION GLOBAL --}}
+    <script>
+
+        let deleteForm = null;
+
+        function confirmDelete(id) {
+
+            deleteForm = document.getElementById('delete-form-' + id);
+
+            document.getElementById('deleteModal').style.display = 'flex';
+
+        }
+
+
+        function closeDeleteModal() {
+
+            document.getElementById('deleteModal').style.display = 'none';
+
+            deleteForm = null;
+
+        }
+
+
+        function submitDelete() {
+
+            if (deleteForm) {
+
+                deleteForm.submit();
+
+            }
+
+        }
+
+
+        // Fermer en cliquant à l'extérieur
+        document.getElementById('deleteModal').addEventListener('click', function(event) {
+
+            if (event.target === this) {
+
+                closeDeleteModal();
+
+            }
+
+        });
+
+    </script>
     @stack('scripts')
 </body>
 </html>

@@ -1,11 +1,6 @@
 <header class="header">
     <!-- Breadcrumb -->
-    <div class="breadcrumb-wrapper">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-            <i class="fas fa-home"></i>
-            @yield('breadcrumb', 'Dashboard')
-        </nav>
-    </div>
+    
 
     <!-- Search -->
     <div class="header-search">

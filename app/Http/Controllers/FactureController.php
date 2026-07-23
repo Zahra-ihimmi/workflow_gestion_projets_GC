@@ -69,7 +69,9 @@ class FactureController extends Controller
 
         ]);
 
-        return redirect()->route('factures.index');
+        return redirect()
+    ->route('factures.index')
+    ->with('success', 'Facture ajoutée avec succès');
 
     }
 
@@ -112,7 +114,9 @@ class FactureController extends Controller
 
         ]);
 
-        return redirect()->route('factures.index');
+        return redirect()
+    ->route('factures.index')
+    ->with('success', 'Facture mise à jour avec succès');
 
     }
 

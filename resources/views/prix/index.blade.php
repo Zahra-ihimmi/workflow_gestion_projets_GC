@@ -44,20 +44,25 @@
 
     <td>
 
-        <a href="{{ route('prix.edit',$p->id) }}">
-            Modifier
+        <a href="{{ route('prix.edit',$p->id) }}"
+           class="btn btn-success btn-sm"
+           title="Modifier">
+            <i class="fa-solid fa-pen-to-square"></i>
         </a>
 
-        <form action="{{ route('prix.destroy',$p->id) }}" method="POST">
+        <form id="delete-form-{{ $p->id }}"
+            action="{{ route('prix.destroy', $p->id) }}"
+            method="POST"
+            class="d-inline">
 
             @csrf
-
             @method('DELETE')
 
-            <button type="submit">
-
-                Supprimer
-
+            <button type="button"
+                    class="btn btn-danger btn-sm"
+                    onclick="confirmDelete({{ $p->id }})"
+            title="Supprimer">
+                <i class="fa-solid fa-trash"></i>
             </button>
 
         </form>

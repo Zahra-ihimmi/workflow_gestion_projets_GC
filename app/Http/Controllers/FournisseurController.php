@@ -51,7 +51,9 @@ class FournisseurController extends Controller
 
         ]);
 
-        return redirect()->route('fournisseurs.index');
+        return redirect()
+    ->route('fournisseurs.index')
+    ->with('success', 'Fournisseur ajouté avec succès');
 
     }
 
@@ -95,7 +97,9 @@ class FournisseurController extends Controller
 
         ]);
 
-        return redirect()->route('fournisseurs.index');
+        return redirect()
+            ->route('fournisseurs.index')
+            ->with('success', 'Fournisseur mis à jour avec succès');
 
     }
 

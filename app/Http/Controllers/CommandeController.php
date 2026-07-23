@@ -89,7 +89,9 @@ class CommandeController extends Controller
         ]);
 
 
-        return redirect()->route('commandes.index');
+        return redirect()
+            ->route('commandes.index')
+            ->with('success', 'Commande ajoutée avec succès');
 
     }
 
@@ -144,7 +146,9 @@ public function update(Request $request, $id)
     ]);
 
 
-    return redirect()->route('commandes.index');
+    return redirect()
+        ->route('commandes.index')
+        ->with('success', 'Commande mise à jour avec succès');
 
 }
 

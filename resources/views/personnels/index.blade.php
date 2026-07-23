@@ -66,25 +66,27 @@ Ajouter un Personnel
 
 <td>
 
-<a href="{{ route('personnels.edit',$personnel->id) }}">
-
-Modifier
+<a href="{{ route('personnels.edit',$personnel->id) }}"
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 
 </a>
 
-<form action="{{ route('personnels.destroy',$personnel->id) }}" method="POST">
+<form id="delete-form-{{ $personnel->id }}"
+      action="{{ route('personnels.destroy', $personnel->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
+    @csrf
+    @method('DELETE')
 
-@method('DELETE')
-
-<button
-    class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer ce personnel ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $personnel->id }})"
+            title="Supprimer">
+        <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
 

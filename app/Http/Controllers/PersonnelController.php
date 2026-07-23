@@ -83,7 +83,9 @@ class PersonnelController extends Controller
 
         ]);
 
-        return redirect()->route('personnels.index');
+        return redirect()
+    ->route('personnels.index')
+    ->with('success', 'Personnel ajouté avec succès');
 
     }
 
@@ -160,7 +162,9 @@ class PersonnelController extends Controller
 
         ]);
 
-        return redirect()->route('personnels.index');
+        return redirect()
+            ->route('personnels.index')
+            ->with('success', 'Personnel mis à jour avec succès');
 
     }
 

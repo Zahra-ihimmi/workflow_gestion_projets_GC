@@ -80,7 +80,9 @@ class DecompteController extends Controller
         ]);
 
 
-        return redirect()->route('decomptes.index');
+        return redirect()
+    ->route('decomptes.index')
+    ->with('success', 'Décompte ajoutée avec succès');
 
     }
 
@@ -134,7 +136,9 @@ class DecompteController extends Controller
 
     ]);
 
-    return redirect()->route('decomptes.index');
+    return redirect()
+    ->route('decomptes.index')
+    ->with('success', 'Décompte mise à jour avec succès');
 
 }
 

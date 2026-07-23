@@ -140,21 +140,26 @@
 <td>
 
 
-<a href="{{ route('commandes.edit',$commande->id) }}">
-Modifier
+<a href="{{ route('commandes.edit',$commande->id) }}"
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 </a>
 
 
-<form action="{{ route('commandes.destroy',$commande->id) }}"
-      method="POST">
+<form id="delete-form-{{ $commande->id }}"
+      action="{{ route('commandes.destroy', $commande->id) }}"
+      method="POST"
+      class="d-inline">
 
     @csrf
-
     @method('DELETE')
 
-
-    <button type="submit">
-        Supprimer
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $commande->id }})"
+            title="Supprimer">
+            <i class="fa-solid fa-trash"></i>
     </button>
 
 </form>

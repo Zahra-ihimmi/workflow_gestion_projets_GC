@@ -131,7 +131,7 @@ class RapportTravauxController extends Controller
 
         }
 
-
+        
         // Retourner vers la liste
         return redirect()
             ->route('rapport-travaux.index')

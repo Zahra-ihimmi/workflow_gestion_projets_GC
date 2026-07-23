@@ -51,7 +51,9 @@ class DemandeAchatController extends Controller
         ]);
 
 
-        return redirect()->route('demande-achats.index');
+        return redirect()
+    ->route('demande-achats.index')
+    ->with('success', 'Demande d\'achat ajoutée avec succès');
 
     }
 
@@ -94,7 +96,9 @@ class DemandeAchatController extends Controller
         ]);
 
 
-        return redirect()->route('demande-achats.index');
+        return redirect()
+    ->route('demande-achats.index')
+    ->with('success', 'Demande d\'achat mise à jour avec succès');
 
     }
 

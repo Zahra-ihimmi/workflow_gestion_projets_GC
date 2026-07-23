@@ -78,7 +78,9 @@ class PlanningController extends Controller
 
         ]);
 
-        return redirect()->route('plannings.index');
+        return redirect()
+    ->route('plannings.index')
+    ->with('success', 'Planning ajouté avec succès');
 
     }
 
@@ -129,7 +131,9 @@ class PlanningController extends Controller
 
         ]);
 
-        return redirect()->route('plannings.index');
+        return redirect()
+            ->route('plannings.index')
+            ->with('success', 'Planning mis à jour avec succès');
 
     }
 

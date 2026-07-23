@@ -42,28 +42,29 @@ Ajouter un Pointage
 
 <td>
 
-<a href="{{ route('pointages.edit',$pointage->id) }}">
-
-Modifier
+<a href="{{ route('pointages.edit',$pointage->id) }}"
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 
 </a>
 
-<form action="{{ route('pointages.destroy',$pointage->id) }}" method="POST">
+<form id="delete-form-{{ $pointage->id }}"
+      action="{{ route('pointages.destroy', $pointage->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
+    @csrf
+    @method('DELETE')
 
-@method('DELETE')
-
-<button
-    class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer ce pointage ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $pointage->id }})"
+            title="Supprimer">
+        <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
-
 </td>
 
 </tr>

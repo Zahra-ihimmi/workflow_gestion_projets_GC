@@ -151,20 +151,26 @@
         {{-- Actions --}}
         <td>
 
-            <a href="{{ route('non-conformites.edit', $nc->id) }}">
-                Modifier
+            <a href="{{ route('non-conformites.edit', $nc->id) }}"
+                    class="btn btn-success btn-sm"
+                    title="Modifier">
+                <i class="fa-solid fa-pen-to-square"></i>
             </a>
+                        </a>
 
-            <form
+            <form id="delete-form-{{ $nc->id }}"
                 action="{{ route('non-conformites.destroy', $nc->id) }}"
                 method="POST"
-                style="display:inline;">
+                class="d-inline">
 
                 @csrf
                 @method('DELETE')
 
-                <button type="submit">
-                    Supprimer
+                <button type="button"
+                        class="btn btn-danger btn-sm"
+                        onclick="confirmDelete({{ $nc->id }})"
+                        title="Supprimer">
+                    <i class="fa-solid fa-trash"></i>
                 </button>
 
             </form>

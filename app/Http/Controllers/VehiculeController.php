@@ -56,7 +56,9 @@ class VehiculeController extends Controller
 
         ]);
 
-        return redirect()->route('vehicules.index');
+        return redirect()
+    ->route('vehicules.index')
+    ->with('success', 'Véhicule ajouté avec succès');
 
     }
 
@@ -107,7 +109,9 @@ class VehiculeController extends Controller
 
         ]);
 
-        return redirect()->route('vehicules.index');
+        return redirect()
+    ->route('vehicules.index')
+    ->with('success', 'Véhicule mis à jour avec succès');
 
     }
 

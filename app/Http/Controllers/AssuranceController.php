@@ -60,7 +60,9 @@ class AssuranceController extends Controller
 
         ]);
 
-        return redirect()->route('assurances.index');
+        return redirect()
+    ->route('assurances.index')
+    ->with('success', 'Assurance ajoutée avec succès');
 
     }
 
@@ -115,7 +117,9 @@ class AssuranceController extends Controller
 
         ]);
 
-        return redirect()->route('assurances.index');
+        return redirect()
+    ->route('assurances.index')
+    ->with('success', 'Assurance ajoutée avec succès');
 
     }
 

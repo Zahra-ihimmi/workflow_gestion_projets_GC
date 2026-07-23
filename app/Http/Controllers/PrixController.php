@@ -57,7 +57,9 @@ class PrixController extends Controller
             'prix_unitaire' => $request->prix_unitaire,
         ]);
 
-        return redirect()->route('prix.index');
+        return redirect()
+    ->route('prix.index')
+    ->with('success', 'borduraux de prix ajoutée avec succès');
     }
 
     // Formulaire modification
@@ -92,7 +94,9 @@ class PrixController extends Controller
             'prix_unitaire' => $request->prix_unitaire,
         ]);
 
-        return redirect()->route('prix.index');
+        return redirect()
+    ->route('prix.index')
+    ->with('success', 'borduraux de prix mis à jour avec succès');
     }
 
     // Supprimer

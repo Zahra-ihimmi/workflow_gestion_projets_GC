@@ -91,7 +91,9 @@ class NonConformiteController extends Controller
 
     ]);
 
-    return redirect()->route('non-conformites.index');
+    return redirect()
+    ->route('non-conformites.index')
+    ->with('success', 'Non-conformité ajoutée avec succès');
 }
 
     // Formulaire modification
@@ -153,7 +155,9 @@ class NonConformiteController extends Controller
 
         ]);
 
-        return redirect()->route('non-conformites.index');
+        return redirect()
+            ->route('non-conformites.index')
+            ->with('success', 'Non-conformité mise à jour avec succès');
 
     }
 

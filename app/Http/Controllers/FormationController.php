@@ -73,7 +73,9 @@ class FormationController extends Controller
 
         ]);
 
-        return redirect()->route('formations.index');
+       return redirect()
+    ->route('formations.index')
+    ->with('success', 'Formation ajoutée avec succès');
 
     }
 
@@ -126,7 +128,9 @@ class FormationController extends Controller
 
         ]);
 
-        return redirect()->route('formations.index');
+        return redirect()
+            ->route('formations.index')
+            ->with('success', 'Formation mise à jour avec succès');
 
     }
 
@@ -176,6 +180,6 @@ class FormationController extends Controller
                 'La formation a été enregistrée avec succès.'
             );
     }
-    
+
 
 }

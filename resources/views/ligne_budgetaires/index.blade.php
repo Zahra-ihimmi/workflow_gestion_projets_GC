@@ -33,6 +33,41 @@
         background-color: #e2d9f3;
         color: #59359a;
     }
+    /* Carte de succès */
+    .success-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background-color: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #a3cfbb;
+        border-left: 5px solid #198754;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Icône ✓ */
+    .success-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background-color: #198754;
+        color: white;
+        border-radius: 50%;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Texte */
+    .success-text {
+        flex: 1;
+    }
 </style>
 
 <div class="container mt-4">
@@ -48,13 +83,16 @@
     </div>
 
     @if(session('success'))
+        <div id="success-message" class="success-card">
+            <div class="success-icon">
+                ✓
+            </div>
 
-        <div class="alert alert-success">
-            {{ session('success') }}
+            <div class="success-text">
+                {{ session('success') }}
+            </div>
         </div>
-
     @endif
-
     <table class="table table-bordered table-hover">
 
         <thead class="table-dark">
@@ -140,23 +178,24 @@
                 <td>
 
                     <a href="{{ route('ligne-budgetaires.edit', $lb->id) }}"
-                       class="btn btn-success btn-sm">
-                        Modifier
+                       class="btn btn-success btn-sm"
+                       title="Modifier">
+                        <i class="fa-solid fa-pen-to-square"></i>
                     </a>
 
-                    <form action="{{ route('ligne-budgetaires.destroy', $lb->id) }}"
-                          method="POST"
-                          class="d-inline">
+                    <form id="delete-form-{{ $lb->id }}"
+                        action="{{ route('ligne-budgetaires.destroy', $lb->id) }}"
+                        method="POST"
+                        class="d-inline">
 
                         @csrf
                         @method('DELETE')
 
-                        <button
-                            class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer cette ligne budgétaire ?')">
-
-                            Supprimer
-
+                        <button type="button"
+                                class="btn btn-danger btn-sm"
+                                onclick="confirmDelete({{ $lb->id }})"
+                                title="Supprimer">
+                            <i class="fa-solid fa-trash"></i>
                         </button>
 
                     </form>
@@ -182,5 +221,92 @@
     </table>
 
 </div>
+<div id="deleteModal" class="delete-modal">
+
+    <div class="delete-modal-content">
+
+        <div class="delete-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h3>Confirmation de suppression</h3>
+
+        <p>
+            Êtes-vous sûr de vouloir supprimer cette ligne budgétaire ?
+        </p>
+
+        <span>
+            Cette action est irréversible.
+        </span>
+
+        <div class="delete-actions">
+
+            <button type="button"
+                    class="btn-cancel"
+                    onclick="closeDeleteModal()">
+                Annuler
+            </button>
+
+            <button type="button"
+                    class="btn-confirm-delete"
+                    onclick="submitDelete()">
+                Oui, supprimer
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const successMessage = document.getElementById('success-message');
+
+        if (successMessage) {
+            setTimeout(function () {
+                successMessage.style.transition = 'opacity 0.5s ease';
+                successMessage.style.opacity = '0';
+
+                setTimeout(function () {
+                    successMessage.remove();
+                }, 500);
+
+            }, 3000);
+        }
+    });
+</script>
+<script>
+    let deleteForm = null;
+
+    function confirmDelete(id) {
+
+        deleteForm = document.getElementById('delete-form-' + id);
+
+        document.getElementById('deleteModal').style.display = 'flex';
+    }
+
+    function closeDeleteModal() {
+
+        document.getElementById('deleteModal').style.display = 'none';
+
+        deleteForm = null;
+    }
+
+    function submitDelete() {
+
+        if (deleteForm) {
+            deleteForm.submit();
+        }
+    }
+
+    // Fermer la modal en cliquant à l'extérieur
+    document.getElementById('deleteModal').addEventListener('click', function(event) {
+
+        if (event.target === this) {
+            closeDeleteModal();
+        }
+
+    });
+</script>
 
 @endsection

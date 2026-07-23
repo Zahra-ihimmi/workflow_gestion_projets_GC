@@ -54,25 +54,26 @@ Ajouter un Fournisseur
 
 <td>
 
-<a href="{{ route('fournisseurs.edit',$fournisseur->id) }}">
-
-Modifier
-
+<a href="{{ route('fournisseurs.edit',$fournisseur->id) }}"
+class="btn btn-success btn-sm"
+   title="Modifier">
+    <i class="fa-solid fa-pen-to-square"></i>
 </a>
 
-<form action="{{ route('fournisseurs.destroy',$fournisseur->id) }}" method="POST">
+<form id="delete-form-{{ $fournisseur->id }}"
+      action="{{ route('fournisseurs.destroy', $fournisseur->id) }}"
+      method="POST"
+      class="d-inline">
 
-@csrf
+    @csrf
+    @method('DELETE')
 
-@method('DELETE')
-
-<button
-    class="btn btn-danger btn-sm"
-                            onclick="return confirm('Supprimer ce fournisseur ?')">
-
-Supprimer
-
-</button>
+    <button type="button"
+            class="btn btn-danger btn-sm"
+            onclick="confirmDelete({{ $fournisseur->id }})"
+            title="Supprimer">
+    <i class="fa-solid fa-trash"></i>
+    </button>
 
 </form>
 
