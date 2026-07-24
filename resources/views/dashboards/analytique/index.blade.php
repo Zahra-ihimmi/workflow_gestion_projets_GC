@@ -50,43 +50,7 @@
 
             <div class="row g-3">
 
-
-                {{-- PROJET --}}
-
-                <div class="col-md-3">
-
-                    <label class="filter-label">
-                        Projet
-                    </label>
-
-                    <select
-                        name="projet_id"
-                        class="form-control"
-                    >
-
-                        <option value="">
-                            Tous les projets
-                        </option>
-
-                        @foreach($projets as $projet)
-
-                            <option
-                                value="{{ $projet->id }}"
-                                {{ $projetId == $projet->id ? 'selected' : '' }}
-                            >
-
-                                {{ $projet->code }}
-                                -
-                                {{ $projet->intitule }}
-
-                            </option>
-
-                        @endforeach
-
-                    </select>
-
-                </div>
-
+                
 
                 {{-- CLIENT --}}
 

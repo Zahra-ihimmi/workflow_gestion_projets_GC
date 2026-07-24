@@ -544,29 +544,28 @@
 
             <div class="filter-grid">
 
-                {{-- Chef de projet --}}
+                {{-- Projet --}}
 
                 <div class="filter-group">
 
                     <label>
-                        <i class="fa fa-user-tie"></i>
-                        Chef de projet
+                        <i class="fa fa-folder-open"></i>
+                        Projet
                     </label>
 
-                    <select name="chef_projet_id">
+                    <select name="commande_id">
 
                         <option value="">
-                            Tous les chefs de projet
+                            Tous les projets
                         </option>
 
-                        @foreach($chefsProjet as $chef)
+                        @foreach($commandesListe as $commande)
 
                             <option
-                                value="{{ $chef->id }}"
-                                {{ $chefProjetId == $chef->id ? 'selected' : '' }}
+                                value="{{ $commande->id }}"
+                                {{ $commandeId == $commande->id ? 'selected' : '' }}
                             >
-                                {{ $chef->nom }}
-                                {{ $chef->prenom }}
+                                {{ $commande->code }}
                             </option>
 
                         @endforeach
