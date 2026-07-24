@@ -2,12 +2,17 @@
 @section('breadcrumb', 'Liste des bordureaux de Prix')
 @section('content')
 
-<h2>Liste des Prix</h2>
+<div class="container mt-4">
 
-<a href="{{ route('prix.create') }}">
-    Ajouter un prix
-</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
+        <h2>Liste des bordureaux de Prix</h2>
+
+        <a href="{{ route('prix.create') }}" class="btn btn-primary">
+            Ajouter un Prix
+        </a>
+
+    </div>
 <br><br>
 
 <table border="1">

@@ -83,6 +83,40 @@ Route::get(
     [OperationalDashboardController::class, 'index']
 )->name('dashboard.operationnel');
 
+
+Route::get(
+    '/notifications/{notification}/read',
+    function ($notification) {
+
+        $notif = auth()->user()
+            ->notifications()
+            ->where('id', $notification)
+            ->firstOrFail();
+
+        // Marquer comme lue
+        $notif->markAsRead();
+
+        // Récupérer l'URL enregistrée
+        $url = $notif->data['url'] ?? route('dashboard.strategique');
+
+        return redirect($url);
+    }
+)->name('notifications.read');
+
+Route::get('/notifications', function () {
+
+    $notifications = auth()->user()
+        ->notifications()
+        ->latest()
+        ->get();
+
+    return view(
+        'notifications.index',
+        compact('notifications')
+    );
+
+})->name('notifications.index');
+
 });
 
 // Authentification

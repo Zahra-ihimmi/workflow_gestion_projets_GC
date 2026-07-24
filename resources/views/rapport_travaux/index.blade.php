@@ -4,12 +4,17 @@
 
 @section('content')
 
-<h2>Liste des Rapports de Travaux</h2>
+<div class="container mt-4">
 
-<a href="{{ route('rapport-travaux.create') }}">
-    Ajouter un rapport
-</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
+        <h2>Liste des Rapports journaliers de Travaux</h2>
+
+        <a href="{{ route('rapport-travaux.create') }}" class="btn btn-primary">
+            Ajouter un Rapport
+        </a>
+
+    </div>
 <br><br>
 
 @if(session('success'))
@@ -50,7 +55,8 @@
 
     @forelse($rapports as $rapport)
 
-        <tr>
+        <tr id="rapport-{{ $rapport->id }}"
+    class="{{ request('highlight') == $rapport->id ? 'highlight-row' : '' }}">
 
             {{-- Code du rapport --}}
             <td>
@@ -188,8 +194,27 @@
     @endforelse
 
 </table>
+</div>
+@push('scripts')
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
+    const highlightedRow = document.querySelector('.highlight-row');
+
+    if (highlightedRow) {
+
+        highlightedRow.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+    }
+
+});
+</script>
+
+@endpush
 
 
 

@@ -2,13 +2,17 @@
 @section('breadcrumb', 'Liste des Véhicules')
 @section('content')
 
-<h2>Liste des Véhicules</h2>
+<div class="container mt-4">
 
-<a href="{{ route('vehicules.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter un Véhicule
+        <h2>Liste des Véhicules</h2>
 
-</a>
+        <a href="{{ route('vehicules.create') }}" class="btn btn-primary">
+            Ajouter un Véhicule
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -78,6 +82,6 @@ class="btn btn-success btn-sm"
 
 </table>
 
-
+</div>
 
 @endsection

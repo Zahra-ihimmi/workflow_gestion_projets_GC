@@ -6,6 +6,9 @@ use App\Models\PlanAction;
 use App\Models\Commande;
 use App\Models\Personnel;
 use Illuminate\Http\Request;
+use App\Models\Utilisateur;
+use App\Notifications\ApplicationNotification;
+use Illuminate\Support\Facades\Notification;
 
 class PlanActionController extends Controller
 {
@@ -182,14 +185,88 @@ class PlanActionController extends Controller
             'mesures_preventives' => 'required|string',
         ]);
 
-        PlanAction::create([
-            'commande_id' => $request->commande_id,
-            'personnel_cin' => $request->personnel_cin,
-            'date_spa' => $request->date_spa,
-            'activite' => $request->activite,
-            'dangers' => $request->dangers,
-            'mesures_preventives' => $request->mesures_preventives,
+
+        // Génération automatique du code SPA-001
+
+        $dernierNumero = PlanAction::get()
+            ->map(function ($item) {
+                return (int) substr($item->code, -3);
+            })
+            ->max();
+
+        $numero = $dernierNumero
+            ? $dernierNumero + 1
+            : 1;
+
+        $code = 'SPA-' . str_pad(
+            $numero,
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
+
+
+        // Création du plan d'action
+
+        $planAction = PlanAction::create([
+
+            'code' => $code,
+
+            'commande_id' =>
+                $request->commande_id,
+
+            'personnel_cin' =>
+                $request->personnel_cin,
+
+            'date_spa' =>
+                $request->date_spa,
+
+            'activite' =>
+                $request->activite,
+
+            'dangers' =>
+                $request->dangers,
+
+            'mesures_preventives' =>
+                $request->mesures_preventives,
+
         ]);
+
+
+        // Récupérer les utilisateurs à notifier
+
+        $utilisateurs = Utilisateur::all();
+
+
+        // Envoyer la notification
+
+        Notification::send(
+
+            $utilisateurs,
+
+            new ApplicationNotification(
+
+                'Nouveau plan d\'action',
+
+                'Le plan d\'action ' .
+                $planAction->code .
+                ' a été enregistré depuis un formulaire externe.',
+
+                'plan_action',
+
+                route('plan-actions.index', [
+
+                    'highlight' =>
+                        $planAction->id
+
+                ])
+
+            )
+
+        );
+
+
+        // Retourner vers le formulaire externe
 
         return redirect()
             ->route('externe.plan-actions.create')

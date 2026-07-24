@@ -2,13 +2,17 @@
 @section('breadcrumb', 'Liste des Factures')
 @section('content')
 
-<h2>Liste des Factures</h2>
+<div class="container mt-4">
 
-<a href="{{ route('factures.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter une Facture
+        <h2>Liste des Factures</h2>
 
-</a>
+        <a href="{{ route('factures.create') }}" class="btn btn-primary">
+            Ajouter une Facture
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -73,6 +77,6 @@ class="btn btn-success btn-sm"
 
 </table>
 
-
+</div>
 
 @endsection

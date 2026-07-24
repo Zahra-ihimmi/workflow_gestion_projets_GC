@@ -2,13 +2,17 @@
 @section('breadcrumb', "Liste des Plans d'Action")
 @section('content')
 
-<h2>Liste des Plans d'Action</h2>
+<div class="container mt-4">
 
-<a href="{{ route('plan-actions.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter un Plan d'Action
+        <h2>Liste des Plans d'Action</h2>
 
-</a>
+        <a href="{{ route('plan-actions.create') }}" class="btn btn-primary">
+            Ajouter un Plan d'Action
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -36,7 +40,8 @@ Ajouter un Plan d'Action
 
 @foreach($planActions as $plan)
 
-<tr>
+<tr id="plan-action-{{ $plan->id }}"
+    class="{{ request('highlight') == $plan->id ? 'highlight-row' : '' }}">
 
 <td>{{ $plan->code }}</td>
 
@@ -86,6 +91,6 @@ class="btn btn-success btn-sm"
 
 </table>
 
-
+</div>
 
 @endsection

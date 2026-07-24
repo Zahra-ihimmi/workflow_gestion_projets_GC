@@ -20,7 +20,28 @@
 
 @method('PUT')
 
+<div class="mb-3">
 
+    <label>Utilisateur</label>
+
+    <select name="utilisateur_id" class="form-control" required>
+
+        <option value="">-- Sélectionner un utilisateur --</option>
+
+        @foreach($utilisateurs as $utilisateur)
+
+            <option value="{{ $utilisateur->id }}"
+                {{ $ligneBudgetaire->utilisateur_id == $utilisateur->id ? 'selected' : '' }}>
+
+                {{ $utilisateur->nom }} {{ $utilisateur->prenom }}
+
+            </option>
+
+        @endforeach
+
+    </select>
+
+</div>
 
 <div class="mb-3">
 

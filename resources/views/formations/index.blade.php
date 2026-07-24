@@ -2,14 +2,17 @@
 @section('breadcrumb', 'Liste des Formations')
 @section('content')
 
-<h2>Liste des Formations</h2>
+<div class="container mt-4">
 
-<a href="{{ route('formations.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter une Formation
+        <h2>Liste des Formations</h2>
 
-</a>
+        <a href="{{ route('formations.create') }}" class="btn btn-primary">
+            Ajouter une Formation
+        </a>
 
+    </div>
 <br><br>
 
 <table border="1">
@@ -30,11 +33,12 @@ Ajouter une Formation
 
 <th>Actions</th>
 
-</tr>
+<tr>
 
 @foreach($formations as $formation)
 
-<tr>
+<tr id="formation-{{ $formation->id }}"
+    class="{{ request('highlight') == $formation->id ? 'highlight-row' : '' }}">
 
 <td>{{ $formation->code }}</td>
 
@@ -80,7 +84,22 @@ class="btn btn-success btn-sm"
 @endforeach
 
 </table>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
+    const highlightedRow = document.querySelector('.highlight-row');
 
+    if (highlightedRow) {
+
+        highlightedRow.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+    }
+
+});
+</script
 
 @endsection

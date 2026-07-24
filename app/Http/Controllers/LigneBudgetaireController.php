@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LigneBudgetaire;
 use Illuminate\Http\Request;
+use App\Models\Utilisateur;
 
 class LigneBudgetaireController extends Controller
 {
@@ -21,7 +22,9 @@ class LigneBudgetaireController extends Controller
 
     public function create()
     {
-        return view('ligne_budgetaires.create');
+        $utilisateurs = Utilisateur::all();
+
+        return view('ligne_budgetaires.create', compact('utilisateurs'));
     }
 
     public function store(Request $request)
@@ -55,7 +58,12 @@ class LigneBudgetaireController extends Controller
     {
         $ligneBudgetaire = LigneBudgetaire::findOrFail($id);
 
-        return view('ligne_budgetaires.edit', compact('ligneBudgetaire'));
+        $utilisateurs = Utilisateur::all();
+
+        return view('ligne_budgetaires.edit', compact(
+            'ligneBudgetaire',
+            'utilisateurs'
+        ));
     }
 
 

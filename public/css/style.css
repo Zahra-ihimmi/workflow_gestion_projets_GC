@@ -3841,3 +3841,193 @@ td .badge:not([class*="bg-"]) {
 .success-text {
     flex: 1;
 }
+.highlight-row {
+    background-color: #fff3cd !important;
+    box-shadow: inset 4px 0 0 #ffc107;
+    animation: highlightRow 2s ease-in-out;
+}
+
+@keyframes highlightRow {
+    0% {
+        background-color: #ffe69c;
+    }
+
+    100% {
+        background-color: #fff3cd;
+    }
+}
+
+/* Notification non lue */
+.notif-item.unread {
+    background-color: #e6f4ff;
+}
+
+/* Notification lue */
+.notif-item.read {
+    background-color: #ffffff;
+}
+
+/* Effet au survol */
+.notif-item:hover {
+    background-color: #f1f5f9;
+}
+
+.notifications-page {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notification-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+    border: 1px solid #e5e7eb;
+}
+
+/* Notification non lue */
+.notification-card.unread {
+    background-color: #e6f4ff;
+    border-left: 4px solid #2196f3;
+}
+
+/* Notification lue */
+.notification-card.read {
+    background-color: #ffffff;
+}
+
+/* Survol */
+.notification-card:hover {
+    background-color: #f1f5f9;
+    transform: translateX(3px);
+}
+
+.notification-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    font-size: 18px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.notification-message {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.notification-time {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.notification-status {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2196f3;
+}
+
+.notifications-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+}
+
+.notifications-empty i {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+/* ============================================
+   BANDEAU BLEU AUTOMATIQUE (CSS pur, aucune vue a modifier)
+   Cible le pattern deja present dans tes 17 vues :
+
+       <div class="d-flex justify-content-between align-items-center mb-3">
+           <h2>Titre de la page</h2>
+           <a href="{{ route('xxx.create') }}" class="btn btn-primary">Ajouter ...</a>
+       </div>
+
+   A coller a la fin de public/css/style.css
+   ============================================ */
+
+/* --- Le conteneur devient le bandeau bleu --- */
+.container > .d-flex.justify-content-between.align-items-center.mb-3 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: linear-gradient(135deg, #1e3a6e, #2f5aa8) !important;
+    border-radius: var(--radius-lg, 14px) !important;
+    padding: 22px 26px !important;
+    margin-bottom: 24px !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+}
+
+/* --- Le titre h2 a l'interieur devient blanc, avec icone generique --- */
+.container > .d-flex.justify-content-between.align-items-center.mb-3 > h2 {
+    color: #ffffff !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
+}
+
+/* Icone generique avant le titre (cercle translucide + icone Font Awesome) */
+.container > .d-flex.justify-content-between.align-items-center.mb-3 > h2::before {
+    content: "\f0ca"; /* icone "liste" par defaut, voir liste des codes plus bas */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* --- Le bouton "Ajouter" devient blanc sur fond bleu ---
+   !important necessaire car une regle globale existante force deja
+   tout lien contenant "create" en bouton bleu degrade. */
+.container > .d-flex.justify-content-between.align-items-center.mb-3 a[href*="create"] {
+    background: #ffffff !important;
+    color: #0349ca !important;
+    box-shadow: none !important;
+}
+
+.container > .d-flex.justify-content-between.align-items-center.mb-3 a[href*="create"]:hover {
+    color: #0349ca !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
+}
+
+@media (max-width: 768px) {
+    .container > .d-flex.justify-content-between.align-items-center.mb-3 {
+        padding: 18px 20px !important;
+    }
+
+    .container > .d-flex.justify-content-between.align-items-center.mb-3 > h2 {
+        font-size: 17px !important;
+    }
+}

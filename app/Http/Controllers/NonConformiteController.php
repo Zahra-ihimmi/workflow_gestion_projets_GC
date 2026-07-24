@@ -6,6 +6,9 @@ use App\Models\Commande;
 use App\Models\Personnel;
 use App\Models\NonConformite;
 use Illuminate\Http\Request;
+use App\Models\Utilisateur;
+use App\Notifications\ApplicationNotification;
+use Illuminate\Support\Facades\Notification;
 
 class NonConformiteController extends Controller
 {
@@ -188,66 +191,110 @@ class NonConformiteController extends Controller
     public function storeExterne(Request $request)
     {
         $request->validate([
+            'commande_id' => 'required',
+            'date' => 'required|date',
+            'classe' => 'required',
+            'type' => 'required|in:HSE,Qualité',
+            'description' => 'required|string',
+            'echeance' => 'nullable|date',
+            'personnel_cin' => 'required',
+        ]);
 
-        'commande_id' => 'required',
+        // Génération automatique du code
+        if ($request->type == "Qualité") {
+            $prefixe = "NCQTY";
+        } else {
+            $prefixe = "NCHSE";
+        }
 
-        'date' => 'required|date',
-
-        'classe' => 'required',
-
-        'type' => 'required|in:HSE,Qualité',
-        'description' => 'required|string',
-        'echeance' => 'nullable|date',
-
-        'personnel_cin' => 'required',
-
-    ]);
-
-
-    // Génération automatique du code
-
-    if ($request->type == "Qualité") {
-        $prefixe = "NCQTY";
-    } else {
-        $prefixe = "NCHSE";
-    }
-
-    $dernierNumero = NonConformite::where('code', 'like', $prefixe . '-%')
+        $dernierNumero = NonConformite::where(
+            'code',
+            'like',
+            $prefixe . '-%'
+        )
         ->get()
         ->map(function ($item) {
             return (int) substr($item->code, -3);
         })
         ->max();
 
-    $numero = $dernierNumero ? $dernierNumero + 1 : 1;
+        $numero = $dernierNumero
+            ? $dernierNumero + 1
+            : 1;
 
-    $code = $prefixe . '-' . str_pad($numero, 3, '0', STR_PAD_LEFT);
+        $code = $prefixe . '-' . str_pad(
+            $numero,
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
 
 
-    NonConformite::create([
+        // Créer la non-conformité
+        $nonConformite = NonConformite::create([
 
-        'code' => $code,
+            'code' => $code,
 
-        'commande_id' => $request->commande_id,
+            'commande_id' => $request->commande_id,
 
-        'date' => $request->date,
+            'date' => $request->date,
 
-        'classe' => $request->classe,
+            'classe' => $request->classe,
 
-        'type' => $request->type,
-        'description' => $request->description,
-        'echeance' => $request->echeance,
+            'type' => $request->type,
 
-        'personnel_cin' => $request->personnel_cin,
+            'description' => $request->description,
 
-    ]);
+            'echeance' => $request->echeance,
 
-    return redirect()
-    ->route('externe.non-conformites.create')
-    ->with(
-        'success',
-        'La non-conformité a été enregistrée avec succès.'
-    );
+            'personnel_cin' => $request->personnel_cin,
+
+        ]);
+
+
+        // Récupérer les utilisateurs à notifier
+        $utilisateurs = Utilisateur::all();
+
+
+        // Définir le titre selon le type
+        if ($nonConformite->type === 'HSE') {
+
+            $titre = 'Nouvelle non-conformité HSE';
+
+        } else {
+
+            $titre = 'Nouvelle non-conformité Qualité';
+
+        }
+
+
+        // Envoyer la notification
+        Notification::send(
+            $utilisateurs,
+            new ApplicationNotification(
+
+                $titre,
+
+                'La non-conformité ' .
+                $nonConformite->code .
+                ' a été enregistrée depuis un formulaire externe.',
+
+                'non_conformite',
+
+                route('non-conformites.index', [
+                    'highlight' => $nonConformite->id
+                ])
+
+            )
+        );
+
+
+        return redirect()
+            ->route('externe.non-conformites.create')
+            ->with(
+                'success',
+                'La non-conformité a été enregistrée avec succès.'
+            );
     }
 
 }

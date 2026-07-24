@@ -14,7 +14,15 @@
 
 <label>Utilisateur</label>
 
-<input type="number" name="utilisateur_id">
+<select name="utilisateur_id" required>
+    <option value="">-- Sélectionner un utilisateur --</option>
+
+    @foreach($utilisateurs as $utilisateur)
+        <option value="{{ $utilisateur->id }}">
+            {{ $utilisateur->nom }} {{ $utilisateur->prenom }}
+        </option>
+    @endforeach
+</select>
 
 
 <br>

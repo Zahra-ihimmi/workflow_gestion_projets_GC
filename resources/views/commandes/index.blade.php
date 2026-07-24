@@ -4,13 +4,17 @@
 @section('content')
 
 
-<h2>Liste des commandes</h2>
+<div class="container mt-4">
 
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-<a href="{{ route('commandes.create') }}">
-    Ajouter une commande
-</a>
+        <h2>Liste des commandes</h2>
 
+        <a href="{{ route('commandes.create') }}" class="btn btn-primary">
+            Ajouter une commande
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -175,7 +179,7 @@ class="btn btn-success btn-sm"
 
 </table>
 
-
+</div>
 
 
 

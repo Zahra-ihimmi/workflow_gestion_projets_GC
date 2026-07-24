@@ -2,13 +2,17 @@
 @section('breadcrumb', 'Liste des Pointages')
 @section('content')
 
-<h2>Liste des Pointages</h2>
+<div class="container mt-4">
 
-<a href="{{ route('pointages.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter un Pointage
+        <h2>Liste des Pointages</h2>
 
-</a>
+        <a href="{{ route('pointages.create') }}" class="btn btn-primary">
+            Ajouter un Pointage
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -72,7 +76,7 @@ class="btn btn-success btn-sm"
 @endforeach
 
 </table>
-
+</div>
 
 
 @endsection

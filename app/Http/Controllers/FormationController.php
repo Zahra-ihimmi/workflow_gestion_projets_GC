@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Formation;
 use App\Models\Personnel;
+use App\Models\Utilisateur;
+use App\Notifications\ApplicationNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class FormationController extends Controller
 {
@@ -165,13 +168,48 @@ class FormationController extends Controller
             'score' => 'nullable|numeric|min:0|max:100',
         ]);
 
-        Formation::create([
+        // Génération automatique du code FOR-001
+        $dernierNumero = Formation::get()
+            ->map(function ($item) {
+                return (int) substr($item->code, -3);
+            })
+            ->max();
+
+        $numero = $dernierNumero ? $dernierNumero + 1 : 1;
+
+        $code = 'FOR-' . str_pad(
+            $numero,
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
+
+        // Créer la formation
+        $formation = Formation::create([
+            'code' => $code,
             'personnel_cin' => $request->personnel_cin,
             'date' => $request->date,
             'theme' => $request->theme,
             'animateur' => $request->animateur,
             'score' => $request->score,
         ]);
+
+        // Récupérer les utilisateurs à notifier
+        $utilisateurs = Utilisateur::all();
+
+        // Envoyer la notification
+        Notification::send(
+            $utilisateurs,
+            new ApplicationNotification(
+                'Nouvelle formation',
+                'La formation ' . $formation->code .
+                ' a été enregistrée depuis un formulaire externe.',
+                'formation',
+                route('formations.index', [
+                    'highlight' => $formation->id
+                ])
+            )
+        );
 
         return redirect()
             ->route('externe.formations.create')

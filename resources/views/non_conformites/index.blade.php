@@ -58,11 +58,17 @@
 </style>
 
 
-<h2>Liste des Non-conformités</h2>
+<div class="container mt-4">
 
-<a href="{{ route('non-conformites.create') }}">
-    Ajouter une Non-conformité
-</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Liste des Non-conformités</h2>
+
+        <a href="{{ route('non-conformites.create') }}" class="btn btn-primary">
+            Ajouter une Non-conformité
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -84,7 +90,8 @@
 
     @foreach($nonConformites as $nc)
 
-    <tr>
+    <tr id="non-conformite-{{ $nc->id }}"
+    class="{{ request('highlight') == $nc->id ? 'highlight-row' : '' }}">
 
         {{-- Code --}}
         <td>
@@ -182,5 +189,5 @@
     @endforeach
 
 </table>
-
+</div>
 @endsection

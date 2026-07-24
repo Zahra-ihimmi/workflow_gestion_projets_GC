@@ -6,18 +6,26 @@ use App\Models\Commande;
 use App\Models\RapportTravaux;
 use Illuminate\Http\Request;
 use App\Models\RapportActivite;
+use App\Models\Utilisateur;
+use App\Notifications\ApplicationNotification;
+use Illuminate\Support\Facades\Notification;
 
 class RapportTravauxController extends Controller
 {
     // Liste
-    public function index()
+    public function index(Request $request)
     {
         $rapports = RapportTravaux::with([
             'commande',
             'rapportActivites.prix'
         ])->get();
 
-        return view('rapport_travaux.index', compact('rapports'));
+        $highlight = $request->query('highlight');
+
+        return view(
+            'rapport_travaux.index',
+            compact('rapports', 'highlight')
+        );
     }
 
     // Formulaire ajout
@@ -277,7 +285,21 @@ class RapportTravauxController extends Controller
                 'avancement' => $activite['avancement'],
             ]);
         }
+        // Récupérer les utilisateurs à notifier
+        $utilisateurs = Utilisateur::all();
 
+        // Envoyer la notification
+        Notification::send(
+            $utilisateurs,
+            new ApplicationNotification(
+                'Nouveau rapport de travaux',
+                'Le rapport ' . $rapport->code . ' a été ajouté depuis un formulaire externe.',
+                'rapport_travaux',
+                route('rapport-travaux.index', [
+                    'highlight' => $rapport->id
+                ])
+            )
+        );
         return redirect()
             ->route('externe.rapport-journalier')
             ->with(

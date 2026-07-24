@@ -2,13 +2,17 @@
 @section('breadcrumb', 'Liste des Fournisseurs')
 @section('content')
 
-<h2>Liste des Fournisseurs</h2>
+<div class="container mt-4">
 
-<a href="{{ route('fournisseurs.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter un Fournisseur
+        <h2>Liste des Fournisseurs</h2>
 
-</a>
+        <a href="{{ route('fournisseurs.create') }}" class="btn btn-primary">
+            Ajouter un Fournisseur
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -85,5 +89,5 @@ class="btn btn-success btn-sm"
 
 </table>
 
-
+</div>
 @endsection

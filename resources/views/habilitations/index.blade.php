@@ -2,13 +2,17 @@
 @section('breadcrumb', 'liste des Habilitations')
 @section('content')
 
-<h2>Liste des Habilitations</h2>
+<div class="container mt-4">
 
-<a href="{{ route('habilitations.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter une Habilitation
+        <h2>Liste des Habilitations</h2>
 
-</a>
+        <a href="{{ route('habilitations.create') }}" class="btn btn-primary">
+            Ajouter une Habilitation
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -76,6 +80,6 @@ Supprimer
 
 </table>
 
-
+</div>
 
 @endsection

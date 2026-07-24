@@ -2,13 +2,17 @@
 @section('breadcrumb', 'Liste des Plannings')
 @section('content')
 
-<h2>Liste des Plannings</h2>
+<div class="container mt-4">
 
-<a href="{{ route('plannings.create') }}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-Ajouter un Planning
+        <h2>Liste des Plannings</h2>
 
-</a>
+        <a href="{{ route('plannings.create') }}" class="btn btn-primary">
+            Ajouter un Planning
+        </a>
+
+    </div>
 
 <br><br>
 
@@ -81,6 +85,6 @@ Ajouter un Planning
 
 </table>
 
-
+</div>
 
 @endsection
